@@ -46,6 +46,10 @@
     outline: 2px solid rgb(var(--color-primary));
     outline-offset: 3px;
     border-radius: var(--radius-sm);
+    /* Frosted glass is low-contrast and variable — whatever sits behind it can
+       be light or dark. The pale halo guarantees the gold ring stays readable
+       against either, without darkening the surface itself. */
+    box-shadow: 0 0 0 5px rgb(var(--color-surface-container-lowest) / 0.9);
   }
 
   /* Suppress the ring for pointer users while keeping it for keyboards. */

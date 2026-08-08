@@ -1,15 +1,40 @@
 /* =============================================================================
    COMPONENTS — token composites.
-   Step 1 defines only the primitives that exist purely to express tokens (the
-   glass layer, the two button shapes, the link underline). Step 5 extracts the
-   larger repeated blocks.
+
+   Interaction language is deliberately uniform. The import had four unrelated
+   hover idioms (colour swap, opacity fade, background swap, translate), no
+   :focus-visible styling at all, and no :active feedback anywhere. Everything
+   below resolves to one vocabulary:
+
+     buttons  scale 1.05 in, 0.97 on press
+     cards    lift 7px + scale 1.018, inner media nudges 3px behind it
+     links    underline draws left-to-right, or nudges 3px where directional
+     focus    2px primary ring at 3px offset, plus a light halo so it stays
+              legible on frosted glass
    ========================================================================== */
 
 @layer components {
-  /* ---------------------------------------------------------------------------
-     Glass layer — translucent fill + 24px backdrop blur + hairline edge.
-     The design system's stated depth model: tonal layers, never hard shadows.
-     ------------------------------------------------------------------------ */
+
+  /* ===========================================================================
+     LAYOUT
+     ======================================================================== */
+
+  /* One section rhythm for the whole page. The import padded equivalent
+     sections differently (p-12 md:p-24 on two of them, nothing on the rest). */
+  .section {
+    margin-top: var(--space-3xl);
+  }
+
+  @media (min-width: 1024px) {
+    .section {
+      margin-top: var(--space-section-gap);
+    }
+  }
+
+  /* ===========================================================================
+     GLASS
+     ======================================================================== */
+
   .glass {
     background-color: rgb(var(--color-glass) / var(--glass-alpha));
     backdrop-filter: blur(var(--glass-blur));
@@ -24,16 +49,16 @@
     border: 1px solid var(--glass-border);
   }
 
-  /* ---------------------------------------------------------------------------
-     Buttons
-     ------------------------------------------------------------------------ */
+  /* ===========================================================================
+     BUTTONS
+     ======================================================================== */
+
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-2xs);
-    /* 44px minimum tap target, enforced rather than incidental. */
-    min-height: 44px;
+    min-height: 44px;          /* tap target floor, not an accident of padding */
     padding-inline: var(--space-md);
     border-radius: var(--radius-full);
     font-family: var(--font-body);
@@ -44,30 +69,52 @@
     text-transform: uppercase;
     white-space: nowrap;
     cursor: pointer;
+    transition:
+      transform var(--duration-hover) var(--ease-overshoot),
+      background-color var(--duration-hover) var(--ease-standard),
+      color var(--duration-hover) var(--ease-standard),
+      border-color var(--duration-hover) var(--ease-standard);
   }
 
-  .btn-primary {
-    background-color: rgb(var(--color-primary));
-    color: rgb(var(--color-on-primary));
-  }
+  .btn:hover { transform: scale(var(--motion-scale-button)); }
+  .btn:active { transform: scale(var(--motion-scale-button-tap)); transition-duration: var(--duration-fast); }
 
-  .btn-accent {
-    background-color: rgb(var(--color-primary-container));
-    color: rgb(var(--color-on-primary-container));
-  }
+  .btn-primary { background-color: rgb(var(--color-primary)); color: rgb(var(--color-on-primary)); }
+  .btn-primary:hover { background-color: rgb(var(--color-on-primary-fixed-variant)); }
 
-  /* Transparent until hovered, when the glass blur fades in — as specified. */
+  .btn-accent { background-color: rgb(var(--color-primary-container)); color: rgb(var(--color-on-primary-container)); }
+  .btn-accent:hover { background-color: rgb(var(--color-primary-fixed)); }
+
+  /* Transparent until hovered, when the glass blur fades in. */
   .btn-secondary {
     background-color: transparent;
     color: rgb(var(--color-primary));
     border: 1px solid rgb(var(--color-primary) / 0.35);
   }
 
-  /* ---------------------------------------------------------------------------
-     Links
-     ------------------------------------------------------------------------ */
-  .link-caps {
+  .btn-secondary:hover {
+    background-color: rgb(var(--color-glass) / var(--glass-alpha));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-color: rgb(var(--color-primary) / 0.6);
+  }
+
+  /* Arrow icons track the button they sit in. */
+  .btn-icon {
+    display: inline-block;
+    transition: transform var(--duration-hover) var(--ease-overshoot);
+  }
+
+  .btn:hover .btn-icon { transform: translateX(3px); }
+
+  /* ===========================================================================
+     LINKS
+     ======================================================================== */
+
+  .nav-link {
     position: relative;
+    display: inline-block;
+    padding-block: var(--space-2xs);
     font-family: var(--font-body);
     font-size: var(--text-label-caps);
     font-weight: var(--weight-label-caps);
@@ -75,20 +122,242 @@
     line-height: var(--leading-label-caps);
     text-transform: uppercase;
     color: rgb(var(--color-on-surface-variant));
+    transition: color var(--duration-hover) var(--ease-standard);
   }
 
-  /* ---------------------------------------------------------------------------
-     Editorial dividers — thin, low-contrast, full width.
-     ------------------------------------------------------------------------ */
+  /* Underline draws in from the left rather than simply appearing. */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(var(--color-primary));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-hover) var(--ease-standard);
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible { color: rgb(var(--color-primary)); }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after { transform: scaleX(1); }
+
+  .footer-link {
+    font-family: var(--font-body);
+    font-size: var(--text-label-caps);
+    font-weight: var(--weight-label-caps);
+    letter-spacing: var(--tracking-label-caps);
+    text-transform: uppercase;
+    color: rgb(var(--color-on-surface-variant));
+    /* 44px tap target without visually inflating the row. */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    transition: color var(--duration-hover) var(--ease-standard), transform var(--duration-hover) var(--ease-standard);
+  }
+
+  .footer-link:hover { color: rgb(var(--color-primary)); transform: translateX(3px); }
+
+  /* Inline links carry a permanent underline — they sit inside body copy and
+     must not rely on colour alone to be identifiable. */
+  .link-inline {
+    color: rgb(var(--color-primary));
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+    transition: color var(--duration-hover) var(--ease-standard);
+  }
+
+  .link-inline:hover { color: rgb(var(--color-on-primary-fixed-variant)); }
+
+  /* ===========================================================================
+     CARDS  (rendered by assets/js/site.js)
+     ======================================================================== */
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background-color: rgb(var(--color-glass) / var(--glass-alpha-strong));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-ambient-sm);
+    transition:
+      transform var(--duration-hover) var(--ease-overshoot),
+      box-shadow var(--duration-hover) var(--ease-standard);
+  }
+
+  .card:hover,
+  .card:focus-visible {
+    transform: translateY(var(--motion-lift-card)) scale(var(--motion-scale-card));
+    box-shadow: var(--shadow-ambient);
+  }
+
+  .card:active { transform: translateY(-3px) scale(1.005); transition-duration: var(--duration-fast); }
+
+  .card-media {
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    object-fit: cover;
+    /* Secondary, delayed nudge — the layered depth effect. */
+    transition: transform var(--duration-hover) var(--ease-overshoot) 150ms;
+  }
+
+  .card:hover .card-media,
+  .card:focus-visible .card-media { transform: translateY(-3px) scale(1.03); }
+
+  .card-body { display: flex; flex-direction: column; gap: var(--space-2xs); padding: var(--space-md); }
+
+  .card-cta {
+    margin-top: auto;
+    padding-top: var(--space-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    font-size: var(--text-label-caps);
+    font-weight: var(--weight-label-caps);
+    letter-spacing: var(--tracking-label-caps);
+    text-transform: uppercase;
+    color: rgb(var(--color-primary));
+  }
+
+  .card-cta span { transition: transform var(--duration-hover) var(--ease-overshoot); }
+  .card:hover .card-cta span { transform: translateX(3px); }
+
+  /* ===========================================================================
+     SERVICE LIST — thin full-width dividers, per the design system
+     ======================================================================== */
+
+  .service-row {
+    display: grid;
+    gap: var(--space-3xs);
+    padding-block: var(--space-md);
+    border-bottom: 1px solid rgb(var(--color-on-secondary-fixed) / 0.1);
+  }
+
+  .service-row:first-child { padding-top: 0; }
+
+  .contact-row {
+    display: grid;
+    gap: var(--space-3xs);
+    padding-block: var(--space-md);
+    border-bottom: 1px solid rgb(var(--color-on-secondary-fixed) / 0.1);
+  }
+
+  .contact-row:first-child { padding-top: 0; }
+
+  /* ===========================================================================
+     STATS
+     ======================================================================== */
+
+  .stat { display: grid; gap: var(--space-3xs); }
+
+  .stat-value {
+    font-family: var(--font-heading);
+    font-size: var(--text-headline-lg-fluid);
+    line-height: var(--leading-headline-lg);
+    font-weight: var(--weight-headline-lg);
+    color: rgb(var(--color-primary));
+    /* Digits must not reflow while the counter runs. */
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--text-body-md);
+    font-weight: var(--weight-body-md);
+    color: rgb(var(--color-on-surface-variant));
+  }
+
+  /* ===========================================================================
+     NAVIGATION — burger, scrim, drawer
+     ======================================================================== */
+
+  .nav-burger {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+  }
+
+  .nav-burger-bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: var(--radius-full);
+    background-color: rgb(var(--color-on-surface));
+    transition: transform var(--duration-hover) var(--ease-standard);
+  }
+
+  .nav-burger-bar--x1 { transform: translateY(3.5px) rotate(45deg); }
+  .nav-burger-bar--x2 { transform: translateY(-3.5px) rotate(-45deg); }
+
+  .nav-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-overlay);
+    background-color: rgb(var(--color-on-surface) / 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity var(--duration-conditional) var(--ease-standard);
+  }
+
+  .nav-scrim[data-open='true'] { opacity: 1; }
+
+  .nav-drawer {
+    position: fixed;
+    inset-block: 0;
+    right: 0;
+    z-index: var(--z-modal);
+    width: min(20rem, 85vw);
+    padding-top: var(--space-xs);
+    background-color: rgb(var(--color-surface-container-low));
+    border-left: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-ambient-lg);
+    transform: translateX(100%);
+    transition: transform var(--duration-conditional) var(--ease-entrance);
+    overflow-y: auto;
+  }
+
+  .nav-drawer[data-open='true'] { transform: translateX(0); }
+
+  .drawer-link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: var(--space-2xs);
+    border-radius: var(--radius-lg);
+    font-family: var(--font-body);
+    font-size: var(--text-label-caps);
+    font-weight: var(--weight-label-caps);
+    letter-spacing: var(--tracking-label-caps);
+    text-transform: uppercase;
+    color: rgb(var(--color-on-surface));
+    transition: background-color var(--duration-hover) var(--ease-standard), color var(--duration-hover) var(--ease-standard);
+  }
+
+  .drawer-link:hover { background-color: rgb(var(--color-surface-container-high)); color: rgb(var(--color-primary)); }
+
+  /* ===========================================================================
+     EDITORIAL RULE / SKIP LINK
+     ======================================================================== */
+
   .rule {
     height: 1px;
     border: 0;
     background-color: rgb(var(--color-on-secondary-fixed) / 0.1);
   }
 
-  /* ---------------------------------------------------------------------------
-     Skip link — visually hidden until focused.
-     ------------------------------------------------------------------------ */
   .skip-link {
     position: absolute;
     left: var(--space-sm);
@@ -103,9 +372,8 @@
     letter-spacing: var(--tracking-label-caps);
     text-transform: uppercase;
     transform: translateY(calc(-100% - var(--space-lg)));
+    transition: transform var(--duration-hover) var(--ease-entrance);
   }
 
-  .skip-link:focus-visible {
-    transform: translateY(0);
-  }
+  .skip-link:focus-visible { transform: translateY(0); }
 }

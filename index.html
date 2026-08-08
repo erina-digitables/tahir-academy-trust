@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tahir Academy Trust — A Place to Learn</title>
+<meta name="description" content="Tahir Academy Trust in Enfield offers Sanatayn, Aalimiyyah and Hifz ul Qur'an courses for boys and girls, and provides Jumuah, Eid and Taraweeh prayers to the Cheshunt community. Registered Charity No. 1198539.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap">
+
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/logo-192.jpg">
+<meta name="theme-color" content="#fff8f3">
+</head>
+
+<body class="bg-background text-on-background font-body antialiased">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Ambient shader backdrop. Source lives in assets/js/shader.js; it renders a
+     single static frame when reduced motion is preferred and pauses whenever the
+     tab is hidden or the canvas scrolls out of view. -->
+<div class="fixed inset-0 z-behind opacity-30 pointer-events-none" aria-hidden="true">
+  <canvas id="ambient-shader" class="block w-full h-full"></canvas>
+</div>
+
+<!-- ========================================================================
+     NAVIGATION
+     ===================================================================== -->
+<header>
+  <nav class="glass-strong fixed inset-x-0 top-0 z-nav border-x-0 border-t-0 shadow-ambient-sm"
+       aria-label="Primary">
+    <div class="mx-auto flex max-w-container-max items-center justify-between gap-md px-margin-mobile py-xs md:px-margin-desktop md:py-sm">
+
+      <a href="#main" class="flex items-center gap-xs" aria-label="Tahir Academy Trust — home">
+        <picture>
+          <source type="image/webp" srcset="/assets/img/logo-96.webp 96w, /assets/img/logo-192.webp 192w" sizes="40px">
+          <img src="/assets/img/logo-96.jpg" width="96" height="96" alt=""
+               class="h-10 w-10 rounded-full object-cover">
+        </picture>
+        <span class="font-heading text-headline-sm leading-tight text-primary">Tahir Academy Trust</span>
+      </a>
+
+      <ul class="hidden items-center gap-lg lg:flex">
+        <li><a class="nav-link" href="#courses">Courses</a></li>
+        <li><a class="nav-link" href="#services">Services</a></li>
+        <li><a class="nav-link" href="#hiring">Hiring</a></li>
+        <li><a class="nav-link" href="#campaign">Campaign</a></li>
+        <li><a class="nav-link" href="#location">Location</a></li>
+        <li>
+          <a class="btn btn-primary" href="https://www.launchgood.com/v4/campaign/1st_masjid_in_cheshunt?src=2662065"
+             target="_blank" rel="noopener noreferrer">Donate</a>
+        </li>
+      </ul>
+
+      <button type="button" id="nav-toggle" class="nav-burger lg:hidden"
+              aria-expanded="false" aria-controls="nav-drawer" aria-label="Open menu">
+        <span class="nav-burger-bar"></span>
+        <span class="nav-burger-bar"></span>
+        <span class="nav-burger-bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile drawer. The import hid the nav below 768px with no replacement,
+       which left mobile visitors with no navigation and no donate route. -->
+  <div id="nav-scrim" class="nav-scrim" hidden></div>
+  <div id="nav-drawer" class="nav-drawer" hidden aria-label="Menu">
+    <div class="flex items-center justify-between px-margin-mobile py-xs">
+      <span class="font-heading text-headline-sm text-primary">Menu</span>
+      <button type="button" id="nav-close" class="nav-burger" aria-label="Close menu">
+        <span class="nav-burger-bar nav-burger-bar--x1"></span>
+        <span class="nav-burger-bar nav-burger-bar--x2"></span>
+      </button>
+    </div>
+    <ul class="flex flex-col gap-3xs px-margin-mobile pb-xl pt-md">
+      <li><a class="drawer-link" href="#courses">Courses</a></li>
+      <li><a class="drawer-link" href="#services">Services</a></li>
+      <li><a class="drawer-link" href="#hiring">Hiring</a></li>
+      <li><a class="drawer-link" href="#campaign">Campaign</a></li>
+      <li><a class="drawer-link" href="#location">Location</a></li>
+      <li class="pt-md">
+        <a class="btn btn-primary w-full" href="https://www.launchgood.com/v4/campaign/1st_masjid_in_cheshunt?src=2662065"
+           target="_blank" rel="noopener noreferrer">Donate</a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<main id="main" class="mx-auto max-w-container-max px-margin-mobile pb-section-gap-mobile pt-3xl md:px-margin-desktop md:pt-4xl lg:pb-section-gap">
+
+  <!-- ======================================================================
+       1. HERO
+       =================================================================== -->
+  <section class="grid grid-cols-1 items-center gap-xl lg:grid-cols-12 lg:gap-gutter">
+    <div class="relative z-raised space-y-lg lg:col-span-7">
+      <p class="text-label-caps text-on-surface-variant" data-motion="fade">Registered Charity No. 1198539</p>
+
+      <h1 class="text-display-hero text-on-surface" data-motion="words">A Place to Learn</h1>
+
+      <p class="max-w-xl text-body-lg text-on-surface-variant" data-motion="fade" data-motion-delay="120">
+        At Tahir Academy we offer a unique educational experience designed to enhance
+        intellectual growth and promote participatory learning — for boys and girls alike.
+      </p>
+
+      <div class="flex flex-wrap gap-xs" data-motion="fade" data-motion-delay="200">
+        <a class="btn btn-primary" href="#courses">Explore courses</a>
+        <a class="btn btn-secondary" href="#location">Get in touch</a>
+      </div>
+    </div>
+
+    <figure class="relative overflow-hidden rounded-xl shadow-ambient lg:col-span-5" data-motion="media">
+      <picture>
+        <source type="image/webp"
+                srcset="/assets/img/hero-classroom-768.webp 768w, /assets/img/hero-classroom-1280.webp 1280w, /assets/img/hero-classroom-1920.webp 1920w"
+                sizes="(min-width: 1024px) 40vw, 100vw">
+        <img src="/assets/img/hero-classroom-1280.jpg" width="1280" height="850"
+             alt="Students seated at desks in a bright classroom at Tahir Academy"
+             class="h-media-md w-full object-cover lg:h-media-lg" fetchpriority="high">
+      </picture>
+    </figure>
+  </section>
+
+  <!-- ======================================================================
+       2. WELCOME
+       =================================================================== -->
+  <section id="welcome" class="section">
+    <div class="glass mx-auto max-w-4xl rounded-xl px-md py-xl text-center md:px-3xl md:py-3xl" data-motion="fade">
+      <p class="text-label-caps text-primary">Welcome</p>
+      <h2 class="mt-md text-headline-lg text-on-surface" data-motion="fade" data-motion-delay="80">
+        Let's learn together
+      </h2>
+      <p class="mx-auto mt-lg max-w-2xl text-quote text-on-surface-variant" data-motion="fade" data-motion-delay="160">
+        At Tahir Academy Trust we foster an environment where intellectual growth and
+        spiritual development go hand in hand, so that every student is equipped to
+        navigate the modern world while remaining rooted in their faith.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       3. AT A GLANCE — counters
+       =================================================================== -->
+  <section class="section" aria-label="Tahir Academy Trust at a glance">
+    <dl class="grid grid-cols-2 gap-md md:grid-cols-4 md:gap-gutter" data-motion-stagger>
+      <div class="stat" data-motion="fade">
+        <dt class="text-label-caps text-on-surface-variant">Sanatayn course</dt>
+        <dd class="stat-value"><span data-count-to="2">0</span> <span class="stat-unit">years</span></dd>
+      </div>
+      <div class="stat" data-motion="fade">
+        <dt class="text-label-caps text-on-surface-variant">Aalimiyyah course</dt>
+        <dd class="stat-value"><span data-count-to="6">0</span> <span class="stat-unit">years</span></dd>
+      </div>
+      <div class="stat" data-motion="fade">
+        <dt class="text-label-caps text-on-surface-variant">Open to ages</dt>
+        <dd class="stat-value"><span data-count-to="11">0</span><span class="stat-unit">+</span></dd>
+      </div>
+      <div class="stat" data-motion="fade">
+        <dt class="text-label-caps text-on-surface-variant">Weekly services</dt>
+        <dd class="stat-value"><span data-count-to="3">0</span></dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- ======================================================================
+       4. OPEN HOUSE
+       =================================================================== -->
+  <section class="section">
+    <div class="grid grid-cols-1 items-center gap-xl md:grid-cols-2 md:gap-3xl">
+      <figure class="overflow-hidden rounded-xl shadow-ambient" data-motion="media">
+        <picture>
+          <source type="image/webp" srcset="/assets/img/open-house-640.webp 640w, /assets/img/open-house-1120.webp 1120w"
+                  sizes="(min-width: 768px) 45vw, 100vw">
+          <img src="/assets/img/open-house-640.jpg" width="640" height="427" loading="lazy" decoding="async"
+               alt="Open house session in progress at Waverley Primary School"
+               class="h-media-sm w-full object-cover md:h-media-md">
+        </picture>
+      </figure>
+
+      <div class="space-y-md">
+        <p class="text-label-caps text-primary" data-motion="fade">What's happening</p>
+        <h2 class="text-headline-lg text-on-surface" data-motion="fade" data-motion-delay="80">Open house</h2>
+        <hr class="rule" data-motion="line">
+        <p class="text-body-lg text-on-surface-variant" data-motion="fade" data-motion-delay="160">
+          Open every weekend from 9:30am until 12:30pm.
+        </p>
+        <p class="text-body-md text-on-surface-variant" data-motion="fade" data-motion-delay="200">
+          Waverley Primary School, Enfield EN3 7DL
+        </p>
+        <a class="btn btn-secondary" href="#location" data-motion="fade" data-motion-delay="240">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       5. COURSES  — rendered from the COURSES array in assets/js/site.js
+       =================================================================== -->
+  <section id="courses" class="section">
+    <header class="mb-xl max-w-2xl space-y-xs">
+      <p class="text-label-caps text-primary" data-motion="fade">Our courses</p>
+      <h2 class="text-headline-lg text-on-surface" data-motion="fade" data-motion-delay="80">
+        Exceeding your expectations
+      </h2>
+    </header>
+    <div id="courses-grid" class="grid grid-cols-1 gap-md md:grid-cols-3 md:gap-gutter" data-motion-stagger></div>
+  </section>
+
+  <!-- ======================================================================
+       6. SERVICES — rendered from the SERVICES array in assets/js/site.js
+       =================================================================== -->
+  <section id="services" class="section">
+    <div class="grid grid-cols-1 items-start gap-xl lg:grid-cols-12 lg:gap-gutter">
+      <div class="lg:col-span-7">
+        <header class="mb-lg max-w-xl space-y-xs">
+          <p class="text-label-caps text-primary" data-motion="fade">Religious services</p>
+          <h2 class="text-headline-lg text-on-surface" data-motion="fade" data-motion-delay="80">Here for you</h2>
+        </header>
+        <ul id="services-list" class="space-y-0" data-motion-stagger></ul>
+      </div>
+
+      <figure class="overflow-hidden rounded-xl shadow-ambient lg:col-span-5" data-motion="media">
+        <picture>
+          <source type="image/webp" srcset="/assets/img/service-jumuah-560.webp 560w, /assets/img/service-jumuah-1120.webp 1120w"
+                  sizes="(min-width: 1024px) 40vw, 100vw">
+          <img src="/assets/img/service-jumuah-560.jpg" width="560" height="496" loading="lazy" decoding="async"
+               alt="Congregation gathered for Jumuah prayers at the Huntingdon Suite in Cheshunt"
+               class="h-media-md w-full object-cover lg:h-media-lg">
+        </picture>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       7. HIRING
+       Restored. The import's section comments jumped 4 -> 6 with no section 5,
+       leaving the "Hiring" nav link pointing at nothing.
+       =================================================================== -->
+  <section id="hiring" class="section">
+    <div class="grid grid-cols-1 items-center gap-xl md:grid-cols-12 md:gap-gutter">
+      <div class="space-y-md md:col-span-7">
+        <p class="text-label-caps text-primary" data-motion="fade">Join us</p>
+        <h2 class="text-headline-lg text-on-surface" data-motion="fade" data-motion-delay="80">We are hiring</h2>
+        <hr class="rule" data-motion="line">
+        <p class="text-body-lg text-on-surface-variant" data-motion="fade" data-motion-delay="160">
+          Assalaamu alaikum Wa Rahmatullahi Wa Barakatuh. Dear brothers and sisters —
+          alhamdulillah, by the Grace of Allah we have set ourselves on a journey to
+          build the future generations.
+        </p>
+        <p class="text-body-md text-on-surface-variant" data-motion="fade" data-motion-delay="200">
+          To do this we need excellent and dedicated team members to help deliver this
+          to our community. Please come forward and contact us. Jazakumullahu Khairan.
+        </p>
+        <a class="btn btn-primary" href="mailto:info@tahiracademytrust.org?subject=Joining%20the%20team%20at%20Tahir%20Academy%20Trust"
+           data-motion="fade" data-motion-delay="240">Contact us about a role</a>
+      </div>
+
+      <figure class="overflow-hidden rounded-xl shadow-ambient md:col-span-5" data-motion="media">
+        <picture>
+          <source type="image/webp" srcset="/assets/img/hiring-640.webp 640w, /assets/img/hiring-1120.webp 1120w"
+                  sizes="(min-width: 768px) 40vw, 100vw">
+          <img src="/assets/img/hiring-640.jpg" width="640" height="905" loading="lazy" decoding="async"
+               alt="Tahir Academy Trust recruitment notice"
+               class="h-media-md w-full object-cover md:h-media-lg">
+        </picture>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       8. QUOTE
+       =================================================================== -->
+  <section class="section">
+    <figure class="glass mx-auto max-w-3xl rounded-xl px-md py-xl text-center md:px-3xl md:py-3xl" data-motion="fade">
+      <blockquote class="text-quote text-on-surface">
+        “The direction in which education starts a man will determine his future in life.”
+      </blockquote>
+      <figcaption class="mt-md text-label-caps text-on-surface-variant">Plato</figcaption>
+    </figure>
+  </section>
+
+  <!-- ======================================================================
+       9. CAMPAIGN
+       =================================================================== -->
+  <section id="campaign" class="section">
+    <div class="relative overflow-hidden rounded-xl bg-inverse-surface px-md py-3xl md:px-3xl md:py-4xl" data-motion="fade">
+      <picture>
+        <source type="image/webp" srcset="/assets/img/campaign-masjid-640.webp 640w, /assets/img/campaign-masjid-1130.webp 1130w"
+                sizes="100vw">
+        <img src="/assets/img/campaign-masjid-1130.jpg" width="1130" height="1600" loading="lazy" decoding="async" alt=""
+             class="absolute inset-0 h-full w-full object-cover opacity-20" aria-hidden="true">
+      </picture>
+
+      <div class="relative z-raised mx-auto max-w-3xl space-y-lg text-center">
+        <p class="text-label-caps text-primary-fixed-dim">Our campaign</p>
+        <h2 class="text-headline-lg text-on-primary">The 1st Masjid in Cheshunt</h2>
+        <p class="text-body-lg text-on-primary/85">
+          Alhamdulillah, we have set ourselves on a journey to expand Tahir Academy Trust
+          with the help of the LaunchGood platform. Please donate as much or as little as
+          you are able — your contribution leaves a lasting legacy.
+        </p>
+        <a class="btn btn-accent" href="https://www.launchgood.com/v4/campaign/1st_masjid_in_cheshunt?src=2662065"
+           target="_blank" rel="noopener noreferrer">
+          Donate on LaunchGood
+          <span class="btn-icon" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       10. LOCATION & CONTACT
+       Restored. The "Location" nav link had no target in the import, and none
+       of the trust's real contact details appeared anywhere on the page.
+       =================================================================== -->
+  <section id="location" class="section">
+    <div class="grid grid-cols-1 gap-xl md:grid-cols-2 md:gap-3xl">
+      <div class="space-y-md">
+        <p class="text-label-caps text-primary" data-motion="fade">Contact</p>
+        <h2 class="text-headline-lg text-on-surface" data-motion="fade" data-motion-delay="80">Our doors are open</h2>
+        <p class="text-body-lg text-on-surface-variant" data-motion="fade" data-motion-delay="160">
+          Don't hesitate to get in touch with any questions about our courses, events
+          and teachers.
+        </p>
+      </div>
+
+      <dl class="space-y-0" data-motion-stagger>
+        <div class="contact-row" data-motion="fade">
+          <dt class="text-label-caps text-on-surface-variant">Address</dt>
+          <dd class="text-body-md text-on-surface">105 The Ride, Enfield EN3 7DL, United Kingdom</dd>
+        </div>
+        <div class="contact-row" data-motion="fade">
+          <dt class="text-label-caps text-on-surface-variant">Email</dt>
+          <dd class="text-body-md"><a class="link-inline" href="mailto:info@tahiracademytrust.org">info@tahiracademytrust.org</a></dd>
+        </div>
+        <div class="contact-row" data-motion="fade">
+          <dt class="text-label-caps text-on-surface-variant">Telephone</dt>
+          <dd class="text-body-md"><a class="link-inline" href="tel:+447904873979">07904 873979</a></dd>
+        </div>
+        <div class="contact-row" data-motion="fade">
+          <dt class="text-label-caps text-on-surface-variant">Prayer venue</dt>
+          <dd class="text-body-md text-on-surface">Huntingdon Suite, Broxbourne Council, Cheshunt, Herts EN8 9XQ — parking available</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<!-- ========================================================================
+     FOOTER
+     ===================================================================== -->
+<footer class="border-t border-outline-variant/40 bg-surface-container-low">
+  <div class="mx-auto flex max-w-container-max flex-col gap-lg px-margin-mobile py-2xl md:flex-row md:items-start md:justify-between md:px-margin-desktop">
+    <div class="space-y-xs">
+      <p class="font-heading text-headline-sm text-primary">Tahir Academy Trust</p>
+      <p class="text-body-md text-on-surface-variant">A place to learn.</p>
+      <p class="text-body-md text-on-surface-variant">
+        Registered Charity No. 1198539
+      </p>
+    </div>
+
+    <nav aria-label="Footer">
+      <ul class="flex flex-wrap gap-x-lg gap-y-2xs">
+        <li><a class="footer-link" href="#courses">Courses</a></li>
+        <li><a class="footer-link" href="#services">Services</a></li>
+        <li><a class="footer-link" href="#hiring">Hiring</a></li>
+        <li><a class="footer-link" href="#campaign">Campaign</a></li>
+        <li><a class="footer-link" href="#location">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="mx-auto max-w-container-max px-margin-mobile pb-xl md:px-margin-desktop">
+    <hr class="rule mb-md">
+    <p class="text-body-md text-on-surface-variant">
+      © <span id="year">2026</span> Tahir Academy Trust. Registered Charity No. 1198539.
+    </p>
+  </div>
+</footer>
+
+<script src="/assets/js/shader.js" defer></script>
+<script src="/assets/js/site.js" defer></script>
+</body>
+</html>

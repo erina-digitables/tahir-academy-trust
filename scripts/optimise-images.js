@@ -22,7 +22,9 @@ const PLAN = {
   logo:                { widths: [96, 192], square: true },
   'hero-classroom':    { widths: [768, 1280, 1920] },
   'welcome-wide':      { widths: [768, 1280, 1920] },
-  'campaign-masjid':   { widths: [1280, 1920] },
+  // Portrait master at 1130x1600 — planning wider than that produced nothing,
+  // since the resize step refuses to upscale.
+  'campaign-masjid':   { widths: [640, 1130] },
   'open-house':        { widths: [640, 1120] },
   hiring:              { widths: [640, 1120] },
   'course-sanatayn':   { widths: [560, 1120] },

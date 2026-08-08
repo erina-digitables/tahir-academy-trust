@@ -101,6 +101,32 @@
       "bytes": 123159
     }
   ],
+  "campaign-masjid": [
+    {
+      "file": "campaign-masjid-640.webp",
+      "w": 640,
+      "h": 906,
+      "bytes": 77824
+    },
+    {
+      "file": "campaign-masjid-640.jpg",
+      "w": 640,
+      "h": 906,
+      "bytes": 101152
+    },
+    {
+      "file": "campaign-masjid-1130.webp",
+      "w": 1130,
+      "h": 1600,
+      "bytes": 158804
+    },
+    {
+      "file": "campaign-masjid-1130.jpg",
+      "w": 1130,
+      "h": 1600,
+      "bytes": 216130
+    }
+  ],
   "open-house": [
     {
       "file": "open-house-640.webp",
