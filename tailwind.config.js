@@ -17,6 +17,13 @@ module.exports = {
         accent: {
           DEFAULT: 'rgb(var(--color-accent) / <alpha-value>)',
           soft: 'rgb(var(--color-accent-soft) / <alpha-value>)',
+          pale: 'rgb(var(--color-accent-pale) / <alpha-value>)',
+        },
+        green: {
+          DEFAULT: 'rgb(var(--color-green) / <alpha-value>)',
+          deep: 'rgb(var(--color-green-deep) / <alpha-value>)',
+          soft: 'rgb(var(--color-green-soft) / <alpha-value>)',
+          wash: 'rgb(var(--color-green-wash) / <alpha-value>)',
         },
         error: 'rgb(var(--color-error) / <alpha-value>)',
       },

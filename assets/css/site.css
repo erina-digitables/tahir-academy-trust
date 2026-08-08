@@ -40,12 +40,36 @@
   --text-muted: 0.65;
   --text-faint: 0.45;
   /* permitted on >=24px display text only */
-  /* Accent — the trust's existing gold. Darker of the two on light, so it
-     clears AA for small uppercase labels at 6.2:1. */
+  /* ---------------------------------------------------------------------------
+     ACCENTS — gold and green
+     Two accents doing different jobs, rather than one gold doing everything:
+
+       GREEN  structural and directive. Primary actions, active states, section
+              eyebrows, the enrol path. Deep enough to carry white text.
+       GOLD   decorative and honorific. Dividers, ornament, the campaign, stat
+              figures, hover warmth. Never the only signal for an action.
+
+     Both are drawn from the recruitment poster so the site and the poster read
+     as one identity. Contrast measured over the ivory ground:
+       green        #0f4436  ->  9.42:1   safe for body text and small labels
+       green-deep   #0a2f25  -> 13.10:1   solid button fills
+       gold         #775a19  ->  6.20:1   safe for small labels
+       gold-soft    #c5a059  ->  2.36:1   DECORATION ONLY, never text
+     ------------------------------------------------------------------------ */
+  --color-green: 15 68 54;
+  /* #0f4436 */
+  --color-green-deep: 10 47 37;
+  /* #0a2f25 */
+  --color-green-soft: 45 122 100;
+  /* #2d7a64 — hover/lighter fills */
+  --color-green-wash: 232 241 237;
+  /* #e8f1ed — tinted section bands */
   --color-accent: 119 90 25;
-  /* #775a19 */
+  /* #775a19 gold */
   --color-accent-soft: 197 160 89;
-  /* #c5a059 */
+  /* #c5a059 — ornament only */
+  --color-accent-pale: 244 236 220;
+  /* #f4ecdc — gold-tinted bands */
   --color-error: 186 26 26;
   /* #ba1a1a */
   /* ---------------------------------------------------------------------------
@@ -1282,6 +1306,29 @@ input[type='email']:focus, input[type='text']:focus {
   color: rgb(var(--color-accent));
 }
 
+/* Green label — the default section eyebrow. 9.42:1. */
+
+.label-green {
+  color: rgb(var(--color-green));
+}
+
+/* A short gold rule sitting under a section eyebrow. Ornament, so it is
+     never the only thing carrying meaning. */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background-color: rgb(var(--color-accent-soft));
+  flex-shrink: 0;
+}
+
 .rule-h {
   width: 100%;
   height: 1px;
@@ -1328,13 +1375,41 @@ input[type='email']:focus, input[type='text']:focus {
   background-color: var(--glass-hover-fill);
 }
 
+/* Primary action. Green rather than ink — one colour that means "this is the
+     thing to click", used nowhere decorative. 13.1:1 with ivory text. */
+
 .btn-solid {
-  background-color: rgb(var(--color-ink));
+  background-color: rgb(var(--color-green-deep));
   color: rgb(var(--color-background));
 }
 
 .btn-solid:hover {
-  background-color: rgb(var(--color-ink) / 0.9);
+  background-color: rgb(var(--color-green));
+}
+
+/* Secondary action on a dark or photographic ground. */
+
+.btn-gold {
+  background-color: rgb(var(--color-accent));
+  color: rgb(var(--color-background));
+}
+
+.btn-gold:hover {
+  background-color: rgb(var(--color-accent-soft));
+  color: rgb(var(--color-green-deep));
+}
+
+/* Outlined green, for the lower-commitment action sitting beside a primary. */
+
+.btn-outline {
+  background-color: transparent;
+  color: rgb(var(--color-green));
+  border: 1px solid rgb(var(--color-green) / 0.35);
+}
+
+.btn-outline:hover {
+  background-color: rgb(var(--color-green-wash));
+  border-color: rgb(var(--color-green) / 0.6);
 }
 
 /* Circular icon button, e.g. the enquiry submit. */
@@ -1371,31 +1446,6 @@ input[type='email']:focus, input[type='text']:focus {
 }
 
 /* Social / icon-only glass buttons */
-
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-full);
-  color: rgb(var(--color-ink) / var(--text-muted));
-  cursor: pointer;
-  transition:
-      color var(--duration-hover) var(--ease-standard),
-      background-color var(--duration-hover) var(--ease-standard),
-      transform var(--duration-hover) var(--ease-overshoot);
-}
-
-.icon-btn:hover {
-  color: rgb(var(--color-ink));
-  background-color: var(--glass-hover-fill);
-  transform: scale(var(--motion-scale-hover));
-}
-
-.icon-btn:active {
-  transform: scale(var(--motion-scale-tap));
-}
 
 /* ===========================================================================
      NAVIGATION
@@ -1447,6 +1497,25 @@ input[type='email']:focus, input[type='text']:focus {
 
 .nav-link:hover::after, .nav-link:focus-visible::after {
   transform: scaleX(1);
+}
+
+/* Footer navigation. Same 44px floor as everything else — this rule was lost
+     in an earlier rewrite and the links silently dropped to 21px tall. */
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+  font-size: var(--text-body-sm);
+  color: rgb(var(--color-ink) / var(--text-muted));
+  transition: color var(--duration-hover) var(--ease-standard),
+                transform var(--duration-hover) var(--ease-standard);
+}
+
+.footer-link:hover {
+  color: rgb(var(--color-green));
+  transform: translateX(3px);
 }
 
 .nav-burger {
@@ -1654,13 +1723,62 @@ input[type='email']:focus, input[type='text']:focus {
   width: 36px;
   height: 36px;
   border-radius: var(--radius-full);
-  color: rgb(var(--color-ink));
+  background-color: rgb(var(--color-green-wash));
+  color: rgb(var(--color-green));
   flex-shrink: 0;
-  transition: transform var(--duration-hover) var(--ease-overshoot);
+  transition:
+      transform var(--duration-hover) var(--ease-overshoot),
+      background-color var(--duration-hover) var(--ease-standard),
+      color var(--duration-hover) var(--ease-standard);
 }
 
 .card:hover .card-arrow {
   transform: translate(3px, -3px);
+  background-color: rgb(var(--color-green-deep));
+  color: rgb(var(--color-background));
+}
+
+/* Explicit textual CTA on each card. An arrow glyph alone is not a legible
+     call to action — the words are what convert. */
+
+.card-action {
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: rgb(var(--color-green));
+}
+
+.card-action span {
+  transition: transform var(--duration-hover) var(--ease-overshoot);
+}
+
+.card:hover .card-action span {
+  transform: translateX(3px);
+}
+
+/* Small factual chips on a card — duration, ages, days. */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  padding: 3px var(--space-2xs);
+  border-radius: var(--radius-full);
+  background-color: rgb(var(--color-green-wash));
+  color: rgb(var(--color-green));
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.chip-gold {
+  background-color: rgb(var(--color-accent-pale));
+  color: rgb(var(--color-accent));
 }
 
 /* ===========================================================================
@@ -1700,7 +1818,7 @@ input[type='email']:focus, input[type='text']:focus {
   font-family: var(--font-display);
   font-size: var(--text-display);
   line-height: var(--leading-display);
-  color: rgb(var(--color-ink));
+  color: rgb(var(--color-green));
   font-variant-numeric: tabular-nums;
 }
 
@@ -1708,6 +1826,190 @@ input[type='email']:focus, input[type='text']:focus {
   font-family: var(--font-body);
   font-size: var(--text-body-sm);
   color: rgb(var(--color-ink) / var(--text-muted));
+}
+
+/* ===========================================================================
+     DARK BANDS — campaign and footer
+     Two deep-green sections that anchor the ends of an otherwise pale page.
+     Text roles are redeclared here rather than set inline.
+     ======================================================================== */
+
+.on-dark {
+  background-color: rgb(var(--color-green-deep));
+}
+
+.on-dark .text-strong,
+  .on-dark h1, .on-dark h2, .on-dark h3 {
+  color: rgb(var(--color-background));
+}
+
+.on-dark .text-body {
+  color: rgb(var(--color-background) / 0.85);
+}
+
+.on-dark .text-muted {
+  color: rgb(var(--color-background) / 0.7);
+}
+
+.on-dark .label {
+  color: rgb(var(--color-accent-soft));
+}
+
+.on-dark .rule-h {
+  background-color: rgb(var(--color-background) / 0.18);
+}
+
+/* Italic emphasis on a dark ground — gold rather than dimmed ink. */
+
+.em-soft-light {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: rgb(var(--color-accent-soft));
+}
+
+.campaign-veil {
+  background-image: linear-gradient(
+      to top,
+      rgb(var(--color-green-deep) / 0.94) 0%,
+      rgb(var(--color-green-deep) / 0.8) 55%,
+      rgb(var(--color-green-deep) / 0.9) 100%
+    );
+  pointer-events: none;
+}
+
+.on-dark .footer-link {
+  color: rgb(var(--color-background) / 0.75);
+}
+
+.on-dark .footer-link:hover {
+  color: rgb(var(--color-accent-soft));
+}
+
+/* ===========================================================================
+     ANNOUNCEMENT BAR
+     Open house is the single most time-sensitive thing on the page and was
+     previously buried mid-scroll. It now sits above the fold.
+     ======================================================================== */
+
+.announce {
+  background-color: rgb(var(--color-green-deep));
+  color: rgb(var(--color-background));
+}
+
+.announce-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs) var(--space-md);
+  padding-block: var(--space-2xs);
+  padding-inline: var(--space-margin-mobile);
+  font-size: var(--text-body-sm);
+  text-align: center;
+}
+
+.announce a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  min-height: 44px;
+  color: rgb(var(--color-accent-soft));
+  font-weight: var(--weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.announce a:hover {
+  color: rgb(var(--color-background));
+}
+
+/* ===========================================================================
+     TRUST STRIP — the reasons to believe, stated plainly
+     ======================================================================== */
+
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm) var(--space-xl);
+}
+
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--text-body-sm);
+  color: rgb(var(--color-ink) / var(--text-muted));
+}
+
+.trust-item svg {
+  width: 18px;
+  height: 18px;
+  color: rgb(var(--color-green));
+  flex-shrink: 0;
+}
+
+/* ===========================================================================
+     ENROLMENT STEPS
+     Removing uncertainty about "what happens if I get in touch" is the single
+     biggest lever on an enquiry form like this one.
+     ======================================================================== */
+
+.step {
+  position: relative;
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background-color: rgb(var(--color-green-wash) / 0.55);
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background-color: rgb(var(--color-green-deep));
+  color: rgb(var(--color-background));
+  font-family: var(--font-display);
+  font-size: var(--text-body-md);
+  line-height: 1;
+}
+
+/* ===========================================================================
+     STICKY MOBILE CTA
+     On a phone the nav collapses into a burger, so the two actions that matter
+     — call, and enquire — stay permanently reachable at the thumb.
+     ======================================================================== */
+
+.mobile-cta {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: var(--z-sticky);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs) var(--space-sm) calc(var(--space-2xs) + env(safe-area-inset-bottom));
+  background-color: rgb(var(--color-background) / 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgb(var(--color-ink) / 0.1);
+  transform: translateY(110%);
+  transition: transform var(--duration-conditional) var(--ease-entrance);
+}
+
+.mobile-cta[data-show='true'] {
+  transform: translateY(0);
+}
+
+@media (min-width: 1024px) {
+  .mobile-cta {
+    display: none;
+  }
 }
 
 /* ===========================================================================
@@ -1877,10 +2179,6 @@ input[type='email']:focus, input[type='text']:focus {
   visibility: visible;
 }
 
-.invisible {
-  visibility: hidden;
-}
-
 .static {
   position: static;
 }
@@ -1924,10 +2222,6 @@ input[type='email']:focus, input[type='text']:focus {
   margin-bottom: var(--space-lg);
 }
 
-.mb-2xl {
-  margin-bottom: var(--space-2xl);
-}
-
 .mb-lg {
   margin-bottom: var(--space-lg);
 }
@@ -1968,6 +2262,10 @@ input[type='email']:focus, input[type='text']:focus {
   margin-top: var(--space-md);
 }
 
+.mt-sm {
+  margin-top: var(--space-sm);
+}
+
 .mt-xl {
   margin-top: var(--space-xl);
 }
@@ -1996,8 +2294,8 @@ input[type='email']:focus, input[type='text']:focus {
   display: none;
 }
 
-.aspect-\[3\/4\] {
-  aspect-ratio: 3/4;
+.aspect-\[2\/3\] {
+  aspect-ratio: 2/3;
 }
 
 .aspect-\[4\/3\] {
@@ -2032,8 +2330,8 @@ input[type='email']:focus, input[type='text']:focus {
   min-height: 44px;
 }
 
-.min-h-screen {
-  min-height: 100vh;
+.min-h-\[92vh\] {
+  min-height: 92vh;
 }
 
 .w-4 {
@@ -2060,16 +2358,16 @@ input[type='email']:focus, input[type='text']:focus {
   max-width: 48rem;
 }
 
-.max-w-4xl {
-  max-width: 56rem;
+.max-w-lg {
+  max-width: 32rem;
 }
 
 .max-w-md {
   max-width: 28rem;
 }
 
-.max-w-xl {
-  max-width: 36rem;
+.max-w-sm {
+  max-width: 24rem;
 }
 
 .flex-1 {
@@ -2152,6 +2450,10 @@ input[type='email']:focus, input[type='text']:focus {
   gap: var(--space-xl);
 }
 
+.gap-xs {
+  gap: var(--space-xs);
+}
+
 .gap-x-lg {
   -moz-column-gap: var(--space-lg);
        column-gap: var(--space-lg);
@@ -2165,10 +2467,6 @@ input[type='email']:focus, input[type='text']:focus {
   overflow: hidden;
 }
 
-.rounded-full {
-  border-radius: var(--radius-full);
-}
-
 .rounded-lg {
   border-radius: var(--radius-lg);
 }
@@ -2177,36 +2475,9 @@ input[type='email']:focus, input[type='text']:focus {
   border-radius: var(--radius-xl);
 }
 
-.border-t {
-  border-top-width: 1px;
-}
-
-.border-ink\/10 {
-  border-color: rgb(var(--color-ink) / 0.1);
-}
-
 .bg-background {
   --tw-bg-opacity: 1;
   background-color: rgb(var(--color-background) / var(--tw-bg-opacity, 1));
-}
-
-.bg-gradient-to-t {
-  background-image: linear-gradient(to top, var(--tw-gradient-stops));
-}
-
-.from-background {
-  --tw-gradient-from: rgb(var(--color-background) / 1) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(var(--color-background) / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.via-background\/50 {
-  --tw-gradient-to: rgb(var(--color-background) / 0)  var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), rgb(var(--color-background) / 0.5) var(--tw-gradient-via-position), var(--tw-gradient-to);
-}
-
-.to-background\/70 {
-  --tw-gradient-to: rgb(var(--color-background) / 0.7) var(--tw-gradient-to-position);
 }
 
 .object-cover {
@@ -2228,11 +2499,6 @@ input[type='email']:focus, input[type='text']:focus {
   padding-right: var(--space-md);
 }
 
-.px-sm {
-  padding-left: var(--space-sm);
-  padding-right: var(--space-sm);
-}
-
 .py-2xl {
   padding-top: var(--space-2xl);
   padding-bottom: var(--space-2xl);
@@ -2248,16 +2514,13 @@ input[type='email']:focus, input[type='text']:focus {
   padding-bottom: var(--space-md);
 }
 
-.pb-2xl {
-  padding-bottom: var(--space-2xl);
+.py-xl {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
 }
 
 .pb-xl {
   padding-bottom: var(--space-xl);
-}
-
-.pt-4xl {
-  padding-top: var(--space-4xl);
 }
 
 .pt-sm {
@@ -2310,12 +2573,21 @@ input[type='email']:focus, input[type='text']:focus {
   letter-spacing: var(--tracking-display);
 }
 
+.font-semibold {
+  font-weight: 600;
+}
+
 .leading-none {
   line-height: 1;
 }
 
 .text-body {
   color: rgb(var(--color-ink) / var(--text-body));
+}
+
+.text-green {
+  --tw-text-opacity: 1;
+  color: rgb(var(--color-green) / var(--tw-text-opacity, 1));
 }
 
 .text-muted {
@@ -2338,8 +2610,14 @@ input[type='email']:focus, input[type='text']:focus {
   opacity: 0;
 }
 
-.opacity-20 {
-  opacity: 0.2;
+.opacity-25 {
+  opacity: 0.25;
+}
+
+.shadow-lift {
+  --tw-shadow: var(--shadow-lift);
+  --tw-shadow-colored: var(--shadow-lift);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .filter {
@@ -2371,12 +2649,8 @@ input[type='email']:focus, input[type='text']:focus {
     grid-column: span 7 / span 7;
   }
 
-  .md\:mb-3xl {
-    margin-bottom: var(--space-3xl);
-  }
-
-  .md\:block {
-    display: block;
+  .md\:mb-2xl {
+    margin-bottom: var(--space-2xl);
   }
 
   .md\:grid-cols-12 {
@@ -2435,10 +2709,6 @@ input[type='email']:focus, input[type='text']:focus {
   .md\:py-4xl {
     padding-top: var(--space-4xl);
     padding-bottom: var(--space-4xl);
-  }
-
-  .md\:pb-3xl {
-    padding-bottom: var(--space-3xl);
   }
 
   .md\:text-body-lg {

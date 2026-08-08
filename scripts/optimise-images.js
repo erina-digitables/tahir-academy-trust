@@ -30,6 +30,9 @@ const PLAN = {
   'course-sanatayn':   { widths: [560, 1120] },
   'course-aalimiyyah': { widths: [560, 1120] },
   'course-hifz':       { widths: [560, 1120] },
+  'islamic-ceiling':   { widths: [640, 1120] },
+  // Generated recruitment poster. Portrait 2:3.
+  'hiring-poster':     { widths: [560, 848] },
   'service-eid':       { widths: [560, 1120] },
   'service-jumuah':    { widths: [560, 1120] },
   'service-taraweeh':  { widths: [560, 1120] },

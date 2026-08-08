@@ -183,78 +183,130 @@
     {
       "file": "course-sanatayn-560.webp",
       "w": 560,
-      "h": 315,
-      "bytes": 7516
+      "h": 373,
+      "bytes": 32364
     },
     {
       "file": "course-sanatayn-560.jpg",
       "w": 560,
-      "h": 315,
-      "bytes": 13342
+      "h": 373,
+      "bytes": 37647
     },
     {
       "file": "course-sanatayn-1120.webp",
       "w": 1120,
-      "h": 630,
-      "bytes": 19476
+      "h": 747,
+      "bytes": 94578
     },
     {
       "file": "course-sanatayn-1120.jpg",
       "w": 1120,
-      "h": 630,
-      "bytes": 36958
+      "h": 747,
+      "bytes": 115471
     }
   ],
   "course-aalimiyyah": [
     {
       "file": "course-aalimiyyah-560.webp",
       "w": 560,
-      "h": 792,
-      "bytes": 45826
+      "h": 700,
+      "bytes": 20642
     },
     {
       "file": "course-aalimiyyah-560.jpg",
       "w": 560,
-      "h": 792,
-      "bytes": 62110
+      "h": 700,
+      "bytes": 30972
     },
     {
       "file": "course-aalimiyyah-1120.webp",
       "w": 1120,
-      "h": 1584,
-      "bytes": 103176
+      "h": 1400,
+      "bytes": 59826
     },
     {
       "file": "course-aalimiyyah-1120.jpg",
       "w": 1120,
-      "h": 1584,
-      "bytes": 165805
+      "h": 1400,
+      "bytes": 105818
     }
   ],
   "course-hifz": [
     {
       "file": "course-hifz-560.webp",
       "w": 560,
-      "h": 373,
-      "bytes": 37238
+      "h": 840,
+      "bytes": 31078
     },
     {
       "file": "course-hifz-560.jpg",
       "w": 560,
-      "h": 373,
-      "bytes": 39737
+      "h": 840,
+      "bytes": 44312
     },
     {
       "file": "course-hifz-1120.webp",
       "w": 1120,
-      "h": 747,
-      "bytes": 116546
+      "h": 1680,
+      "bytes": 68232
     },
     {
       "file": "course-hifz-1120.jpg",
       "w": 1120,
-      "h": 747,
-      "bytes": 133765
+      "h": 1680,
+      "bytes": 116265
+    }
+  ],
+  "islamic-ceiling": [
+    {
+      "file": "islamic-ceiling-640.webp",
+      "w": 640,
+      "h": 853,
+      "bytes": 85652
+    },
+    {
+      "file": "islamic-ceiling-640.jpg",
+      "w": 640,
+      "h": 853,
+      "bytes": 101263
+    },
+    {
+      "file": "islamic-ceiling-1120.webp",
+      "w": 1120,
+      "h": 1493,
+      "bytes": 184428
+    },
+    {
+      "file": "islamic-ceiling-1120.jpg",
+      "w": 1120,
+      "h": 1493,
+      "bytes": 246564
+    }
+  ],
+  "hiring-poster": [
+    {
+      "file": "hiring-poster-560.webp",
+      "w": 560,
+      "h": 835,
+      "bytes": 40344
+    },
+    {
+      "file": "hiring-poster-560.jpg",
+      "w": 560,
+      "h": 835,
+      "bytes": 53635
+    },
+    {
+      "file": "hiring-poster-848.webp",
+      "w": 848,
+      "h": 1264,
+      "bytes": 67602
+    },
+    {
+      "file": "hiring-poster-848.jpg",
+      "w": 848,
+      "h": 1264,
+      "bytes": 95250
     }
   ],
   "service-eid": [

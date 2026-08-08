@@ -17,31 +17,31 @@
 
   var COURSES = [
     {
-      tag: 'Two year course',
       title: 'Sanatayn Course',
-      body: 'For both girls and boys from the age of 11. Saturdays and Sundays, 9:30am until 12:30pm, covering the essential foundations of the Islamic sciences.',
+      chips: ['2 years', 'Age 11+', 'Sat & Sun'],
+      body: 'The essential foundations of the Islamic sciences, for both girls and boys from the age of 11.',
       image: 'course-sanatayn',
-      alt: 'Open Islamic texts and calligraphy used in the Sanatayn course',
-      width: 560,
-      height: 315,
-    },
-    {
-      tag: 'Six year course',
-      title: 'Aalimiyyah Course',
-      body: 'Our scholarly programme for both boys and girls, running at Waverley Primary School. Classes are from 9:30am until 12:30pm.',
-      image: 'course-aalimiyyah',
-      alt: 'Students working through advanced texts in the Aalimiyyah course',
-      width: 560,
-      height: 792,
-    },
-    {
-      tag: 'Memorisation',
-      title: "Hifz ul Qur'an",
-      body: "To memorise the Holy Qur'an with tajweed. Classes from 9:30am until 12:30pm on Saturdays and Sundays.",
-      image: 'course-hifz',
-      alt: "Students in a Qur'an recitation circle",
+      alt: "Two students studying the Qur'an together",
       width: 560,
       height: 373,
+    },
+    {
+      title: 'Aalimiyyah Course',
+      chips: ['6 years', 'Boys & girls', 'Sat & Sun'],
+      body: 'Our full scholarly programme, running at Waverley Primary School, for those going deeper into the classical texts.',
+      image: 'course-aalimiyyah',
+      alt: 'Arabic calligraphy on an ancient manuscript page',
+      width: 560,
+      height: 700,
+    },
+    {
+      title: "Hifz ul Qur'an",
+      chips: ['Flexible', 'With tajweed', 'Sat & Sun'],
+      body: "A dedicated programme to memorise the Holy Qur'an with tajweed, focused on accuracy and long-term retention.",
+      image: 'course-hifz',
+      alt: "An open Qur'an with prayer beads",
+      width: 560,
+      height: 840,
     },
   ];
 
@@ -75,10 +75,17 @@
 
   function courseCard(course) {
     var base = '/assets/img/' + course.image;
+    var chips = course.chips
+      .map(function (c, i) {
+        // First chip is the duration, which is the fact people scan for.
+        return '<span class="chip' + (i === 0 ? ' chip-gold' : '') + '">' + esc(c) + '</span>';
+      })
+      .join('');
+
     return (
-      '<a class="liquid-glass card rounded-xl" href="#location" data-motion="fade" ' +
-      'aria-label="' + esc(course.title) + ' — enquire about this course">' +
-        '<div class="card-media-wrap aspect-video">' +
+      '<a class="liquid-glass card rounded-xl" href="#enrol" data-motion="fade" ' +
+      'aria-label="' + esc(course.title) + ', enquire about this course">' +
+        '<div class="card-media-wrap aspect-[4/3]">' +
           '<img src="' + base + '-560.jpg" ' +
                'srcset="' + base + '-560.webp 560w, ' + base + '-1120.webp 1120w" ' +
                'sizes="(min-width: 768px) 30vw, 100vw" ' +
@@ -88,13 +95,14 @@
         '</div>' +
         '<div class="card-body">' +
           '<div class="flex items-start justify-between gap-sm">' +
-            '<p class="label">' + esc(course.tag) + '</p>' +
-            '<span class="liquid-glass card-arrow rounded-full" aria-hidden="true">' +
+            '<h3 class="font-display text-title text-strong">' + esc(course.title) + '</h3>' +
+            '<span class="card-arrow" aria-hidden="true">' +
               '<svg class="h-4 w-4"><use href="#i-arrow-up-right"/></svg>' +
             '</span>' +
           '</div>' +
-          '<h3 class="font-display text-title text-strong">' + esc(course.title) + '</h3>' +
-          '<p class="text-body-sm text-muted">' + esc(course.body) + '</p>' +
+          '<div class="flex flex-wrap gap-3xs">' + chips + '</div>' +
+          '<p class="text-body-sm text-body">' + esc(course.body) + '</p>' +
+          '<span class="card-action">Enquire about this course <span aria-hidden="true">&rarr;</span></span>' +
         '</div>' +
       '</a>'
     );
@@ -378,12 +386,54 @@
      INIT
      ======================================================================== */
 
+  /* ==========================================================================
+     STICKY MOBILE CTA
+     Held back until the hero has scrolled away, so it never covers the hero's
+     own buttons, and hidden again over the enrolment section where the real
+     form already is.
+     ======================================================================== */
+
+  function initMobileCta() {
+    var bar = document.getElementById('mobile-cta');
+    var enrol = document.getElementById('enrol');
+    if (!bar) return;
+
+    var pastHero = false;
+    var overEnrol = false;
+
+    function sync() {
+      bar.setAttribute('data-show', String(pastHero && !overEnrol));
+    }
+
+    if (typeof IntersectionObserver === 'undefined') { bar.setAttribute('data-show', 'true'); return; }
+
+    var hero = document.getElementById('main');
+    if (hero) {
+      new IntersectionObserver(function (entries) {
+        pastHero = !entries[0].isIntersecting;
+        sync();
+      }, { threshold: 0 }).observe(hero);
+    } else {
+      pastHero = true;
+    }
+
+    if (enrol) {
+      new IntersectionObserver(function (entries) {
+        overEnrol = entries[0].isIntersecting;
+        sync();
+      }, { threshold: 0.25 }).observe(enrol);
+    }
+
+    sync();
+  }
+
   function init() {
     render();
     initHeroVideo();
     initAmbientVideos();
     initNav();
     initEnquiry();
+    initMobileCta();
     // Entrance animations attach after injected content exists in the DOM.
     if (window.Motion && typeof window.Motion.refresh === 'function') window.Motion.refresh();
   }

@@ -136,6 +136,25 @@
      tint — accent-soft measures 2.36:1 here and fails AA at label sizes. */
   .label-accent { color: rgb(var(--color-accent)); }
 
+  /* Green label — the default section eyebrow. 9.42:1. */
+  .label-green { color: rgb(var(--color-green)); }
+
+  /* A short gold rule sitting under a section eyebrow. Ornament, so it is
+     never the only thing carrying meaning. */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background-color: rgb(var(--color-accent-soft));
+    flex-shrink: 0;
+  }
+
   .rule-h {
     width: 100%;
     height: 1px;
@@ -173,12 +192,34 @@
   /* Glass button: the fill lifts slightly on hover, matching hover:bg-white/5 */
   .btn-glass:hover { background-color: var(--glass-hover-fill); }
 
+  /* Primary action. Green rather than ink — one colour that means "this is the
+     thing to click", used nowhere decorative. 13.1:1 with ivory text. */
   .btn-solid {
-    background-color: rgb(var(--color-ink));
+    background-color: rgb(var(--color-green-deep));
     color: rgb(var(--color-background));
   }
 
-  .btn-solid:hover { background-color: rgb(var(--color-ink) / 0.9); }
+  .btn-solid:hover { background-color: rgb(var(--color-green)); }
+
+  /* Secondary action on a dark or photographic ground. */
+  .btn-gold {
+    background-color: rgb(var(--color-accent));
+    color: rgb(var(--color-background));
+  }
+
+  .btn-gold:hover { background-color: rgb(var(--color-accent-soft)); color: rgb(var(--color-green-deep)); }
+
+  /* Outlined green, for the lower-commitment action sitting beside a primary. */
+  .btn-outline {
+    background-color: transparent;
+    color: rgb(var(--color-green));
+    border: 1px solid rgb(var(--color-green) / 0.35);
+  }
+
+  .btn-outline:hover {
+    background-color: rgb(var(--color-green-wash));
+    border-color: rgb(var(--color-green) / 0.6);
+  }
 
   /* Circular icon button, e.g. the enquiry submit. */
   .btn-round {
@@ -271,6 +312,21 @@
 
   .nav-link:hover, .nav-link:focus-visible { color: rgb(var(--color-ink)); }
   .nav-link:hover::after, .nav-link:focus-visible::after { transform: scaleX(1); }
+
+  /* Footer navigation. Same 44px floor as everything else — this rule was lost
+     in an earlier rewrite and the links silently dropped to 21px tall. */
+  .footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+    font-size: var(--text-body-sm);
+    color: rgb(var(--color-ink) / var(--text-muted));
+    transition: color var(--duration-hover) var(--ease-standard),
+                transform var(--duration-hover) var(--ease-standard);
+  }
+
+  .footer-link:hover { color: rgb(var(--color-green)); transform: translateX(3px); }
 
   .nav-burger {
     display: inline-flex;
@@ -444,12 +500,56 @@
     width: 36px;
     height: 36px;
     border-radius: var(--radius-full);
-    color: rgb(var(--color-ink));
+    background-color: rgb(var(--color-green-wash));
+    color: rgb(var(--color-green));
     flex-shrink: 0;
-    transition: transform var(--duration-hover) var(--ease-overshoot);
+    transition:
+      transform var(--duration-hover) var(--ease-overshoot),
+      background-color var(--duration-hover) var(--ease-standard),
+      color var(--duration-hover) var(--ease-standard);
   }
 
-  .card:hover .card-arrow { transform: translate(3px, -3px); }
+  .card:hover .card-arrow {
+    transform: translate(3px, -3px);
+    background-color: rgb(var(--color-green-deep));
+    color: rgb(var(--color-background));
+  }
+
+  /* Explicit textual CTA on each card. An arrow glyph alone is not a legible
+     call to action — the words are what convert. */
+  .card-action {
+    margin-top: auto;
+    padding-top: var(--space-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-semibold);
+    color: rgb(var(--color-green));
+  }
+
+  .card-action span { transition: transform var(--duration-hover) var(--ease-overshoot); }
+  .card:hover .card-action span { transform: translateX(3px); }
+
+  /* Small factual chips on a card — duration, ages, days. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    padding: 3px var(--space-2xs);
+    border-radius: var(--radius-full);
+    background-color: rgb(var(--color-green-wash));
+    color: rgb(var(--color-green));
+    font-size: var(--text-label);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .chip-gold {
+    background-color: rgb(var(--color-accent-pale));
+    color: rgb(var(--color-accent));
+  }
 
   /* ===========================================================================
      LIST ROWS  (services, contact)
@@ -482,7 +582,7 @@
     font-family: var(--font-display);
     font-size: var(--text-display);
     line-height: var(--leading-display);
-    color: rgb(var(--color-ink));
+    color: rgb(var(--color-green));
     font-variant-numeric: tabular-nums;
   }
 
@@ -490,6 +590,163 @@
     font-family: var(--font-body);
     font-size: var(--text-body-sm);
     color: rgb(var(--color-ink) / var(--text-muted));
+  }
+
+  /* ===========================================================================
+     DARK BANDS — campaign and footer
+     Two deep-green sections that anchor the ends of an otherwise pale page.
+     Text roles are redeclared here rather than set inline.
+     ======================================================================== */
+
+  .on-dark { background-color: rgb(var(--color-green-deep)); }
+
+  .on-dark .text-strong,
+  .on-dark h1, .on-dark h2, .on-dark h3 { color: rgb(var(--color-background)); }
+
+  .on-dark .text-body { color: rgb(var(--color-background) / 0.85); }
+  .on-dark .text-muted { color: rgb(var(--color-background) / 0.7); }
+  .on-dark .label { color: rgb(var(--color-accent-soft)); }
+  .on-dark .rule-h { background-color: rgb(var(--color-background) / 0.18); }
+
+  /* Italic emphasis on a dark ground — gold rather than dimmed ink. */
+  .em-soft-light {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: rgb(var(--color-accent-soft));
+  }
+
+  .campaign-veil {
+    background-image: linear-gradient(
+      to top,
+      rgb(var(--color-green-deep) / 0.94) 0%,
+      rgb(var(--color-green-deep) / 0.8) 55%,
+      rgb(var(--color-green-deep) / 0.9) 100%
+    );
+    pointer-events: none;
+  }
+
+  .on-dark .footer-link { color: rgb(var(--color-background) / 0.75); }
+  .on-dark .footer-link:hover { color: rgb(var(--color-accent-soft)); }
+
+  /* ===========================================================================
+     ANNOUNCEMENT BAR
+     Open house is the single most time-sensitive thing on the page and was
+     previously buried mid-scroll. It now sits above the fold.
+     ======================================================================== */
+
+  .announce {
+    background-color: rgb(var(--color-green-deep));
+    color: rgb(var(--color-background));
+  }
+
+  .announce-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xs) var(--space-md);
+    padding-block: var(--space-2xs);
+    padding-inline: var(--space-margin-mobile);
+    font-size: var(--text-body-sm);
+    text-align: center;
+  }
+
+  .announce a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    min-height: 44px;
+    color: rgb(var(--color-accent-soft));
+    font-weight: var(--weight-semibold);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .announce a:hover { color: rgb(var(--color-background)); }
+
+  /* ===========================================================================
+     TRUST STRIP — the reasons to believe, stated plainly
+     ======================================================================== */
+
+  .trust {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm) var(--space-xl);
+  }
+
+  .trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-size: var(--text-body-sm);
+    color: rgb(var(--color-ink) / var(--text-muted));
+  }
+
+  .trust-item svg {
+    width: 18px;
+    height: 18px;
+    color: rgb(var(--color-green));
+    flex-shrink: 0;
+  }
+
+  /* ===========================================================================
+     ENROLMENT STEPS
+     Removing uncertainty about "what happens if I get in touch" is the single
+     biggest lever on an enquiry form like this one.
+     ======================================================================== */
+
+  .step {
+    position: relative;
+    display: grid;
+    gap: var(--space-2xs);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    background-color: rgb(var(--color-green-wash) / 0.55);
+  }
+
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-full);
+    background-color: rgb(var(--color-green-deep));
+    color: rgb(var(--color-background));
+    font-family: var(--font-display);
+    font-size: var(--text-body-md);
+    line-height: 1;
+  }
+
+  /* ===========================================================================
+     STICKY MOBILE CTA
+     On a phone the nav collapses into a burger, so the two actions that matter
+     — call, and enquire — stay permanently reachable at the thumb.
+     ======================================================================== */
+
+  .mobile-cta {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: var(--z-sticky);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xs);
+    padding: var(--space-2xs) var(--space-sm) calc(var(--space-2xs) + env(safe-area-inset-bottom));
+    background-color: rgb(var(--color-background) / 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid rgb(var(--color-ink) / 0.1);
+    transform: translateY(110%);
+    transition: transform var(--duration-conditional) var(--ease-entrance);
+  }
+
+  .mobile-cta[data-show='true'] { transform: translateY(0); }
+
+  @media (min-width: 1024px) {
+    .mobile-cta { display: none; }
   }
 
   /* ===========================================================================

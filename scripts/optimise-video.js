@@ -22,9 +22,7 @@ const OUT = path.join(__dirname, '..', 'assets', 'video');
 /** Wider clips can afford a smaller height; the hero needs the most quality. */
 const PLAN = {
   'quran-open':   { height: 720, crf: 30 },
-  'quran-pages':  { height: 720, crf: 32 },
-  'quran-detail': { height: 720, crf: 32 },
-  'quran-stand':  { height: 720, crf: 32 },
+  'mosque-dome':  { height: 720, crf: 32 },
 };
 
 function run(args) {

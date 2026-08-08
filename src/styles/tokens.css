@@ -35,10 +35,30 @@
   --text-muted: 0.65;
   --text-faint: 0.45;                 /* permitted on >=24px display text only */
 
-  /* Accent — the trust's existing gold. Darker of the two on light, so it
-     clears AA for small uppercase labels at 6.2:1. */
-  --color-accent: 119 90 25;          /* #775a19 */
-  --color-accent-soft: 197 160 89;    /* #c5a059 */
+  /* ---------------------------------------------------------------------------
+     ACCENTS — gold and green
+     Two accents doing different jobs, rather than one gold doing everything:
+
+       GREEN  structural and directive. Primary actions, active states, section
+              eyebrows, the enrol path. Deep enough to carry white text.
+       GOLD   decorative and honorific. Dividers, ornament, the campaign, stat
+              figures, hover warmth. Never the only signal for an action.
+
+     Both are drawn from the recruitment poster so the site and the poster read
+     as one identity. Contrast measured over the ivory ground:
+       green        #0f4436  ->  9.42:1   safe for body text and small labels
+       green-deep   #0a2f25  -> 13.10:1   solid button fills
+       gold         #775a19  ->  6.20:1   safe for small labels
+       gold-soft    #c5a059  ->  2.36:1   DECORATION ONLY, never text
+     ------------------------------------------------------------------------ */
+  --color-green: 15 68 54;            /* #0f4436 */
+  --color-green-deep: 10 47 37;       /* #0a2f25 */
+  --color-green-soft: 45 122 100;     /* #2d7a64 — hover/lighter fills */
+  --color-green-wash: 232 241 237;    /* #e8f1ed — tinted section bands */
+
+  --color-accent: 119 90 25;          /* #775a19 gold */
+  --color-accent-soft: 197 160 89;    /* #c5a059 — ornament only */
+  --color-accent-pale: 244 236 220;   /* #f4ecdc — gold-tinted bands */
 
   --color-error: 186 26 26;           /* #ba1a1a */
 
