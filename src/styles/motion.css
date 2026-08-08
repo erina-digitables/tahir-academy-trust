@@ -1,25 +1,170 @@
 /* =============================================================================
-   MOTION — placeholder.
-   The animation system lands in step 6. Step 1 only reserves the layer and
-   states the reduced-motion contract so nothing added before then can ship
-   un-guarded motion.
+   MOTION
+   =============================================================================
+   Entrance states are gated behind [data-motion-ready], which assets/js/motion.js
+   sets on <html> only once it is running. If the script fails to parse or never
+   executes, nothing is ever hidden and the page reads as plain static content.
+   Hiding first and revealing later is how scroll animations become blank pages.
    ========================================================================== */
 
 @layer components {
-  /* Elements awaiting an entrance are hidden by assets/js/motion.js, never by
-     CSS alone — so a JS failure leaves content visible rather than blank. */
-  [data-motion] {
+
+  [data-motion-ready] [data-motion] {
     will-change: opacity, transform, filter;
+    transition:
+      opacity var(--duration-entrance) var(--ease-entrance),
+      transform var(--duration-entrance) var(--ease-entrance),
+      filter var(--duration-entrance) var(--ease-entrance);
   }
+
+  /* ---- initial states ---------------------------------------------------- */
+
+  [data-motion-ready] [data-motion='fade'] {
+    opacity: 0;
+    transform: translateY(var(--motion-lift-entrance));
+    filter: blur(var(--motion-blur-entrance));
+  }
+
+  [data-motion-ready] [data-motion='media'] {
+    opacity: 0;
+    transform: scale(0.92);
+    filter: blur(10px);
+    transition-duration: var(--duration-media);
+    transition-timing-function: var(--ease-overshoot);
+  }
+
+  /* Horizontal entrances only make sense once there are actually two columns.
+     Below the md breakpoint the layout is stacked, and a 40px sideways slide
+     both reads as wrong and pushes content past a 375px viewport. */
+  [data-motion-ready] [data-motion='slide-left'],
+  [data-motion-ready] [data-motion='slide-right'] {
+    opacity: 0;
+    transform: translateY(var(--motion-lift-entrance));
+    filter: blur(var(--motion-blur-entrance));
+    transition-duration: var(--duration-entrance-slow);
+  }
+
+  @media (min-width: 768px) {
+    [data-motion-ready] [data-motion='slide-left'] {
+      transform: translateX(-40px);
+      filter: none;
+    }
+
+    [data-motion-ready] [data-motion='slide-right'] {
+      transform: translateX(40px);
+      filter: none;
+    }
+  }
+
+  [data-motion-ready] [data-motion='rise'] {
+    opacity: 0;
+    transform: translateY(60px);
+    transition-duration: var(--duration-entrance-slow);
+  }
+
+  [data-motion-ready] [data-motion='line'] {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition-duration: var(--duration-line);
+    transition-timing-function: var(--ease-line);
+  }
+
+  /* ---- resolved state ---------------------------------------------------- */
+
+  [data-motion-ready] [data-motion].is-in {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+
+  /* Once an entrance has run, drop the compositor hint. */
+  [data-motion-ready] [data-motion].is-done { will-change: auto; }
+
+  /* ---- word-by-word headline -------------------------------------------- */
+
+  .words {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.1em;
+  }
+
+  .words--center { justify-content: center; }
+
+  .word {
+    display: inline-block;
+    margin-right: 0.28em;
+  }
+
+  [data-motion-ready] .word {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(var(--motion-blur-word));
+  }
+
+  /* Two-stage: overshoots slightly past its resting point with a light blur
+     still on, then settles. Matches the keyframed word entrance. */
+  [data-motion-ready] .word.is-in {
+    animation: word-in var(--duration-entrance) var(--ease-entrance) forwards;
+    animation-delay: var(--word-delay, 0ms);
+  }
+
+  @keyframes word-in {
+    0%   { opacity: 0;   transform: translateY(40px); filter: blur(10px); }
+    50%  { opacity: 0.5; transform: translateY(-4px); filter: blur(4px); }
+    100% { opacity: 1;   transform: translateY(0);    filter: blur(0); }
+  }
+
+  /* ---- scroll-linked ----------------------------------------------------- */
+
+  .parallax { will-change: transform; }
 }
 
+/* =============================================================================
+   REDUCED MOTION
+   Physical motion and blur are removed; durations are kept identical so the
+   pacing of the page is unchanged. Scale transforms go entirely.
+   ========================================================================== */
+
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+
+  [data-motion-ready] [data-motion],
+  [data-motion-ready] [data-motion='media'],
+  [data-motion-ready] [data-motion='slide-left'],
+  [data-motion-ready] [data-motion='slide-right'],
+  [data-motion-ready] [data-motion='rise'],
+  [data-motion-ready] [data-motion='line'] {
+    transform: none !important;
+    filter: none !important;
+    transition-property: opacity;
   }
+
+  [data-motion-ready] [data-motion='line'] { opacity: 0; }
+
+  [data-motion-ready] .word {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  [data-motion-ready] .word.is-in {
+    animation: word-in-reduced var(--duration-entrance) linear forwards;
+    animation-delay: var(--word-delay, 0ms);
+  }
+
+  @keyframes word-in-reduced {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Hover and press feedback loses its scale, keeps its colour change. */
+  .btn:hover, .btn:active,
+  .btn-round:hover, .btn-round:active,
+  .icon-btn:hover, .icon-btn:active,
+  .card:hover, .card:focus-visible, .card:active,
+  .card:hover .card-media, .card:focus-visible .card-media {
+    transform: none !important;
+  }
+
+  .parallax { transform: none !important; }
+
+  html { scroll-behavior: auto; }
 }

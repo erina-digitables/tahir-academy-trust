@@ -1,52 +1,117 @@
 /* =============================================================================
-   COMPONENTS — token composites.
-
-   Interaction language is deliberately uniform. The import had four unrelated
-   hover idioms (colour swap, opacity fade, background swap, translate), no
-   :focus-visible styling at all, and no :active feedback anywhere. Everything
-   below resolves to one vocabulary:
-
-     buttons  scale 1.05 in, 0.97 on press
-     cards    lift 7px + scale 1.018, inner media nudges 3px behind it
-     links    underline draws left-to-right, or nudges 3px where directional
-     focus    2px primary ring at 3px offset, plus a light halo so it stays
-              legible on frosted glass
+   COMPONENTS
    ========================================================================== */
 
 @layer components {
 
   /* ===========================================================================
+     LIQUID GLASS
+     The gradient hairline is drawn on ::before as a 1.4px ring, masked so only
+     the padding band paints. Bright at 0% and 100%, transparent through the
+     middle — the edge appears to catch light top and bottom, like a curved
+     piece of glass.
+     ======================================================================== */
+
+  .liquid-glass {
+    background: var(--glass-fill);
+    background-blend-mode: luminosity;
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: none;
+    box-shadow: var(--glass-inset);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .liquid-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: var(--glass-edge-width);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0.15) 20%,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0) 60%,
+      rgba(255, 255, 255, 0.15) 80%,
+      rgba(255, 255, 255, 0.45) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Cards need overflow:hidden for the media zoom, but a hover lift then gets
+     clipped. This variant lets the shadow escape while the ::before ring still
+     follows the radius. */
+  .liquid-glass--open { overflow: visible; }
+
+  /* ===========================================================================
      LAYOUT
      ======================================================================== */
 
-  /* One section rhythm for the whole page. The import padded equivalent
-     sections differently (p-12 md:p-24 on two of them, nothing on the rest). */
-  .section {
-    margin-top: var(--space-3xl);
+  .shell {
+    width: 100%;
+    max-width: var(--space-container-max);
+    margin-inline: auto;
   }
 
-  @media (min-width: 1024px) {
-    .section {
-      margin-top: var(--space-section-gap);
-    }
+  .section {
+    position: relative;
+    overflow: hidden;
+    padding-inline: var(--space-margin-mobile);
+    padding-block: var(--space-3xl);
+  }
+
+  @media (min-width: 768px) {
+    .section { padding-block: var(--space-5xl); }
+  }
+
+  .section--tight { padding-block: var(--space-2xl); }
+
+  @media (min-width: 768px) {
+    .section--tight { padding-block: var(--space-3xl); }
+  }
+
+  /* Radial washes that keep large black areas from going dead flat. */
+  .glow-top {
+    background-image: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+  }
+
+  .glow-center {
+    background-image: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
   }
 
   /* ===========================================================================
-     GLASS
+     TYPE HELPERS
      ======================================================================== */
 
-  .glass {
-    background-color: rgb(var(--color-glass) / var(--glass-alpha));
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
+  /* The signature move: an upright serif statement with one italic phrase
+     dropped to a lower opacity inside it. */
+  .em-soft {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: rgb(var(--color-ink) / var(--text-muted));
   }
 
-  .glass-strong {
-    background-color: rgb(var(--color-glass) / var(--glass-alpha-strong));
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
+  .label {
+    font-family: var(--font-body);
+    font-size: var(--text-label);
+    line-height: var(--leading-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: rgb(var(--color-ink) / var(--text-muted));
+  }
+
+  .rule-h {
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background-color: rgb(var(--color-ink) / 0.1);
   }
 
   /* ===========================================================================
@@ -58,224 +123,125 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-2xs);
-    min-height: 44px;          /* tap target floor, not an accident of padding */
-    padding-inline: var(--space-md);
+    min-height: 44px;
+    padding-inline: var(--space-lg);
     border-radius: var(--radius-full);
     font-family: var(--font-body);
-    font-size: var(--text-label-caps);
-    font-weight: var(--weight-label-caps);
-    letter-spacing: var(--tracking-label-caps);
-    line-height: var(--leading-label-caps);
-    text-transform: uppercase;
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-medium);
+    color: rgb(var(--color-ink));
     white-space: nowrap;
     cursor: pointer;
     transition:
       transform var(--duration-hover) var(--ease-overshoot),
       background-color var(--duration-hover) var(--ease-standard),
-      color var(--duration-hover) var(--ease-standard),
-      border-color var(--duration-hover) var(--ease-standard);
+      color var(--duration-hover) var(--ease-standard);
   }
 
-  .btn:hover { transform: scale(var(--motion-scale-button)); }
-  .btn:active { transform: scale(var(--motion-scale-button-tap)); transition-duration: var(--duration-fast); }
+  .btn:hover { transform: scale(var(--motion-scale-hover)); }
+  .btn:active { transform: scale(var(--motion-scale-tap)); transition-duration: var(--duration-fast); }
 
-  .btn-primary { background-color: rgb(var(--color-primary)); color: rgb(var(--color-on-primary)); }
-  .btn-primary:hover { background-color: rgb(var(--color-on-primary-fixed-variant)); }
+  /* Glass button: the fill lifts slightly on hover, matching hover:bg-white/5 */
+  .btn-glass:hover { background-color: var(--glass-hover-fill); }
 
-  .btn-accent { background-color: rgb(var(--color-primary-container)); color: rgb(var(--color-on-primary-container)); }
-  .btn-accent:hover { background-color: rgb(var(--color-primary-fixed)); }
-
-  /* Transparent until hovered, when the glass blur fades in. */
-  .btn-secondary {
-    background-color: transparent;
-    color: rgb(var(--color-primary));
-    border: 1px solid rgb(var(--color-primary) / 0.35);
+  .btn-solid {
+    background-color: rgb(var(--color-ink));
+    color: rgb(var(--color-background));
   }
 
-  .btn-secondary:hover {
-    background-color: rgb(var(--color-glass) / var(--glass-alpha));
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-color: rgb(var(--color-primary) / 0.6);
+  .btn-solid:hover { background-color: rgb(var(--color-ink) / 0.9); }
+
+  /* Circular icon button, e.g. the enquiry submit. */
+  .btn-round {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background-color: rgb(var(--color-ink));
+    color: rgb(var(--color-background));
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform var(--duration-hover) var(--ease-overshoot), background-color var(--duration-hover) var(--ease-standard);
   }
 
-  /* Arrow icons track the button they sit in. */
-  .btn-icon {
-    display: inline-block;
-    transition: transform var(--duration-hover) var(--ease-overshoot);
-  }
+  .btn-round:hover { transform: scale(var(--motion-scale-hover)); }
+  .btn-round:active { transform: scale(var(--motion-scale-tap)); }
 
+  .btn-icon { display: inline-block; transition: transform var(--duration-hover) var(--ease-overshoot); }
   .btn:hover .btn-icon { transform: translateX(3px); }
 
+  /* Social / icon-only glass buttons */
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-full);
+    color: rgb(var(--color-ink) / var(--text-muted));
+    cursor: pointer;
+    transition:
+      color var(--duration-hover) var(--ease-standard),
+      background-color var(--duration-hover) var(--ease-standard),
+      transform var(--duration-hover) var(--ease-overshoot);
+  }
+
+  .icon-btn:hover {
+    color: rgb(var(--color-ink));
+    background-color: var(--glass-hover-fill);
+    transform: scale(var(--motion-scale-hover));
+  }
+
+  .icon-btn:active { transform: scale(var(--motion-scale-tap)); }
+
   /* ===========================================================================
-     LINKS
+     NAVIGATION
      ======================================================================== */
+
+  .nav-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    width: 100%;
+    max-width: var(--space-container-nav);
+    margin-inline: auto;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+  }
 
   .nav-link {
     position: relative;
-    display: inline-block;
-    padding-block: var(--space-2xs);
-    font-family: var(--font-body);
-    font-size: var(--text-label-caps);
-    font-weight: var(--weight-label-caps);
-    letter-spacing: var(--tracking-label-caps);
-    line-height: var(--leading-label-caps);
-    text-transform: uppercase;
-    color: rgb(var(--color-on-surface-variant));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Full 44x44 target. Short labels like "Hiring" measured 39px wide without
+       the min-width. */
+    min-height: 44px;
+    min-width: 44px;
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-medium);
+    color: rgb(var(--color-ink) / var(--text-body));
     transition: color var(--duration-hover) var(--ease-standard);
   }
 
-  /* Underline draws in from the left rather than simply appearing. */
   .nav-link::after {
     content: '';
     position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: 10px;
     width: 100%;
     height: 1px;
-    background-color: rgb(var(--color-primary));
+    background-color: rgb(var(--color-ink));
     transform: scaleX(0);
     transform-origin: left;
     transition: transform var(--duration-hover) var(--ease-standard);
   }
 
-  .nav-link:hover,
-  .nav-link:focus-visible { color: rgb(var(--color-primary)); }
-  .nav-link:hover::after,
-  .nav-link:focus-visible::after { transform: scaleX(1); }
-
-  .footer-link {
-    font-family: var(--font-body);
-    font-size: var(--text-label-caps);
-    font-weight: var(--weight-label-caps);
-    letter-spacing: var(--tracking-label-caps);
-    text-transform: uppercase;
-    color: rgb(var(--color-on-surface-variant));
-    /* 44px tap target without visually inflating the row. */
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    transition: color var(--duration-hover) var(--ease-standard), transform var(--duration-hover) var(--ease-standard);
-  }
-
-  .footer-link:hover { color: rgb(var(--color-primary)); transform: translateX(3px); }
-
-  /* Inline links carry a permanent underline — they sit inside body copy and
-     must not rely on colour alone to be identifiable. */
-  .link-inline {
-    color: rgb(var(--color-primary));
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-    text-decoration-thickness: 1px;
-    transition: color var(--duration-hover) var(--ease-standard);
-  }
-
-  .link-inline:hover { color: rgb(var(--color-on-primary-fixed-variant)); }
-
-  /* ===========================================================================
-     CARDS  (rendered by assets/js/site.js)
-     ======================================================================== */
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border-radius: var(--radius-xl);
-    background-color: rgb(var(--color-glass) / var(--glass-alpha-strong));
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-ambient-sm);
-    transition:
-      transform var(--duration-hover) var(--ease-overshoot),
-      box-shadow var(--duration-hover) var(--ease-standard);
-  }
-
-  .card:hover,
-  .card:focus-visible {
-    transform: translateY(var(--motion-lift-card)) scale(var(--motion-scale-card));
-    box-shadow: var(--shadow-ambient);
-  }
-
-  .card:active { transform: translateY(-3px) scale(1.005); transition-duration: var(--duration-fast); }
-
-  .card-media {
-    aspect-ratio: 16 / 10;
-    width: 100%;
-    object-fit: cover;
-    /* Secondary, delayed nudge — the layered depth effect. */
-    transition: transform var(--duration-hover) var(--ease-overshoot) 150ms;
-  }
-
-  .card:hover .card-media,
-  .card:focus-visible .card-media { transform: translateY(-3px) scale(1.03); }
-
-  .card-body { display: flex; flex-direction: column; gap: var(--space-2xs); padding: var(--space-md); }
-
-  .card-cta {
-    margin-top: auto;
-    padding-top: var(--space-sm);
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3xs);
-    font-size: var(--text-label-caps);
-    font-weight: var(--weight-label-caps);
-    letter-spacing: var(--tracking-label-caps);
-    text-transform: uppercase;
-    color: rgb(var(--color-primary));
-  }
-
-  .card-cta span { transition: transform var(--duration-hover) var(--ease-overshoot); }
-  .card:hover .card-cta span { transform: translateX(3px); }
-
-  /* ===========================================================================
-     SERVICE LIST — thin full-width dividers, per the design system
-     ======================================================================== */
-
-  .service-row {
-    display: grid;
-    gap: var(--space-3xs);
-    padding-block: var(--space-md);
-    border-bottom: 1px solid rgb(var(--color-on-secondary-fixed) / 0.1);
-  }
-
-  .service-row:first-child { padding-top: 0; }
-
-  .contact-row {
-    display: grid;
-    gap: var(--space-3xs);
-    padding-block: var(--space-md);
-    border-bottom: 1px solid rgb(var(--color-on-secondary-fixed) / 0.1);
-  }
-
-  .contact-row:first-child { padding-top: 0; }
-
-  /* ===========================================================================
-     STATS
-     ======================================================================== */
-
-  .stat { display: grid; gap: var(--space-3xs); }
-
-  .stat-value {
-    font-family: var(--font-heading);
-    font-size: var(--text-headline-lg-fluid);
-    line-height: var(--leading-headline-lg);
-    font-weight: var(--weight-headline-lg);
-    color: rgb(var(--color-primary));
-    /* Digits must not reflow while the counter runs. */
-    font-variant-numeric: tabular-nums;
-  }
-
-  .stat-unit {
-    font-family: var(--font-body);
-    font-size: var(--text-body-md);
-    font-weight: var(--weight-body-md);
-    color: rgb(var(--color-on-surface-variant));
-  }
-
-  /* ===========================================================================
-     NAVIGATION — burger, scrim, drawer
-     ======================================================================== */
+  .nav-link:hover, .nav-link:focus-visible { color: rgb(var(--color-ink)); }
+  .nav-link:hover::after, .nav-link:focus-visible::after { transform: scaleX(1); }
 
   .nav-burger {
     display: inline-flex;
@@ -285,29 +251,30 @@
     gap: 5px;
     width: 44px;
     height: 44px;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-full);
     cursor: pointer;
+    flex-shrink: 0;
   }
 
   .nav-burger-bar {
     display: block;
-    width: 20px;
-    height: 2px;
+    width: 18px;
+    height: 1.5px;
     border-radius: var(--radius-full);
-    background-color: rgb(var(--color-on-surface));
+    background-color: rgb(var(--color-ink));
     transition: transform var(--duration-hover) var(--ease-standard);
   }
 
-  .nav-burger-bar--x1 { transform: translateY(3.5px) rotate(45deg); }
-  .nav-burger-bar--x2 { transform: translateY(-3.5px) rotate(-45deg); }
+  .nav-burger-bar--x1 { transform: translateY(3.25px) rotate(45deg); }
+  .nav-burger-bar--x2 { transform: translateY(-3.25px) rotate(-45deg); }
 
   .nav-scrim {
     position: fixed;
     inset: 0;
     z-index: var(--z-overlay);
-    background-color: rgb(var(--color-on-surface) / 0.4);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background-color: rgb(0 0 0 / 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     opacity: 0;
     transition: opacity var(--duration-conditional) var(--ease-standard);
   }
@@ -319,44 +286,179 @@
     inset-block: 0;
     right: 0;
     z-index: var(--z-modal);
-    width: min(20rem, 85vw);
-    padding-top: var(--space-xs);
-    background-color: rgb(var(--color-surface-container-low));
-    border-left: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-ambient-lg);
-    transform: translateX(100%);
-    transition: transform var(--duration-conditional) var(--ease-entrance);
+    width: min(20rem, 86vw);
+    background-color: rgb(0 0 0 / 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-left: 1px solid rgb(var(--color-ink) / 0.12);
+    /* Matches the conditional-element spec: scale + blur + slide, not a slide
+       alone. */
+    opacity: 0;
+    transform: translateX(24px) scale(0.96);
+    filter: blur(8px);
+    transition:
+      opacity var(--duration-conditional) var(--ease-entrance),
+      transform var(--duration-conditional) var(--ease-entrance),
+      filter var(--duration-conditional) var(--ease-entrance);
     overflow-y: auto;
   }
 
-  .nav-drawer[data-open='true'] { transform: translateX(0); }
+  .nav-drawer[data-open='true'] {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+  }
 
   .drawer-link {
     display: flex;
     align-items: center;
-    min-height: 44px;
-    padding-inline: var(--space-2xs);
-    border-radius: var(--radius-lg);
-    font-family: var(--font-body);
-    font-size: var(--text-label-caps);
-    font-weight: var(--weight-label-caps);
-    letter-spacing: var(--tracking-label-caps);
-    text-transform: uppercase;
-    color: rgb(var(--color-on-surface));
+    min-height: 48px;
+    padding-inline: var(--space-sm);
+    border-radius: var(--radius-DEFAULT);
+    font-size: var(--text-body-md);
+    color: rgb(var(--color-ink) / var(--text-body));
     transition: background-color var(--duration-hover) var(--ease-standard), color var(--duration-hover) var(--ease-standard);
   }
 
-  .drawer-link:hover { background-color: rgb(var(--color-surface-container-high)); color: rgb(var(--color-primary)); }
+  .drawer-link:hover { background-color: var(--glass-hover-fill); color: rgb(var(--color-ink)); }
 
   /* ===========================================================================
-     EDITORIAL RULE / SKIP LINK
+     ENQUIRY FIELD  (the email-capture pill)
      ======================================================================== */
 
-  .rule {
-    height: 1px;
-    border: 0;
-    background-color: rgb(var(--color-on-secondary-fixed) / 0.1);
+  .field-pill {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    width: 100%;
+    padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-md);
+    border-radius: var(--radius-full);
   }
+
+  .field-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 44px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgb(var(--color-ink));
+    font-family: var(--font-body);
+    /* 16px minimum, or iOS Safari zooms the viewport on focus. */
+    font-size: var(--text-body-md);
+  }
+
+  .field-input::placeholder { color: rgb(var(--color-ink) / var(--text-faint)); }
+  .field-input:focus { outline: none; box-shadow: none; }
+
+  /* ===========================================================================
+     CARDS
+     ======================================================================== */
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-xl);
+    transition: transform var(--duration-hover) var(--ease-overshoot);
+  }
+
+  .card:hover, .card:focus-visible { transform: translateY(-6px); }
+  .card:active { transform: translateY(-2px); transition-duration: var(--duration-fast); }
+
+  .card-media-wrap { position: relative; overflow: hidden; }
+
+  .card-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-card-zoom) var(--ease-standard);
+  }
+
+  .card:hover .card-media, .card:focus-visible .card-media {
+    transform: scale(var(--motion-scale-zoom));
+  }
+
+  /* Keeps the label legible where the media runs bright. */
+  .media-scrim {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to top, rgb(0 0 0 / 0.4), transparent);
+    pointer-events: none;
+  }
+
+  .media-scrim--deep {
+    background-image: linear-gradient(to top, rgb(0 0 0 / 0.6), transparent 50%, transparent);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .card-body { padding: var(--space-lg); }
+  }
+
+  .card-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    color: rgb(var(--color-ink));
+    flex-shrink: 0;
+    transition: transform var(--duration-hover) var(--ease-overshoot);
+  }
+
+  .card:hover .card-arrow { transform: translate(3px, -3px); }
+
+  /* ===========================================================================
+     LIST ROWS  (services, contact)
+     ======================================================================== */
+
+  .row {
+    display: grid;
+    gap: var(--space-3xs);
+    padding-block: var(--space-md);
+    border-bottom: 1px solid rgb(var(--color-ink) / 0.1);
+  }
+
+  .row:first-child { padding-top: 0; }
+
+  /* Contact values are standalone links, not links inside a sentence, so the
+     44px minimum applies to them. */
+  .row a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* ===========================================================================
+     STATS
+     ======================================================================== */
+
+  .stat { display: grid; gap: var(--space-3xs); }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    line-height: var(--leading-display);
+    color: rgb(var(--color-ink));
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--text-body-sm);
+    color: rgb(var(--color-ink) / var(--text-muted));
+  }
+
+  /* ===========================================================================
+     SKIP LINK
+     ======================================================================== */
 
   .skip-link {
     position: absolute;
@@ -364,13 +466,11 @@
     top: var(--space-sm);
     z-index: var(--z-toast);
     padding: var(--space-xs) var(--space-md);
-    border-radius: var(--radius-lg);
-    background-color: rgb(var(--color-primary));
-    color: rgb(var(--color-on-primary));
-    font-size: var(--text-label-caps);
-    font-weight: var(--weight-label-caps);
-    letter-spacing: var(--tracking-label-caps);
-    text-transform: uppercase;
+    border-radius: var(--radius-full);
+    background-color: rgb(var(--color-ink));
+    color: rgb(var(--color-background));
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-medium);
     transform: translateY(calc(-100% - var(--space-lg)));
     transition: transform var(--duration-hover) var(--ease-entrance);
   }

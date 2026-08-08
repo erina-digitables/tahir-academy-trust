@@ -56,9 +56,13 @@ const server = http.createServer((req, res) => {
       return;
     }
     const ext = path.extname(file).toLowerCase();
+    // Markup, styles and scripts are revalidated every request so an edit is
+    // never masked by a cached copy. Images are content-addressed by width and
+    // safe to cache.
+    const volatile = ext === '.html' || ext === '.css' || ext === '.js';
     res.writeHead(200, {
       'Content-Type': TYPES[ext] || 'application/octet-stream',
-      'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=3600',
+      'Cache-Control': volatile ? 'no-store, must-revalidate' : 'public, max-age=3600',
     });
     res.end(buf);
   });

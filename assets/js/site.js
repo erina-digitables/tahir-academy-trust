@@ -1,14 +1,15 @@
 /**
- * Site behaviour: content rendering, mobile navigation, footer year.
+ * Site behaviour: content rendering, hero video crossfade loop, mobile
+ * navigation, enquiry field.
  *
- * The imported page repeated the same card markup three times for courses and
- * the same row markup three times for services. Both are now single templates
- * driven by the arrays below, so adding a fourth course is a data edit.
- *
- * Copy is taken verbatim from tahiracademytrust.org.
+ * Course and service copy is taken verbatim from tahiracademytrust.org and
+ * lives in the arrays below, so adding a fourth course is a data edit rather
+ * than a markup clone.
  */
 (function () {
   'use strict';
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   /* ==========================================================================
      CONTENT
@@ -16,33 +17,27 @@
 
   var COURSES = [
     {
-      id: 'sanatayn',
+      tag: 'Two year course',
       title: 'Sanatayn Course',
-      duration: '2 year course',
-      schedule: 'Saturday & Sunday · 9:30am – 12:30pm',
-      body: 'A two year course for both girls and boys from the age of 11, covering the essential foundations of the Islamic sciences.',
+      body: 'For both girls and boys from the age of 11. Saturdays and Sundays, 9:30am until 12:30pm, covering the essential foundations of the Islamic sciences.',
       image: 'course-sanatayn',
       alt: 'Open Islamic texts and calligraphy used in the Sanatayn course',
       width: 560,
       height: 315,
     },
     {
-      id: 'aalimiyyah',
+      tag: 'Six year course',
       title: 'Aalimiyyah Course',
-      duration: '6 year course',
-      schedule: 'Saturday & Sunday · 9:30am – 12:30pm',
-      body: 'Our six year scholarly programme for both boys and girls, running at Waverley Primary School, designed to produce knowledgeable community leaders.',
+      body: 'Our scholarly programme for both boys and girls, running at Waverley Primary School. Classes are from 9:30am until 12:30pm.',
       image: 'course-aalimiyyah',
       alt: 'Students working through advanced texts in the Aalimiyyah course',
       width: 560,
       height: 792,
     },
     {
-      id: 'hifz',
+      tag: 'Memorisation',
       title: "Hifz ul Qur'an",
-      duration: 'Flexible',
-      schedule: 'Saturday & Sunday · 9:30am – 12:30pm',
-      body: "A dedicated programme to memorise the Holy Qur'an with tajweed, focusing on accuracy and long-term retention.",
+      body: "To memorise the Holy Qur'an with tajweed. Classes from 9:30am until 12:30pm on Saturdays and Sundays.",
       image: 'course-hifz',
       alt: "Students in a Qur'an recitation circle",
       width: 560,
@@ -54,12 +49,12 @@
     {
       title: 'Eid Salaah',
       when: 'Jamaat starts 9:00am sharp',
-      body: 'Our Eid ul Fitr Salaah, held at the Huntingdon Suite, Broxbourne Council, Cheshunt, Herts EN8 9XQ. Donations are collected for our fundraiser.',
+      body: 'Our Eid ul Fitr Salaah at the Huntingdon Suite, Broxbourne Council, Cheshunt, Herts EN8 9XQ. Donations are collected for our fundraiser.',
     },
     {
       title: 'Jumuah prayers at Cheshunt',
       when: 'Every Friday',
-      body: 'We have been providing Jumuah Salaah to the people of Cheshunt, with special guests leading the prayers. Huntingdon Suite, Broxbourne Council, Cheshunt EN8 9XQ. Parking is available.',
+      body: 'We have been providing Jumuah Salaah to the local people of Cheshunt, with special guests leading the prayers. Parking facilities are available.',
     },
     {
       title: 'Taraweeh Salaah',
@@ -72,7 +67,6 @@
      RENDERING
      ======================================================================== */
 
-  /** Escapes text before it reaches innerHTML. */
   function esc(value) {
     return String(value).replace(/[&<>"']/g, function (ch) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
@@ -82,20 +76,25 @@
   function courseCard(course) {
     var base = '/assets/img/' + course.image;
     return (
-      '<a class="card" href="#location" data-motion="fade" ' +
+      '<a class="liquid-glass card rounded-xl" href="#location" data-motion="fade" ' +
       'aria-label="' + esc(course.title) + ' — enquire about this course">' +
-        '<picture>' +
-          '<source type="image/webp" srcset="' + base + '-560.webp 560w, ' + base + '-1120.webp 1120w" ' +
-                  'sizes="(min-width: 768px) 30vw, 100vw">' +
-          '<img src="' + base + '-560.jpg" width="' + course.width + '" height="' + course.height + '" ' +
+        '<div class="card-media-wrap aspect-video">' +
+          '<img src="' + base + '-560.jpg" ' +
+               'srcset="' + base + '-560.webp 560w, ' + base + '-1120.webp 1120w" ' +
+               'sizes="(min-width: 768px) 30vw, 100vw" ' +
+               'width="' + course.width + '" height="' + course.height + '" ' +
                'loading="lazy" decoding="async" alt="' + esc(course.alt) + '" class="card-media">' +
-        '</picture>' +
+          '<div class="media-scrim" aria-hidden="true"></div>' +
+        '</div>' +
         '<div class="card-body">' +
-          '<p class="text-label-caps text-primary">' + esc(course.duration) + '</p>' +
-          '<h3 class="text-headline-md text-on-surface">' + esc(course.title) + '</h3>' +
-          '<p class="text-label-caps text-on-surface-variant">' + esc(course.schedule) + '</p>' +
-          '<p class="text-body-md text-on-surface-variant">' + esc(course.body) + '</p>' +
-          '<span class="card-cta">Enquire <span aria-hidden="true">→</span></span>' +
+          '<div class="flex items-start justify-between gap-sm">' +
+            '<p class="label">' + esc(course.tag) + '</p>' +
+            '<span class="liquid-glass card-arrow rounded-full" aria-hidden="true">' +
+              '<svg class="h-4 w-4"><use href="#i-arrow-up-right"/></svg>' +
+            '</span>' +
+          '</div>' +
+          '<h3 class="font-display text-title text-strong">' + esc(course.title) + '</h3>' +
+          '<p class="text-body-sm text-muted">' + esc(course.body) + '</p>' +
         '</div>' +
       '</a>'
     );
@@ -103,10 +102,10 @@
 
   function serviceRow(service) {
     return (
-      '<li class="service-row" data-motion="fade">' +
-        '<h3 class="text-headline-sm text-primary">' + esc(service.title) + '</h3>' +
-        '<p class="text-label-caps text-on-surface-variant">' + esc(service.when) + '</p>' +
-        '<p class="text-body-md text-on-surface-variant">' + esc(service.body) + '</p>' +
+      '<li class="row" data-motion="fade">' +
+        '<h3 class="font-display text-title text-strong">' + esc(service.title) + '</h3>' +
+        '<p class="label">' + esc(service.when) + '</p>' +
+        '<p class="text-body-sm text-body">' + esc(service.body) + '</p>' +
       '</li>'
     );
   }
@@ -123,9 +122,153 @@
   }
 
   /* ==========================================================================
+     HERO VIDEO — crossfade loop
+     The clip does not loop cleanly, so instead of `loop` we fade to black over
+     the last 0.55s, restart, and fade back in. The result reads as one
+     continuous ambient shot rather than a visible cut.
+     ======================================================================== */
+
+  var FADE_MS = 500;
+  var TAIL_S = 0.55;
+
+  function fadeTo(el, target, ms, done) {
+    var from = parseFloat(el.style.opacity || '0');
+    var start = null;
+    var settled = false;
+
+    if (el._fadeFrame) cancelAnimationFrame(el._fadeFrame);
+    if (el._fadeGuard) clearTimeout(el._fadeGuard);
+
+    function settle() {
+      if (settled) return;
+      settled = true;
+      el._fadeFrame = null;
+      el._fadeGuard = null;
+      el.style.opacity = String(target);
+      if (done) done();
+    }
+
+    function step(now) {
+      if (settled) return;
+      if (start === null) start = now;
+      var t = Math.min((now - start) / ms, 1);
+      el.style.opacity = String(from + (target - from) * t);
+      if (t < 1) el._fadeFrame = requestAnimationFrame(step);
+      else settle();
+    }
+
+    // requestAnimationFrame does not run in a tab that is not compositing —
+    // a background tab at load, low-power mode, some embedded webviews. Without
+    // this guarantee the video would stay stuck at opacity 0 over black and the
+    // poster could never show through. The timer settles the end state
+    // regardless; when rAF is running normally it finishes first and this is a
+    // no-op.
+    el._fadeGuard = window.setTimeout(settle, ms + 120);
+    el._fadeFrame = requestAnimationFrame(step);
+  }
+
+  function initHeroVideo() {
+    var video = document.getElementById('hero-video');
+    if (!video) return;
+
+    var fallback = document.getElementById('hero-fallback');
+    function showFallback() { if (fallback) fallback.style.opacity = '1'; }
+
+    // Reduced motion: show the still, never play.
+    if (reduce.matches) {
+      video.removeAttribute('autoplay');
+      video.removeAttribute('src');
+      showFallback();
+      try { video.pause(); } catch (e) { /* not started yet */ }
+      return;
+    }
+
+    // If playback has not actually begun shortly after load — autoplay refused
+    // by a data saver or power saver, a stalled network, a tab opened in the
+    // background — fall back to the still rather than leaving a black screen.
+    window.setTimeout(function () {
+      if (video.paused || video.currentTime === 0) showFallback();
+    }, 1500);
+
+    var fadingOut = false;
+    var started = false;
+
+    function begin() {
+      if (started) return;
+      started = true;
+      var attempt = video.play();
+      if (attempt && attempt.catch) attempt.catch(showFallback);
+      fadeTo(video, 1, FADE_MS);
+    }
+
+    // preload="auto" on a deferred script means canplay may already have fired
+    // by the time we get here. Without this check the listener never runs and
+    // the hero sits at opacity 0 forever.
+    if (video.readyState >= 3) begin();
+    else video.addEventListener('canplay', begin, { once: true });
+
+    // If the clip fails to load at all, show the still rather than black.
+    video.addEventListener('error', showFallback);
+    video.addEventListener('stalled', showFallback);
+
+    video.addEventListener('timeupdate', function () {
+      if (!video.duration || fadingOut) return;
+      if (video.duration - video.currentTime <= TAIL_S) {
+        fadingOut = true;
+        fadeTo(video, 0, FADE_MS);
+      }
+    });
+
+    video.addEventListener('ended', function () {
+      video.style.opacity = '0';
+      window.setTimeout(function () {
+        video.currentTime = 0;
+        var attempt = video.play();
+        if (attempt && attempt.catch) attempt.catch(function () {});
+        fadingOut = false;
+        fadeTo(video, 1, FADE_MS);
+      }, 100);
+    });
+
+    // Don't decode video for a tab nobody is looking at.
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) video.pause();
+      else if (!reduce.matches) { var a = video.play(); if (a && a.catch) a.catch(function () {}); }
+    });
+  }
+
+  /** Section videos: pause the ones that aren't on screen, and all of them
+   *  under reduced motion. */
+  function initAmbientVideos() {
+    var videos = Array.prototype.slice.call(document.querySelectorAll('video')).filter(function (v) {
+      return v.id !== 'hero-video';
+    });
+    if (!videos.length) return;
+
+    if (reduce.matches) {
+      videos.forEach(function (v) {
+        v.removeAttribute('autoplay');
+        v.removeAttribute('loop');
+        try { v.pause(); } catch (e) { /* not started */ }
+      });
+      return;
+    }
+
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var v = entry.target;
+        if (entry.isIntersecting) { var a = v.play(); if (a && a.catch) a.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.15 });
+
+    videos.forEach(function (v) { io.observe(v); });
+  }
+
+  /* ==========================================================================
      MOBILE NAVIGATION
-     Focus is trapped while the drawer is open and returned to the trigger on
-     close. The import had no mobile navigation at all.
      ======================================================================== */
 
   var FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
@@ -146,19 +289,12 @@
     function onKeydown(event) {
       if (event.key === 'Escape') { closeDrawer(); return; }
       if (event.key !== 'Tab') return;
-
       var items = focusables();
       if (!items.length) return;
       var first = items[0];
       var last = items[items.length - 1];
-
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     }
 
     function openDrawer() {
@@ -166,7 +302,6 @@
       isOpen = true;
       drawer.hidden = false;
       scrim.hidden = false;
-      // Next frame, so the transition has a start value to animate from.
       requestAnimationFrame(function () {
         drawer.setAttribute('data-open', 'true');
         scrim.setAttribute('data-open', 'true');
@@ -188,9 +323,9 @@
       document.removeEventListener('keydown', onKeydown);
       toggle.focus();
 
-      var ms = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 300;
+      var ms = reduce.matches ? 0 : 300;
       window.setTimeout(function () {
-        if (isOpen) return; // reopened during the exit
+        if (isOpen) return;
         drawer.hidden = true;
         scrim.hidden = true;
       }, ms);
@@ -203,16 +338,53 @@
       if (event.target.closest('a')) closeDrawer();
     });
 
-    // Leaving the mobile breakpoint with the drawer open would strand it.
-    matchMedia('(min-width: 1024px)').addEventListener('change', function (e) {
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', function (e) {
       if (e.matches) closeDrawer();
     });
   }
 
+  /* ==========================================================================
+     ENQUIRY FIELD
+     There is no backend, so this hands off to the trust's real inbox rather
+     than pretending to submit. A field that silently does nothing is worse
+     than no field.
+     ======================================================================== */
+
+  function initEnquiry() {
+    var form = document.getElementById('enquiry-form');
+    if (!form) return;
+    var input = document.getElementById('enquiry-email');
+    var status = document.getElementById('enquiry-status');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var value = (input.value || '').trim();
+
+      if (!value || !input.checkValidity()) {
+        status.textContent = 'Please enter a valid email address.';
+        input.focus();
+        return;
+      }
+
+      status.textContent = 'Opening your email app…';
+      window.location.href =
+        'mailto:info@tahiracademytrust.org' +
+        '?subject=' + encodeURIComponent('Enquiry from the Tahir Academy Trust website') +
+        '&body=' + encodeURIComponent('Please contact me at: ' + value + '\n\nMy enquiry:\n');
+    });
+  }
+
+  /* ==========================================================================
+     INIT
+     ======================================================================== */
+
   function init() {
     render();
+    initHeroVideo();
+    initAmbientVideos();
     initNav();
-    // Entrance animations attach after the cards and rows exist in the DOM.
+    initEnquiry();
+    // Entrance animations attach after injected content exists in the DOM.
     if (window.Motion && typeof window.Motion.refresh === 'function') window.Motion.refresh();
   }
 

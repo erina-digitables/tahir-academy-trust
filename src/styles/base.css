@@ -5,60 +5,64 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Fixed nav is ~88px; keep anchor targets clear of it. */
-    scroll-padding-top: calc(var(--space-3xl) + var(--space-sm));
+    scroll-padding-top: var(--space-3xl);
+    background-color: rgb(var(--color-background));
   }
 
   body {
     background-color: rgb(var(--color-background));
-    color: rgb(var(--color-on-background));
+    color: rgb(var(--color-ink) / var(--text-body));
     font-family: var(--font-body);
     font-size: var(--text-body-md);
-    line-height: var(--leading-body-md);
+    line-height: var(--leading-body);
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    /* Nothing may cause a sideways scroll on a full-bleed dark page. */
+    overflow-x: hidden;
   }
 
-  /* Headings inherit the editorial serif by default so a bare <h_> can never
-     fall back to the body sans. The import relied on every heading carrying an
-     explicit font-* class, which is how the nav brand drifted to weight 700. */
+  /* Display type is the serif by default, so a bare heading can never fall
+     back to the body sans. */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    color: rgb(var(--color-on-surface));
+    font-family: var(--font-display);
+    font-weight: var(--weight-body);
+    color: rgb(var(--color-ink));
+    letter-spacing: var(--tracking-display);
     text-wrap: balance;
   }
 
-  p {
-    text-wrap: pretty;
-  }
+  p { text-wrap: pretty; }
 
-  /* Media never overflows its column. */
   img, picture, video, canvas, svg {
     display: block;
     max-width: 100%;
   }
 
-  /* ---------------------------------------------------------------------------
-     Focus. The import had no focus styling at all — only the UA default, which
-     is close to invisible against frosted glass.
-     ------------------------------------------------------------------------ */
+  /* Focus. A white ring on black, with a dark halo so it stays visible when it
+     lands on top of bright video. */
   :focus-visible {
-    outline: 2px solid rgb(var(--color-primary));
+    outline: 2px solid rgb(var(--color-ink));
     outline-offset: 3px;
     border-radius: var(--radius-sm);
-    /* Frosted glass is low-contrast and variable — whatever sits behind it can
-       be light or dark. The pale halo guarantees the gold ring stays readable
-       against either, without darkening the surface itself. */
-    box-shadow: 0 0 0 5px rgb(var(--color-surface-container-lowest) / 0.9);
+    box-shadow: 0 0 0 5px rgb(0 0 0 / 0.75);
   }
 
-  /* Suppress the ring for pointer users while keeping it for keyboards. */
-  :focus:not(:focus-visible) {
-    outline: none;
-  }
+  :focus:not(:focus-visible) { outline: none; }
 
   ::selection {
-    background-color: rgb(var(--color-primary-container) / 0.35);
-    color: rgb(var(--color-on-primary-container));
+    background-color: rgb(var(--color-accent) / 0.3);
+    color: rgb(var(--color-ink));
+  }
+
+  /* The forms plugin restyles inputs; the enquiry field is bespoke. */
+  input[type='email'], input[type='text'] {
+    background-color: transparent;
+    border: none;
+  }
+
+  input[type='email']:focus, input[type='text']:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: transparent;
   }
 }
