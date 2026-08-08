@@ -14,9 +14,16 @@
  */
 
 const ENDPOINT = process.env.STITCH_MCP_URL || 'https://stitch.googleapis.com/mcp';
-const API_KEY =
-  process.env.STITCH_API_KEY ||
-  'AQ.Ab8RN6Ldl_xt5nwaV827IywWb18dje8Lfkjt0LnlN2FPH-Kfmg';
+const API_KEY = process.env.STITCH_API_KEY;
+
+if (!API_KEY) {
+  console.error(
+    '[stitch-proxy] STITCH_API_KEY is not set.\n' +
+      '  Copy .env.example to .env and add your key, or export it in the shell.\n' +
+      '  The key must never be committed to the repository.'
+  );
+  process.exit(1);
+}
 
 // Upstream reports itself as stateless, but honour a session id if it ever sends one.
 let sessionId = null;
