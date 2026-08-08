@@ -1,0 +1,312 @@
+{
+  "logo": [
+    {
+      "file": "logo-96.webp",
+      "w": 96,
+      "h": 96,
+      "bytes": 2462
+    },
+    {
+      "file": "logo-96.jpg",
+      "w": 96,
+      "h": 96,
+      "bytes": 2950
+    },
+    {
+      "file": "logo-192.webp",
+      "w": 192,
+      "h": 192,
+      "bytes": 6726
+    },
+    {
+      "file": "logo-192.jpg",
+      "w": 192,
+      "h": 192,
+      "bytes": 8483
+    }
+  ],
+  "hero-classroom": [
+    {
+      "file": "hero-classroom-768.webp",
+      "w": 768,
+      "h": 510,
+      "bytes": 46326
+    },
+    {
+      "file": "hero-classroom-768.jpg",
+      "w": 768,
+      "h": 510,
+      "bytes": 60358
+    },
+    {
+      "file": "hero-classroom-1280.webp",
+      "w": 1280,
+      "h": 850,
+      "bytes": 90426
+    },
+    {
+      "file": "hero-classroom-1280.jpg",
+      "w": 1280,
+      "h": 850,
+      "bytes": 131888
+    },
+    {
+      "file": "hero-classroom-1920.webp",
+      "w": 1920,
+      "h": 1275,
+      "bytes": 150422
+    },
+    {
+      "file": "hero-classroom-1920.jpg",
+      "w": 1920,
+      "h": 1275,
+      "bytes": 240052
+    }
+  ],
+  "welcome-wide": [
+    {
+      "file": "welcome-wide-768.webp",
+      "w": 768,
+      "h": 512,
+      "bytes": 17558
+    },
+    {
+      "file": "welcome-wide-768.jpg",
+      "w": 768,
+      "h": 512,
+      "bytes": 31353
+    },
+    {
+      "file": "welcome-wide-1280.webp",
+      "w": 1280,
+      "h": 854,
+      "bytes": 35536
+    },
+    {
+      "file": "welcome-wide-1280.jpg",
+      "w": 1280,
+      "h": 854,
+      "bytes": 67036
+    },
+    {
+      "file": "welcome-wide-1920.webp",
+      "w": 1920,
+      "h": 1280,
+      "bytes": 59582
+    },
+    {
+      "file": "welcome-wide-1920.jpg",
+      "w": 1920,
+      "h": 1280,
+      "bytes": 123159
+    }
+  ],
+  "open-house": [
+    {
+      "file": "open-house-640.webp",
+      "w": 640,
+      "h": 427,
+      "bytes": 46122
+    },
+    {
+      "file": "open-house-640.jpg",
+      "w": 640,
+      "h": 427,
+      "bytes": 47668
+    },
+    {
+      "file": "open-house-1120.webp",
+      "w": 1120,
+      "h": 747,
+      "bytes": 144434
+    },
+    {
+      "file": "open-house-1120.jpg",
+      "w": 1120,
+      "h": 747,
+      "bytes": 145256
+    }
+  ],
+  "hiring": [
+    {
+      "file": "hiring-640.webp",
+      "w": 640,
+      "h": 905,
+      "bytes": 52972
+    },
+    {
+      "file": "hiring-640.jpg",
+      "w": 640,
+      "h": 905,
+      "bytes": 70474
+    },
+    {
+      "file": "hiring-1120.webp",
+      "w": 1120,
+      "h": 1583,
+      "bytes": 100708
+    },
+    {
+      "file": "hiring-1120.jpg",
+      "w": 1120,
+      "h": 1583,
+      "bytes": 148277
+    }
+  ],
+  "course-sanatayn": [
+    {
+      "file": "course-sanatayn-560.webp",
+      "w": 560,
+      "h": 315,
+      "bytes": 7516
+    },
+    {
+      "file": "course-sanatayn-560.jpg",
+      "w": 560,
+      "h": 315,
+      "bytes": 13342
+    },
+    {
+      "file": "course-sanatayn-1120.webp",
+      "w": 1120,
+      "h": 630,
+      "bytes": 19476
+    },
+    {
+      "file": "course-sanatayn-1120.jpg",
+      "w": 1120,
+      "h": 630,
+      "bytes": 36958
+    }
+  ],
+  "course-aalimiyyah": [
+    {
+      "file": "course-aalimiyyah-560.webp",
+      "w": 560,
+      "h": 792,
+      "bytes": 45826
+    },
+    {
+      "file": "course-aalimiyyah-560.jpg",
+      "w": 560,
+      "h": 792,
+      "bytes": 62110
+    },
+    {
+      "file": "course-aalimiyyah-1120.webp",
+      "w": 1120,
+      "h": 1584,
+      "bytes": 103176
+    },
+    {
+      "file": "course-aalimiyyah-1120.jpg",
+      "w": 1120,
+      "h": 1584,
+      "bytes": 165805
+    }
+  ],
+  "course-hifz": [
+    {
+      "file": "course-hifz-560.webp",
+      "w": 560,
+      "h": 373,
+      "bytes": 37238
+    },
+    {
+      "file": "course-hifz-560.jpg",
+      "w": 560,
+      "h": 373,
+      "bytes": 39737
+    },
+    {
+      "file": "course-hifz-1120.webp",
+      "w": 1120,
+      "h": 747,
+      "bytes": 116546
+    },
+    {
+      "file": "course-hifz-1120.jpg",
+      "w": 1120,
+      "h": 747,
+      "bytes": 133765
+    }
+  ],
+  "service-eid": [
+    {
+      "file": "service-eid-560.webp",
+      "w": 560,
+      "h": 792,
+      "bytes": 38874
+    },
+    {
+      "file": "service-eid-560.jpg",
+      "w": 560,
+      "h": 792,
+      "bytes": 53006
+    },
+    {
+      "file": "service-eid-1120.webp",
+      "w": 1120,
+      "h": 1584,
+      "bytes": 80680
+    },
+    {
+      "file": "service-eid-1120.jpg",
+      "w": 1120,
+      "h": 1584,
+      "bytes": 131655
+    }
+  ],
+  "service-jumuah": [
+    {
+      "file": "service-jumuah-560.webp",
+      "w": 560,
+      "h": 496,
+      "bytes": 59416
+    },
+    {
+      "file": "service-jumuah-560.jpg",
+      "w": 560,
+      "h": 496,
+      "bytes": 58820
+    },
+    {
+      "file": "service-jumuah-1120.webp",
+      "w": 1120,
+      "h": 992,
+      "bytes": 154560
+    },
+    {
+      "file": "service-jumuah-1120.jpg",
+      "w": 1120,
+      "h": 992,
+      "bytes": 187173
+    }
+  ],
+  "service-taraweeh": [
+    {
+      "file": "service-taraweeh-560.webp",
+      "w": 560,
+      "h": 792,
+      "bytes": 32868
+    },
+    {
+      "file": "service-taraweeh-560.jpg",
+      "w": 560,
+      "h": 792,
+      "bytes": 46382
+    },
+    {
+      "file": "service-taraweeh-1120.webp",
+      "w": 1120,
+      "h": 1583,
+      "bytes": 72778
+    },
+    {
+      "file": "service-taraweeh-1120.jpg",
+      "w": 1120,
+      "h": 1583,
+      "bytes": 115841
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+/* =============================================================================
+   BASE — element defaults, all token-driven.
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Fixed nav is ~88px; keep anchor targets clear of it. */
+    scroll-padding-top: calc(var(--space-3xl) + var(--space-sm));
+  }
+
+  body {
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-on-background));
+    font-family: var(--font-body);
+    font-size: var(--text-body-md);
+    line-height: var(--leading-body-md);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings inherit the editorial serif by default so a bare <h_> can never
+     fall back to the body sans. The import relied on every heading carrying an
+     explicit font-* class, which is how the nav brand drifted to weight 700. */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: rgb(var(--color-on-surface));
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Media never overflows its column. */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ---------------------------------------------------------------------------
+     Focus. The import had no focus styling at all — only the UA default, which
+     is close to invisible against frosted glass.
+     ------------------------------------------------------------------------ */
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-primary));
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Suppress the ring for pointer users while keeping it for keyboards. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: rgb(var(--color-primary-container) / 0.35);
+    color: rgb(var(--color-on-primary-container));
+  }
+}

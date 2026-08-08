@@ -1,0 +1,11 @@
+/* Tailwind entry point. Token layer loads first so every utility that resolves
+   a custom property has a value by the time the cascade runs. */
+
+@import './styles/tokens.css';
+@import './styles/base.css';
+@import './styles/components.css';
+@import './styles/motion.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

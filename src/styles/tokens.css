@@ -1,0 +1,235 @@
+/* =============================================================================
+   DESIGN TOKENS — "Liquid Editorial"
+   =============================================================================
+   Single source of truth for every color, type, space, radius, shadow, z-index
+   and motion value in the project. Transcribed from the design system the Stitch
+   MCP server returned: imported/_mcp/design-system.md (designMd frontmatter).
+
+   No raw values may appear anywhere outside this file.
+
+   Colors are stored as space-separated RGB channels, not hex. That lets Tailwind
+   compose alpha through `rgb(var(--x) / <alpha-value>)`, so `bg-surface/60` works
+   correctly. The import stored `glass-fill` as a pre-baked `rgba(…, 0.4)`, which
+   meant every `/40` and `/60` modifier silently discarded the token's own alpha.
+   Alpha is now always expressed at the call site.
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------------------
+     COLOR — surfaces
+     ------------------------------------------------------------------------ */
+  --color-surface: 255 248 243;                  /* #fff8f3 */
+  --color-surface-dim: 225 217 208;              /* #e1d9d0 */
+  --color-surface-bright: 255 248 243;           /* #fff8f3 */
+  --color-surface-container-lowest: 255 255 255; /* #ffffff */
+  --color-surface-container-low: 251 242 233;    /* #fbf2e9 */
+  --color-surface-container: 245 237 228;        /* #f5ede4 */
+  --color-surface-container-high: 239 231 222;   /* #efe7de */
+  --color-surface-container-highest: 233 225 216;/* #e9e1d8 */
+  --color-surface-variant: 233 225 216;          /* #e9e1d8 */
+  --color-surface-tint: 119 90 25;               /* #775a19 */
+  --color-on-surface: 30 27 22;                  /* #1e1b16 */
+  --color-on-surface-variant: 78 70 57;          /* #4e4639 */
+  --color-inverse-surface: 52 48 42;             /* #34302a */
+  --color-inverse-on-surface: 248 239 230;       /* #f8efe6 */
+  --color-background: 255 248 243;               /* #fff8f3 */
+  --color-on-background: 30 27 22;               /* #1e1b16 */
+
+  /* ---------------------------------------------------------------------------
+     COLOR — brand
+     ------------------------------------------------------------------------ */
+  --color-primary: 119 90 25;                    /* #775a19 */
+  --color-on-primary: 255 255 255;               /* #ffffff */
+  --color-primary-container: 197 160 89;         /* #c5a059 */
+  --color-on-primary-container: 78 55 0;         /* #4e3700 */
+  --color-inverse-primary: 233 193 118;          /* #e9c176 */
+  --color-primary-fixed: 255 222 165;            /* #ffdea5 */
+  --color-primary-fixed-dim: 233 193 118;        /* #e9c176 */
+  --color-on-primary-fixed: 38 25 0;             /* #261900 */
+  --color-on-primary-fixed-variant: 93 66 1;     /* #5d4201 */
+
+  --color-secondary: 95 94 94;                   /* #5f5e5e */
+  --color-on-secondary: 255 255 255;             /* #ffffff */
+  --color-secondary-container: 226 223 222;      /* #e2dfde */
+  --color-on-secondary-container: 99 98 98;      /* #636262 */
+  --color-secondary-fixed: 229 226 225;          /* #e5e2e1 */
+  --color-secondary-fixed-dim: 200 198 197;      /* #c8c6c5 */
+  --color-on-secondary-fixed: 28 27 27;          /* #1c1b1b */
+  --color-on-secondary-fixed-variant: 71 71 70;  /* #474746 */
+
+  --color-tertiary: 72 94 139;                   /* #485e8b */
+  --color-on-tertiary: 255 255 255;              /* #ffffff */
+  --color-tertiary-container: 143 165 214;       /* #8fa5d6 */
+  --color-on-tertiary-container: 35 58 101;      /* #233a65 */
+  --color-tertiary-fixed: 216 226 255;           /* #d8e2ff */
+  --color-tertiary-fixed-dim: 176 198 249;       /* #b0c6f9 */
+  --color-on-tertiary-fixed: 0 26 65;            /* #001a41 */
+  --color-on-tertiary-fixed-variant: 48 70 113;  /* #304671 */
+
+  /* ---------------------------------------------------------------------------
+     COLOR — outline, status, editorial extras
+     ------------------------------------------------------------------------ */
+  --color-outline: 127 118 103;                  /* #7f7667 */
+  --color-outline-variant: 209 197 180;          /* #d1c5b4 */
+
+  --color-error: 186 26 26;                      /* #ba1a1a */
+  --color-on-error: 255 255 255;                 /* #ffffff */
+  --color-error-container: 255 218 214;          /* #ffdad6 */
+  --color-on-error-container: 147 0 10;          /* #93000a */
+
+  --color-ivory: 252 250 245;                    /* #FCFAF5 */
+  --color-parchment: 242 237 228;                /* #F2EDE4 */
+  --color-gold-muted: 212 183 129;               /* #D4B781 */
+  --color-glass: 255 255 255;                    /* glass-fill base; alpha at call site */
+
+  /* ---------------------------------------------------------------------------
+     TYPOGRAPHY — families
+     ------------------------------------------------------------------------ */
+  --font-heading: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* TYPOGRAPHY — the eight named styles, exactly as the design system defines
+     them. `display-hero` and `headline-lg` carry a mobile counterpart; the
+     import defined `headline-lg-mobile` but never used it, leaving an 84px h1
+     on a 375px screen. The fluid clamp() below is what retires that bug. */
+  --text-display-hero: 84px;
+  --text-display-hero-mobile: 40px;
+  --text-display-hero-fluid: clamp(2.5rem, 1.146rem + 5.78vw, 5.25rem);
+  --leading-display-hero: 1.095;                 /* 92/84 */
+  --weight-display-hero: 700;
+  --tracking-display-hero: -0.02em;
+
+  --text-headline-lg: 48px;
+  --text-headline-lg-mobile: 32px;
+  --text-headline-lg-fluid: clamp(2rem, 1.606rem + 1.68vw, 3rem);
+  --leading-headline-lg: 1.167;                  /* 56/48 */
+  --weight-headline-lg: 600;
+
+  --text-headline-md: 32px;
+  --text-headline-md-mobile: 24px;
+  --text-headline-md-fluid: clamp(1.5rem, 1.303rem + 0.84vw, 2rem);
+  --leading-headline-md: 1.25;                   /* 40/32 */
+  --weight-headline-md: 500;
+
+  --text-headline-sm: 20px;                      /* ADDED: h4 tier. The import
+                                                    rendered h3 and h4 both at
+                                                    32px/500 — no distinction. */
+  --leading-headline-sm: 1.4;
+  --weight-headline-sm: 600;
+
+  --text-body-lg: 18px;
+  --leading-body-lg: 1.778;                      /* 32/18 */
+  --weight-body-lg: 400;
+
+  --text-body-md: 16px;
+  --leading-body-md: 1.75;                       /* 28/16 */
+  --weight-body-md: 400;
+
+  --text-label-caps: 12px;
+  --leading-label-caps: 1.333;                   /* 16/12 */
+  --weight-label-caps: 700;
+  --tracking-label-caps: 0.1em;
+
+  --text-quote: 24px;
+  --text-quote-fluid: clamp(1.25rem, 1.152rem + 0.42vw, 1.5rem);
+  --leading-quote: 1.5;                          /* 36/24 */
+  --weight-quote: 400;
+
+  /* ---------------------------------------------------------------------------
+     SPACING — named layout tokens from the design system
+     ------------------------------------------------------------------------ */
+  --space-container-max: 1440px;
+  --space-section-gap: 160px;
+  --space-section-gap-mobile: 88px;
+  --space-gutter: 32px;
+  --space-margin-desktop: 80px;
+  --space-margin-mobile: 24px;
+
+  /* SPACING — the 4px step scale everything else snaps to. The import mixed
+     `gap-gutter` (token), `gap-8`/`gap-16` (Tailwind) and `space-y-8` for the
+     same job; these give one ladder to normalise onto. */
+  --space-3xs: 4px;
+  --space-2xs: 8px;
+  --space-xs: 12px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-4xl: 128px;
+
+  /* Editorial media heights, replacing the h-[500px]/h-[600px] magic numbers. */
+  --size-media-sm: 320px;
+  --size-media-md: 440px;
+  --size-media-lg: 560px;
+
+  /* ---------------------------------------------------------------------------
+     RADIUS — restored to the design system's actual scale.
+     The import's inline config shifted every step down and destroyed `full`
+     (9999px -> 0.75rem), which is why the logo rendered as a 12px-cornered
+     square and the CTAs lost their pill shape.
+     ------------------------------------------------------------------------ */
+  --radius-sm: 0.125rem;    /* 2px  */
+  --radius-DEFAULT: 0.25rem;/* 4px  */
+  --radius-md: 0.375rem;    /* 6px  */
+  --radius-lg: 0.5rem;      /* 8px  */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-full: 9999px;
+
+  /* ---------------------------------------------------------------------------
+     ELEVATION — "Ambient Shadows": blur > 40px, opacity < 5%, gold-tinted.
+     Depth comes from tonal layers and glass, never from hard drop shadows.
+     ------------------------------------------------------------------------ */
+  --shadow-ambient-sm: 0 4px 24px -8px rgb(var(--color-primary-container) / 0.04);
+  --shadow-ambient: 0 12px 48px -16px rgb(var(--color-primary-container) / 0.05);
+  --shadow-ambient-lg: 0 24px 64px -24px rgb(var(--color-primary-container) / 0.05);
+  --shadow-glass: inset 0 1px 0 0 rgb(var(--color-glass) / 0.5);
+
+  /* Glass layer: 24px backdrop blur over a translucent white fill. */
+  --glass-blur: 24px;
+  --glass-alpha: 0.4;
+  --glass-alpha-strong: 0.6;
+  --glass-border: rgb(var(--color-on-secondary-fixed) / 0.1);
+
+  /* ---------------------------------------------------------------------------
+     Z-INDEX — documented scale. The import used ad-hoc -10 / 10 / 50.
+     ------------------------------------------------------------------------ */
+  --z-behind: -10;   /* shader canvas, decorative backdrops */
+  --z-base: 0;       /* normal flow                          */
+  --z-raised: 10;    /* content lifted above a section bg     */
+  --z-sticky: 30;    /* sticky sub-headers                    */
+  --z-nav: 50;       /* fixed top navigation                  */
+  --z-overlay: 70;   /* scrims behind panels                  */
+  --z-modal: 90;     /* dialogs, mobile nav drawer            */
+  --z-toast: 100;    /* transient notifications               */
+
+  /* ---------------------------------------------------------------------------
+     MOTION — consumed by src/styles/motion.css and assets/js/motion.js
+     ------------------------------------------------------------------------ */
+  --ease-entrance: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-line: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --duration-fast: 150ms;
+  --duration-hover: 250ms;
+  --duration-exit: 200ms;
+  --duration-conditional: 300ms;
+  --duration-media: 650ms;
+  --duration-entrance: 700ms;
+  --duration-line: 900ms;
+  --duration-counter: 1400ms;
+
+  --stagger-word: 100ms;
+  --stagger-child: 90ms;
+
+  --motion-blur-entrance: 12px;
+  --motion-blur-word: 10px;
+  --motion-lift-entrance: 28px;
+  --motion-lift-card: -7px;
+  --motion-scale-card: 1.018;
+  --motion-scale-button: 1.05;
+  --motion-scale-button-tap: 0.97;
+}

@@ -1,0 +1,25 @@
+/* =============================================================================
+   MOTION — placeholder.
+   The animation system lands in step 6. Step 1 only reserves the layer and
+   states the reduced-motion contract so nothing added before then can ship
+   un-guarded motion.
+   ========================================================================== */
+
+@layer components {
+  /* Elements awaiting an entrance are hidden by assets/js/motion.js, never by
+     CSS alone — so a JS failure leaves content visible rather than blank. */
+  [data-motion] {
+    will-change: opacity, transform, filter;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

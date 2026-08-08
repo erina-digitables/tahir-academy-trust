@@ -1,0 +1,111 @@
+/* =============================================================================
+   COMPONENTS — token composites.
+   Step 1 defines only the primitives that exist purely to express tokens (the
+   glass layer, the two button shapes, the link underline). Step 5 extracts the
+   larger repeated blocks.
+   ========================================================================== */
+
+@layer components {
+  /* ---------------------------------------------------------------------------
+     Glass layer — translucent fill + 24px backdrop blur + hairline edge.
+     The design system's stated depth model: tonal layers, never hard shadows.
+     ------------------------------------------------------------------------ */
+  .glass {
+    background-color: rgb(var(--color-glass) / var(--glass-alpha));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }
+
+  .glass-strong {
+    background-color: rgb(var(--color-glass) / var(--glass-alpha-strong));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }
+
+  /* ---------------------------------------------------------------------------
+     Buttons
+     ------------------------------------------------------------------------ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xs);
+    /* 44px minimum tap target, enforced rather than incidental. */
+    min-height: 44px;
+    padding-inline: var(--space-md);
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: var(--text-label-caps);
+    font-weight: var(--weight-label-caps);
+    letter-spacing: var(--tracking-label-caps);
+    line-height: var(--leading-label-caps);
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background-color: rgb(var(--color-primary));
+    color: rgb(var(--color-on-primary));
+  }
+
+  .btn-accent {
+    background-color: rgb(var(--color-primary-container));
+    color: rgb(var(--color-on-primary-container));
+  }
+
+  /* Transparent until hovered, when the glass blur fades in — as specified. */
+  .btn-secondary {
+    background-color: transparent;
+    color: rgb(var(--color-primary));
+    border: 1px solid rgb(var(--color-primary) / 0.35);
+  }
+
+  /* ---------------------------------------------------------------------------
+     Links
+     ------------------------------------------------------------------------ */
+  .link-caps {
+    position: relative;
+    font-family: var(--font-body);
+    font-size: var(--text-label-caps);
+    font-weight: var(--weight-label-caps);
+    letter-spacing: var(--tracking-label-caps);
+    line-height: var(--leading-label-caps);
+    text-transform: uppercase;
+    color: rgb(var(--color-on-surface-variant));
+  }
+
+  /* ---------------------------------------------------------------------------
+     Editorial dividers — thin, low-contrast, full width.
+     ------------------------------------------------------------------------ */
+  .rule {
+    height: 1px;
+    border: 0;
+    background-color: rgb(var(--color-on-secondary-fixed) / 0.1);
+  }
+
+  /* ---------------------------------------------------------------------------
+     Skip link — visually hidden until focused.
+     ------------------------------------------------------------------------ */
+  .skip-link {
+    position: absolute;
+    left: var(--space-sm);
+    top: var(--space-sm);
+    z-index: var(--z-toast);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-lg);
+    background-color: rgb(var(--color-primary));
+    color: rgb(var(--color-on-primary));
+    font-size: var(--text-label-caps);
+    font-weight: var(--weight-label-caps);
+    letter-spacing: var(--tracking-label-caps);
+    text-transform: uppercase;
+    transform: translateY(calc(-100% - var(--space-lg)));
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+}

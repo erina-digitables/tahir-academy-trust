@@ -1,0 +1,21 @@
+{
+  "name": "tahir-academy-trust",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tahir Academy Trust — static site built from the Stitch 'Liquid Editorial' design import.",
+  "scripts": {
+    "css": "tailwindcss -i ./src/input.css -o ./assets/css/site.css",
+    "build:css": "npm run css -- --minify",
+    "watch:css": "npm run css -- --watch",
+    "images": "node scripts/optimise-images.js",
+    "build": "npm run images && npm run build:css",
+    "serve": "node scripts/serve.js",
+    "dev": "node scripts/dev.js"
+  },
+  "devDependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.9",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.17"
+  }
+}
