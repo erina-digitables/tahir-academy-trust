@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+.env.local
+*.log
+.DS_Store
+Thumbs.db
+
+# Full-resolution originals pulled from the live Wix site. Kept locally as the
+# master copies; only the optimised derivatives in assets/img/opt/ are served.
+assets/img/_originals/

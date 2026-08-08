@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tahir Academy Trust</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#ffdea5",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#34302a",
+                        "surface-tint": "#775a19",
+                        "primary-fixed-dim": "#e9c176",
+                        "on-primary-container": "#4e3700",
+                        "on-primary": "#ffffff",
+                        "primary": "#775a19",
+                        "secondary-container": "#e2dfde",
+                        "primary-container": "#c5a059",
+                        "outline": "#7f7667",
+                        "surface-dim": "#e1d9d0",
+                        "surface-variant": "#e9e1d8",
+                        "gold-muted": "#D4B781",
+                        "secondary": "#5f5e5e",
+                        "on-tertiary-fixed-variant": "#304671",
+                        "surface-container-low": "#fbf2e9",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#233a65",
+                        "tertiary": "#485e8b",
+                        "on-surface-variant": "#4e4639",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-primary-fixed": "#261900",
+                        "surface-container-highest": "#e9e1d8",
+                        "tertiary-fixed-dim": "#b0c6f9",
+                        "surface": "#fff8f3",
+                        "on-surface": "#1e1b16",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f8efe6",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-tertiary-fixed": "#001a41",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#5d4201",
+                        "background": "#fff8f3",
+                        "outline-variant": "#d1c5b4",
+                        "tertiary-container": "#8fa5d6",
+                        "on-secondary-container": "#636262",
+                        "surface-bright": "#fff8f3",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-container-lowest": "#ffffff",
+                        "parchment": "#F2EDE4",
+                        "inverse-primary": "#e9c176",
+                        "on-background": "#1e1b16",
+                        "tertiary-fixed": "#d8e2ff",
+                        "surface-container-high": "#efe7de",
+                        "glass-fill": "rgba(255, 255, 255, 0.4)",
+                        "ivory": "#FCFAF5",
+                        "surface-container": "#f5ede4",
+                        "secondary-fixed-dim": "#c8c6c5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "32px",
+                        "container-max": "1440px",
+                        "margin-desktop": "80px",
+                        "margin-mobile": "24px",
+                        "section-gap": "160px"
+                    },
+                    "fontFamily": {
+                        "quote": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "display-hero": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-caps": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "quote": ["24px", { "lineHeight": "36px", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "56px", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-hero": ["84px", { "lineHeight": "92px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        body {
+            background-color: #fff8f3;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background relative min-h-screen">
+<!-- Fixed Shader Background -->
+<!-- STITCH_SHADER_START:ANIMATION_20 class="fixed inset-0 w-full h-full -z-10 opacity-30" -->
+<div class="fixed inset-0 w-full h-full -z-10 opacity-30" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_20" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_20');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Create soft, fluid movement
+    float time = u_time * 0.2;
+    
+    // Background color (Ivory/Parchment)
+    vec3 color1 = vec3(0.98, 0.96, 0.94); // #fbfaf9
+    vec3 color2 = vec3(0.95, 0.92, 0.88); // #f2ece8
+    vec3 accent = vec3(0.77, 0.63, 0.35); // #c5a059 (Gold)
+    
+    // Dynamic organic shapes
+    float noise1 = sin(uv.x * 3.0 + time) * cos(uv.y * 2.0 - time * 1.5);
+    float noise2 = sin(uv.y * 4.0 - time * 0.8) * cos(uv.x * 3.0 + time * 1.2);
+    
+    float mask = smoothstep(0.4, 0.6, 0.5 + 0.5 * (noise1 + noise2));
+    
+    vec3 finalColor = mix(color1, color2, mask);
+    
+    // Add a very subtle gold shimmer
+    float shimmer = pow(max(0.0, sin(uv.x * 10.0 + uv.y * 5.0 + time * 2.0)), 20.0);
+    finalColor = mix(finalColor, accent, shimmer * 0.05);
+    
+    gl_FragColor = vec4(finalColor, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_20 -->
+<!-- TopNavBar -->
+<nav class="bg-glass-fill/40 backdrop-blur-3xl fixed top-0 w-full z-50 border-b border-secondary/10 shadow-sm dark:shadow-none flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto left-0 right-0">
+<div class="flex items-center gap-4">
+<img alt="Tahir Academy Trust Logo" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLtlQqmzRW85N0CwO2ekTb5FBLzD6MpTzdUSZ0cYnr4g_qHwR7DRp1RFD-u_L56IAncBz0CtauIAPu4hrr370FypZKNkCT7sbrWd-jxPM4AyKQjhQBZj73DcJ5sF5C0-GCzGCe0_UJK_z8RVLB7e4c_LyYyUfaL5pyO6DqlV9M6C7teVGCZJugKtWIYM_fC26isuHXcJS3NgBLyN9WTLyHBtn-N_AJoUR5y0cZnE-RMvScOFMZDCXZlN8bc"/>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Tahir Academy Trust</span>
+</div>
+<div class="hidden md:flex gap-8 items-center font-label-caps text-label-caps text-secondary dark:text-secondary-fixed">
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#courses">Courses</a>
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#services">Services</a>
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#campaign">Campaign</a>
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#hiring">Hiring</a>
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#location">Location</a>
+<a class="bg-primary text-on-primary px-6 py-2 rounded-full hover:opacity-80 transition-opacity" href="#donate">Donate Now</a>
+</div>
+</nav>
+<main class="pt-32 pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto space-y-section-gap">
+<!-- 1. HERO -->
+<section class="fade-in-up grid grid-cols-1 md:grid-cols-12 gap-gutter items-center min-h-[70vh]">
+<div class="md:col-span-7 space-y-8 z-10 relative">
+<h1 class="font-display-hero text-display-hero md:text-display-hero text-on-surface">A Place to Learn</h1>
+<div class="flex flex-col md:flex-row gap-6">
+<div class="bg-glass-fill/60 backdrop-blur-xl p-6 rounded-xl border border-secondary/10 shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-2 text-primary">Explore Tahir Academy</h3>
+<p class="font-body-md text-on-surface-variant">Discover our structured curriculum designed for intellectual and spiritual growth.</p>
+</div>
+<div class="bg-glass-fill/60 backdrop-blur-xl p-6 rounded-xl border border-secondary/10 shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-2 text-primary">Let's Learn Together</h3>
+<p class="font-body-md text-on-surface-variant">Join our community committed to academic excellence and religious understanding.</p>
+</div>
+</div>
+</div>
+<div class="md:col-span-5 h-[500px] rounded-2xl overflow-hidden relative shadow-lg">
+<img alt="Students learning in a bright, modern classroom" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLtDym4QoI3tHUYbdS5Hvq5CwfwpgfRZ_iJ3qbqxzV_2g4qjFh26-e4ATN6EogL0CLa6AhASUUbd9WCSb9bIKsxIbPFtqWf07kZeEt1cO5-IlpUGQaS0LoLqlqhQqOOZ3eJYVyc5Axq7f1-HrWgCbZ38VuupwV3ntweARfsWcWB5eAL7ztEYYzbXumBTAhd26enUHhkQRxv2qc0zUB1ifVQ3JnopFMkmd0vkKwOs-zvOXKORjc2FZ0GveUM"/>
+</div>
+</section>
+<!-- 2. WELCOME -->
+<section class="fade-in-up bg-surface-container-low p-12 md:p-24 rounded-3xl border border-secondary/5 text-center max-w-4xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-8">Welcome</h2>
+<p class="font-quote text-quote text-on-surface-variant">At Tahir Academy Trust, we foster an environment where intellectual growth and spiritual development go hand in hand. Our approach ensures that every student is equipped with the knowledge and character needed to navigate the modern world while remaining rooted in their faith.</p>
+</section>
+<!-- 3. COURSES -->
+<section class="fade-in-up" id="courses">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-12 text-center">Our Courses</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Sanatayn -->
+<div class="bg-glass-fill/60 backdrop-blur-xl p-8 rounded-2xl border border-secondary/10 hover:-translate-y-2 transition-transform duration-300">
+<img alt="Islamic calligraphy and texts" class="w-full h-48 object-cover rounded-xl mb-6" src="https://lh3.googleusercontent.com/aida/AP1WRLvpA1CljAin9OkBFMgyucKMRIrv177TXg2c8F3hcwCHD3YOCsLCJJ1x5c0mW7d-0IIctDL_EIFx7J8XjK-uOPtbBnPfBQvAPRPqWBh68g6okhX3GZRjIXJQuzLVSDcO5JyMG2JrNPr4E7syxtatoYImXvr-s-pzUKsc5OjxYP8gIKyvKTNL2ZUX57a-AUuxpmq88yKLg7Qoj-X3vNNSz2UceLzImaKMNN6COOPgHEHGuUXgaIl-P0JwYrw"/>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Sanatayn Course</h3>
+<p class="font-label-caps text-label-caps text-secondary mb-4 tracking-wider">9:30am - 12:30pm</p>
+<p class="font-body-md text-on-surface-variant">A foundational course providing essential knowledge of core Islamic sciences for beginners.</p>
+</div>
+<!-- Aalimiyyah -->
+<div class="bg-glass-fill/60 backdrop-blur-xl p-8 rounded-2xl border border-secondary/10 hover:-translate-y-2 transition-transform duration-300">
+<img alt="Students studying advanced texts" class="w-full h-48 object-cover rounded-xl mb-6" src="https://lh3.googleusercontent.com/aida/AP1WRLvpA1CljAin9OkBFMgyucKMRIrv177TXg2c8F3hcwCHD3YOCsLCJJ1x5c0mW7d-0IIctDL_EIFx7J8XjK-uOPtbBnPfBQvAPRPqWBh68g6okhX3GZRjIXJQuzLVSDcO5JyMG2JrNPr4E7syxtatoYImXvr-s-pzUKsc5OjxYP8gIKyvKTNL2ZUX57a-AUuxpmq88yKLg7Qoj-X3vNNSz2UceLzImaKMNN6COOPgHEHGuUXgaIl-P0JwYrw"/>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Aalimiyyah Course</h3>
+<p class="font-label-caps text-label-caps text-secondary mb-4 tracking-wider">9:30am - 12:30pm</p>
+<p class="font-body-md text-on-surface-variant">An in-depth scholarly program designed to produce knowledgeable community leaders and scholars.</p>
+</div>
+<!-- Hifz -->
+<div class="bg-glass-fill/60 backdrop-blur-xl p-8 rounded-2xl border border-secondary/10 hover:-translate-y-2 transition-transform duration-300">
+<img alt="Quran recitation circle" class="w-full h-48 object-cover rounded-xl mb-6" src="https://lh3.googleusercontent.com/aida/AP1WRLvpA1CljAin9OkBFMgyucKMRIrv177TXg2c8F3hcwCHD3YOCsLCJJ1x5c0mW7d-0IIctDL_EIFx7J8XjK-uOPtbBnPfBQvAPRPqWBh68g6okhX3GZRjIXJQuzLVSDcO5JyMG2JrNPr4E7syxtatoYImXvr-s-pzUKsc5OjxYP8gIKyvKTNL2ZUX57a-AUuxpmq88yKLg7Qoj-X3vNNSz2UceLzImaKMNN6COOPgHEHGuUXgaIl-P0JwYrw"/>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Hifz ul Qur'an</h3>
+<p class="font-label-caps text-label-caps text-secondary mb-4 tracking-wider">Flexible Timings</p>
+<p class="font-body-md text-on-surface-variant">Dedicated memorization program focusing on accurate tajweed and retention.</p>
+</div>
+</div>
+</section>
+<!-- 4. SERVICES -->
+<section class="fade-in-up grid grid-cols-1 md:grid-cols-2 gap-16 items-center" id="services">
+<div class="space-y-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Religious Services</h2>
+<ul class="space-y-6">
+<li class="border-b border-secondary/10 pb-4">
+<h4 class="font-headline-md text-headline-md text-primary">Eid Salaah</h4>
+<p class="font-body-md text-on-surface-variant mt-2">Next service: June 6, 2025.</p>
+</li>
+<li class="border-b border-secondary/10 pb-4">
+<h4 class="font-headline-md text-headline-md text-primary">Jumuah in Cheshunt</h4>
+<p class="font-body-md text-on-surface-variant mt-2">Weekly congregational prayers serving the local community.</p>
+</li>
+<li class="border-b border-secondary/10 pb-4">
+<h4 class="font-headline-md text-headline-md text-primary">Taraweeh Salaah</h4>
+<p class="font-body-md text-on-surface-variant mt-2">Special nightly prayers during the blessed month of Ramadan.</p>
+</li>
+</ul>
+</div>
+<div class="h-[600px] rounded-2xl overflow-hidden relative shadow-lg">
+<img alt="Congregation performing Jumuah prayers" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLvlUPv6feoiwL9HrteEOIaVWK8FdOnqcY9QgVafIBVWqQa7nstF9DcE3y_pJ2_C8JTYQA43PTxgIFyzhYuhn6VitwhI7C8e39oNozIRV2ucped03-BqxurO_v9pZAl0-gd3w4bGe-CPMlDf-yt2d5BmG8XDue2-e7n_oiRrMXdlqOasbWIiZNj5Lgz62j9T1tuR94IbnDa5AQZ4VVNPTYS_MPowS35NTn089qqUbBbUqo_uvBfD7PcCTQA"/>
+</div>
+</section>
+<!-- 6. CAMPAIGN -->
+<section class="fade-in-up bg-inverse-surface text-on-secondary p-12 md:p-24 rounded-3xl relative overflow-hidden" id="campaign">
+<div class="absolute inset-0 opacity-20 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLtZL1VVm3Z5cNYWfp6ztirn0RSwhiqMVq7q5u62pUth8jTwR5ukrXhWWY2ZLrDj6Rgl44VN-U1JU2mup7h-6EPYL_l5Q8u_AMk2OurC6FFUhlvSfZg3nzHiwcOmuy62mJ6dIVBtnacldLk0b-tSErnfRv4XJqI3mj1TwgCjnr18lpDNL2JwF1CbmC5AOfEtHIx2-hB8kJM7u8G2erhIbOj_VRQRdTedA1QyivpfihZR2xLIju9NgQ0BJ04');"></div>
+<div class="relative z-10 max-w-3xl mx-auto text-center space-y-8">
+<h2 class="font-display-hero text-display-hero text-on-primary">1st Masjid in Cheshunt</h2>
+<p class="font-body-lg text-body-lg text-on-primary/80">Support our campaign to establish the first permanent Masjid and community center in Cheshunt. Your contribution will leave a lasting legacy.</p>
+<a class="inline-block bg-primary-container text-on-primary-container px-8 py-4 rounded-full font-label-caps text-label-caps hover:bg-primary-fixed transition-colors" href="#">Donate on Launchgood</a>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface border-t border-secondary/10 w-full">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center w-full px-margin-mobile md:px-margin-desktop py-12 gap-8 max-w-container-max mx-auto">
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Tahir Academy Trust</span>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Tahir Academy Trust. Registered Charity No. 1234567.</p>
+</div>
+<div class="flex flex-wrap gap-6 font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant">
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Cookie Policy</a>
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Support</a>
+<a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Volunteer</a>
+</div>
+</div>
+</footer>
+<script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-up').forEach((el) => observer.observe(el));
+        });
+    </script>
+</body></html>

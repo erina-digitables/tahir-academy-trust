@@ -1,0 +1,3 @@
+# Never normalise line endings. /imported must stay byte-identical to what the
+# Stitch MCP server returned, or the diff baseline is worthless.
+* -text
