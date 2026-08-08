@@ -50,21 +50,22 @@
   <!-- Still fallback, behind the video. Revealed only if playback never starts
        (autoplay refused, network failure, reduced motion). The video's own
        poster attribute cannot cover that case, because the video element is
-       the thing held at opacity 0. -->
+       the thing held at opacity 0. Frame extracted from the clip itself, so
+       the swap is invisible. -->
   <img id="hero-fallback"
-       class="absolute inset-0 h-full w-full object-cover object-bottom opacity-0 transition-opacity duration-hover"
-       src="/assets/img/hero-classroom-1280.jpg"
-       srcset="/assets/img/hero-classroom-768.webp 768w, /assets/img/hero-classroom-1280.webp 1280w, /assets/img/hero-classroom-1920.webp 1920w"
-       sizes="100vw" width="1280" height="850" alt="" aria-hidden="true" fetchpriority="high">
+       class="hero-media absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-hover"
+       src="/assets/video/quran-open-poster.jpg"
+       width="1280" height="720" alt="" aria-hidden="true" fetchpriority="high">
 
   <video id="hero-video"
-         class="absolute inset-0 h-full w-full object-cover object-bottom opacity-0"
+         class="hero-media absolute inset-0 h-full w-full object-cover opacity-0"
          muted autoplay playsinline preload="auto"
          aria-hidden="true" tabindex="-1"
-         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_074625_a81f018a-956b-43fb-9aee-4d1508e30e6a.mp4"></video>
+         src="/assets/video/quran-open.mp4"></video>
 
-  <!-- Keeps hero text legible whatever frame the video is on. -->
-  <div class="absolute inset-0 bg-gradient-to-b from-background/60 via-background/30 to-background" aria-hidden="true"></div>
+  <!-- Ivory veil. Turns the footage into soft texture so hero copy can stay in
+       dark ink and the section reads continuously with the rest of the page. -->
+  <div class="hero-veil absolute inset-0" aria-hidden="true"></div>
 
   <!-- ---------------- NAV ---------------- -->
   <header class="relative z-content px-margin-mobile py-md">
@@ -155,9 +156,9 @@
 <section class="section section--tight">
   <div class="shell">
     <div class="relative aspect-video overflow-hidden rounded-xl" data-motion="rise">
-      <video class="h-full w-full object-cover" muted autoplay loop playsinline preload="auto"
-             poster="/assets/img/welcome-wide-1280.jpg" aria-hidden="true" tabindex="-1"
-             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260402_054547_9875cfc5-155a-4229-8ec8-b7ba7125cbf8.mp4"></video>
+      <video class="h-full w-full object-cover" muted autoplay loop playsinline preload="metadata"
+             poster="/assets/video/quran-pages-poster.jpg" aria-hidden="true" tabindex="-1"
+             src="/assets/video/quran-pages.mp4"></video>
       <div class="media-scrim--deep media-scrim" aria-hidden="true"></div>
 
       <div class="absolute inset-x-0 bottom-0 flex flex-col items-start gap-md p-md md:flex-row md:items-end md:justify-between md:p-2xl">
@@ -191,9 +192,9 @@
 
     <div class="grid grid-cols-1 gap-lg md:grid-cols-2 md:gap-xl">
       <div class="aspect-[4/3] overflow-hidden rounded-xl" data-motion="slide-left">
-        <video class="h-full w-full object-cover" muted autoplay loop playsinline preload="auto"
-               poster="/assets/img/course-aalimiyyah-560.jpg" aria-hidden="true" tabindex="-1"
-               src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260307_083826_e938b29f-a43a-41ec-a153-3d4730578ab8.mp4"></video>
+        <video class="h-full w-full object-cover" muted autoplay loop playsinline preload="metadata"
+               poster="/assets/video/quran-stand-poster.jpg" aria-hidden="true" tabindex="-1"
+               src="/assets/video/quran-stand.mp4"></video>
       </div>
 
       <div data-motion="slide-right">
@@ -335,7 +336,7 @@
       <div class="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/70" aria-hidden="true"></div>
 
       <div class="relative z-media mx-auto max-w-3xl">
-        <p class="label" style="color: rgb(var(--color-accent-soft))">Our campaign</p>
+        <p class="label label-accent">Our campaign</p>
         <h2 class="mt-md font-display text-display text-strong">
           The 1st <em class="em-soft">Masjid</em> in Cheshunt
         </h2>

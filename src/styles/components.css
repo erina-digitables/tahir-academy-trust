@@ -14,15 +14,20 @@
 
   .liquid-glass {
     background: var(--glass-fill);
-    background-blend-mode: luminosity;
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
     border: none;
-    box-shadow: var(--glass-inset);
+    box-shadow: var(--glass-inset), var(--shadow-glass);
     position: relative;
     overflow: hidden;
   }
 
+  /* The 1.4px masked ring. Same technique as the dark original — a gradient
+     painted only in the padding band, via two masks composited with exclude —
+     but the stops are retuned: a bright highlight along the top edge, then a
+     soft ink hairline through the middle and bottom. On a pale ground that is
+     what reads as the edge of a piece of glass; an all-white ring would be
+     invisible. */
   .liquid-glass::before {
     content: '';
     position: absolute;
@@ -31,12 +36,11 @@
     padding: var(--glass-edge-width);
     background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0.15) 20%,
-      rgba(255, 255, 255, 0) 40%,
-      rgba(255, 255, 255, 0) 60%,
-      rgba(255, 255, 255, 0.15) 80%,
-      rgba(255, 255, 255, 0.45) 100%
+      var(--glass-edge-top) 0%,
+      rgba(255, 255, 255, 0.35) 18%,
+      var(--glass-edge-mid) 45%,
+      var(--glass-edge-mid) 62%,
+      var(--glass-edge-bottom) 100%
     );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -71,19 +75,40 @@
     .section { padding-block: var(--space-5xl); }
   }
 
+  /* ---------------------------------------------------------------------------
+     HERO MEDIA
+     ------------------------------------------------------------------------ */
+
+  /* Deliberately no mix-blend-mode here. It creates a stacking context that
+     fights the JS opacity fade and behaves inconsistently across browsers —
+     the ivory veil above does the lightening on its own, predictably. */
+  .hero-media { filter: saturate(0.88); }
+
+  .hero-veil {
+    background-image: linear-gradient(
+      to bottom,
+      var(--hero-veil-top) 0%,
+      var(--hero-veil-mid) 45%,
+      var(--hero-veil-bottom) 100%
+    );
+    pointer-events: none;
+  }
+
   .section--tight { padding-block: var(--space-2xl); }
 
   @media (min-width: 768px) {
     .section--tight { padding-block: var(--space-3xl); }
   }
 
-  /* Radial washes that keep large black areas from going dead flat. */
+  /* Radial washes that keep large flat areas from going dead. On the dark
+     build these were white lifts; on ivory a white wash does nothing, so they
+     are warm gold tints instead. */
   .glow-top {
-    background-image: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+    background-image: radial-gradient(ellipse at top, rgb(var(--color-accent-soft) / 0.14) 0%, transparent 68%);
   }
 
   .glow-center {
-    background-image: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
+    background-image: radial-gradient(ellipse at center, rgb(var(--color-accent-soft) / 0.10) 0%, transparent 62%);
   }
 
   /* ===========================================================================
@@ -106,6 +131,10 @@
     text-transform: uppercase;
     color: rgb(var(--color-ink) / var(--text-muted));
   }
+
+  /* Gold label. Uses --color-accent (#775a19, 6.2:1 on ivory), not the soft
+     tint — accent-soft measures 2.36:1 here and fails AA at label sizes. */
+  .label-accent { color: rgb(var(--color-accent)); }
 
   .rule-h {
     width: 100%;
@@ -272,7 +301,7 @@
     position: fixed;
     inset: 0;
     z-index: var(--z-overlay);
-    background-color: rgb(0 0 0 / 0.6);
+    background-color: rgb(var(--color-ink) / 0.35);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     opacity: 0;
@@ -287,7 +316,7 @@
     right: 0;
     z-index: var(--z-modal);
     width: min(20rem, 86vw);
-    background-color: rgb(0 0 0 / 0.92);
+    background-color: rgb(var(--color-background) / 0.96);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border-left: 1px solid rgb(var(--color-ink) / 0.12);
@@ -378,16 +407,23 @@
     transform: scale(var(--motion-scale-zoom));
   }
 
-  /* Keeps the label legible where the media runs bright. */
+  /* Scrims lighten rather than darken here. Overlaid copy is dark ink on a
+     light page, so it needs the image beneath it lifted toward the ivory
+     ground — the inverse of what the dark build needed. */
   .media-scrim {
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(to top, rgb(0 0 0 / 0.4), transparent);
+    background-image: linear-gradient(to top, rgb(var(--color-background) / 0.45), transparent 60%);
     pointer-events: none;
   }
 
   .media-scrim--deep {
-    background-image: linear-gradient(to top, rgb(0 0 0 / 0.6), transparent 50%, transparent);
+    background-image: linear-gradient(
+      to top,
+      rgb(var(--color-background) / 0.92) 0%,
+      rgb(var(--color-background) / 0.55) 35%,
+      transparent 70%
+    );
   }
 
   .card-body {

@@ -6,6 +6,6 @@ dist/
 .DS_Store
 Thumbs.db
 
-# Full-resolution originals pulled from the live Wix site. Kept locally as the
-# master copies; only the optimised derivatives in assets/img/opt/ are served.
+# Full-resolution masters. Kept locally; only the optimised derivatives ship.
 assets/img/_originals/
+assets/video/_originals/

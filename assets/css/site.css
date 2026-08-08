@@ -2,65 +2,74 @@
    a custom property has a value by the time the cascade runs. */
 
 /* =============================================================================
-   DESIGN TOKENS — "Liquid Glass" (dark)
+   DESIGN TOKENS — "Liquid Glass" (light)
    =============================================================================
    Single source of truth for every colour, type, space, radius, shadow, z-index
    and motion value in the project. No raw values may appear outside this file.
 
-   This replaces the warm "Liquid Editorial" palette that came from the Stitch
-   import. The architecture is unchanged — only the values moved — which is the
-   whole reason the re-theme is a token edit rather than a rebuild.
+   Light theme. The ground is the trust's own ivory rather than a generic white,
+   and the accent is their existing gold — so the page still reads as Tahir
+   Academy rather than a template with the colours flipped.
 
    Colours are space-separated RGB channels so Tailwind can compose alpha via
-   rgb(var(--x) / <alpha-value>). On a black ground almost every surface is
-   white-at-an-alpha, so this matters more here than it did before.
+   rgb(var(--x) / <alpha-value>).
    ========================================================================== */
 
 :root {
   /* ---------------------------------------------------------------------------
      COLOUR — ground and ink
      ------------------------------------------------------------------------ */
-  --color-background: 0 0 0;
-  /* pure black, per the brief */
-  --color-surface: 0 0 0;
-  --color-ink: 255 255 255;
-  /* everything else is this at an alpha */
-  /* Text alphas. These are named by role, not by number, so a contrast fix
-     happens in one place.
+  --color-background: 252 250 245;
+  /* #FCFAF5 ivory */
+  --color-surface: 242 237 228;
+  /* #F2EDE4 parchment, for banded sections */
+  --color-ink: 30 27 22;
+  /* #1e1b16 warm near-black */
+  /* Text alphas, named by role so a contrast fix happens in one place.
 
-     Measured against #000:
-       ink/100  21.00:1
-       ink/70    9.79:1
-       ink/60    7.37:1
-       ink/50    5.32:1
-       ink/40    3.65:1  <- fails AA for normal text; large display only
-     The source brief used /40 for small uppercase labels. Those are moved to
-     --text-muted (/60) so they clear AA at 12px. */
+     Measured as ink composited over the ivory ground:
+       ink/100   15.80:1
+       ink/75     7.10:1
+       ink/65     5.23:1
+       ink/60     4.45:1  <- marginally under AA, so not used for body text
+       ink/45     ~2.9:1  <- display text only, never below 24px
+     Inverting a dark theme by swapping the alphas does not preserve contrast;
+     these were recomputed for the light ground rather than mirrored. */
   --text-strong: 1;
-  --text-body: 0.7;
-  --text-muted: 0.6;
-  --text-faint: 0.4;
+  --text-body: 0.75;
+  --text-muted: 0.65;
+  --text-faint: 0.45;
   /* permitted on >=24px display text only */
-  /* Accent — carried across from the trust's existing identity so the site
-     still reads as Tahir Academy rather than a generic dark template. */
-  --color-accent: 197 160 89;
-  /* #c5a059 warm gold */
-  --color-accent-soft: 212 183 129;
-  /* #D4B781 */
-  --color-error: 248 113 113;
-  /* #f87171, legible on black */
+  /* Accent — the trust's existing gold. Darker of the two on light, so it
+     clears AA for small uppercase labels at 6.2:1. */
+  --color-accent: 119 90 25;
+  /* #775a19 */
+  --color-accent-soft: 197 160 89;
+  /* #c5a059 */
+  --color-error: 186 26 26;
+  /* #ba1a1a */
   /* ---------------------------------------------------------------------------
-     LIQUID GLASS
-     The signature surface. A near-transparent fill, a small blur, an inset
-     highlight, and a 1.4px gradient hairline that is bright at top and bottom
-     and vanishes through the middle — which is what reads as a curved edge
-     catching light.
+     LIQUID GLASS — light
+     The dark-theme recipe does not survive a light ground: a 1% white fill on
+     ivory is invisible, and a white edge highlight on white has nothing to
+     catch. So the same structure is retuned rather than reused:
+       - fill goes up to 55% white, giving a frosted pane over the ivory
+       - blur goes up, with a saturation lift so colour behind stays alive
+       - the edge ring keeps a white highlight at the top but picks up a soft
+         ink hairline through the middle and bottom, which is what reads as a
+         glass edge against a pale background
+       - a diffuse ambient shadow does the lifting that the bright edge did
      ------------------------------------------------------------------------ */
-  --glass-fill: rgba(255, 255, 255, 0.01);
-  --glass-blur: 4px;
-  --glass-inset: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  --glass-fill: rgba(255, 255, 255, 0.55);
+  --glass-blur: 14px;
+  --glass-saturate: 160%;
+  --glass-inset: inset 0 1px 1px rgba(255, 255, 255, 0.9);
   --glass-edge-width: 1.4px;
-  --glass-hover-fill: rgba(255, 255, 255, 0.05);
+  --glass-hover-fill: rgba(255, 255, 255, 0.78);
+  /* Stops on the edge ring gradient. */
+  --glass-edge-top: rgba(255, 255, 255, 0.95);
+  --glass-edge-mid: rgba(30, 27, 22, 0.10);
+  --glass-edge-bottom: rgba(30, 27, 22, 0.16);
   /* ---------------------------------------------------------------------------
      TYPOGRAPHY
      Instrument Serif carries every display line, upright for the statement and
@@ -130,9 +139,24 @@
   --radius-full: 9999px;
   /* ---------------------------------------------------------------------------
      ELEVATION
+     Warm, diffuse and low-opacity — on a light ground a neutral grey shadow
+     reads as dirt, so these are tinted with the ink colour.
      ------------------------------------------------------------------------ */
-  --shadow-lift: 0 24px 64px -32px rgb(0 0 0 / 0.9);
+  --shadow-sm: 0 2px 8px -2px rgb(var(--color-ink) / 0.06);
+  --shadow-glass: 0 8px 32px -12px rgb(var(--color-ink) / 0.12);
+  --shadow-lift: 0 24px 64px -24px rgb(var(--color-ink) / 0.18);
   --shadow-accent: 0 0 0 1px rgb(var(--color-accent) / 0.25);
+  /* ---------------------------------------------------------------------------
+     HERO VEIL
+     The Qur'an footage is warm but fairly dark, and this is a light page. The
+     video sits behind an ivory wash so it becomes soft texture rather than a
+     dark slab, which lets hero copy stay in dark ink and keeps the section
+     continuous with the rest of the page.
+     ------------------------------------------------------------------------ */
+  --hero-video-opacity: 0.5;
+  --hero-veil-top: rgb(var(--color-background) / 0.55);
+  --hero-veil-mid: rgb(var(--color-background) / 0.72);
+  --hero-veil-bottom: rgb(var(--color-background) / 0.98);
   /* ---------------------------------------------------------------------------
      Z-INDEX — documented scale
      ------------------------------------------------------------------------ */
@@ -1039,14 +1063,14 @@ img, picture, video, canvas, svg {
   max-width: 100%;
 }
 
-/* Focus. A white ring on black, with a dark halo so it stays visible when it
-     lands on top of bright video. */
+/* Focus. A dark ring on the light ground, with a pale halo so it stays
+     visible when it lands on top of imagery or video. */
 
 :focus-visible {
   outline: 2px solid rgb(var(--color-ink));
   outline-offset: 3px;
   border-radius: var(--radius-sm);
-  box-shadow: 0 0 0 5px rgb(0 0 0 / 0.75);
+  box-shadow: 0 0 0 5px rgb(var(--color-background) / 0.85);
 }
 
 :focus:not(:focus-visible) {
@@ -1120,14 +1144,20 @@ input[type='email']:focus, input[type='text']:focus {
 
 .liquid-glass {
   background: var(--glass-fill);
-  background-blend-mode: luminosity;
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   border: none;
-  box-shadow: var(--glass-inset);
+  box-shadow: var(--glass-inset), var(--shadow-glass);
   position: relative;
   overflow: hidden;
 }
+
+/* The 1.4px masked ring. Same technique as the dark original — a gradient
+     painted only in the padding band, via two masks composited with exclude —
+     but the stops are retuned: a bright highlight along the top edge, then a
+     soft ink hairline through the middle and bottom. On a pale ground that is
+     what reads as the edge of a piece of glass; an all-white ring would be
+     invisible. */
 
 .liquid-glass::before {
   content: '';
@@ -1137,12 +1167,11 @@ input[type='email']:focus, input[type='text']:focus {
   padding: var(--glass-edge-width);
   background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0.15) 20%,
-      rgba(255, 255, 255, 0) 40%,
-      rgba(255, 255, 255, 0) 60%,
-      rgba(255, 255, 255, 0.15) 80%,
-      rgba(255, 255, 255, 0.45) 100%
+      var(--glass-edge-top) 0%,
+      rgba(255, 255, 255, 0.35) 18%,
+      var(--glass-edge-mid) 45%,
+      var(--glass-edge-mid) 62%,
+      var(--glass-edge-bottom) 100%
     );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -1180,6 +1209,28 @@ input[type='email']:focus, input[type='text']:focus {
   }
 }
 
+/* ---------------------------------------------------------------------------
+     HERO MEDIA
+     ------------------------------------------------------------------------ */
+
+/* Deliberately no mix-blend-mode here. It creates a stacking context that
+     fights the JS opacity fade and behaves inconsistently across browsers —
+     the ivory veil above does the lightening on its own, predictably. */
+
+.hero-media {
+  filter: saturate(0.88);
+}
+
+.hero-veil {
+  background-image: linear-gradient(
+      to bottom,
+      var(--hero-veil-top) 0%,
+      var(--hero-veil-mid) 45%,
+      var(--hero-veil-bottom) 100%
+    );
+  pointer-events: none;
+}
+
 .section--tight {
   padding-block: var(--space-2xl);
 }
@@ -1190,14 +1241,16 @@ input[type='email']:focus, input[type='text']:focus {
   }
 }
 
-/* Radial washes that keep large black areas from going dead flat. */
+/* Radial washes that keep large flat areas from going dead. On the dark
+     build these were white lifts; on ivory a white wash does nothing, so they
+     are warm gold tints instead. */
 
 .glow-top {
-  background-image: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+  background-image: radial-gradient(ellipse at top, rgb(var(--color-accent-soft) / 0.14) 0%, transparent 68%);
 }
 
 .glow-center {
-  background-image: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
+  background-image: radial-gradient(ellipse at center, rgb(var(--color-accent-soft) / 0.10) 0%, transparent 62%);
 }
 
 /* ===========================================================================
@@ -1220,6 +1273,13 @@ input[type='email']:focus, input[type='text']:focus {
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: rgb(var(--color-ink) / var(--text-muted));
+}
+
+/* Gold label. Uses --color-accent (#775a19, 6.2:1 on ivory), not the soft
+     tint — accent-soft measures 2.36:1 here and fails AA at label sizes. */
+
+.label-accent {
+  color: rgb(var(--color-accent));
 }
 
 .rule-h {
@@ -1423,7 +1483,7 @@ input[type='email']:focus, input[type='text']:focus {
   position: fixed;
   inset: 0;
   z-index: var(--z-overlay);
-  background-color: rgb(0 0 0 / 0.6);
+  background-color: rgb(var(--color-ink) / 0.35);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   opacity: 0;
@@ -1440,7 +1500,7 @@ input[type='email']:focus, input[type='text']:focus {
   right: 0;
   z-index: var(--z-modal);
   width: min(20rem, 86vw);
-  background-color: rgb(0 0 0 / 0.92);
+  background-color: rgb(var(--color-background) / 0.96);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-left: 1px solid rgb(var(--color-ink) / 0.12);
@@ -1554,17 +1614,24 @@ input[type='email']:focus, input[type='text']:focus {
   transform: scale(var(--motion-scale-zoom));
 }
 
-/* Keeps the label legible where the media runs bright. */
+/* Scrims lighten rather than darken here. Overlaid copy is dark ink on a
+     light page, so it needs the image beneath it lifted toward the ivory
+     ground — the inverse of what the dark build needed. */
 
 .media-scrim {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(to top, rgb(0 0 0 / 0.4), transparent);
+  background-image: linear-gradient(to top, rgb(var(--color-background) / 0.45), transparent 60%);
   pointer-events: none;
 }
 
 .media-scrim--deep {
-  background-image: linear-gradient(to top, rgb(0 0 0 / 0.6), transparent 50%, transparent);
+  background-image: linear-gradient(
+      to top,
+      rgb(var(--color-background) / 0.92) 0%,
+      rgb(var(--color-background) / 0.55) 35%,
+      transparent 70%
+    );
 }
 
 .card-body {
@@ -1808,6 +1875,10 @@ input[type='email']:focus, input[type='text']:focus {
 
 .visible {
   visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
 }
 
 .static {
@@ -2119,10 +2190,6 @@ input[type='email']:focus, input[type='text']:focus {
   background-color: rgb(var(--color-background) / var(--tw-bg-opacity, 1));
 }
 
-.bg-gradient-to-b {
-  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
-}
-
 .bg-gradient-to-t {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
@@ -2133,24 +2200,9 @@ input[type='email']:focus, input[type='text']:focus {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.from-background\/60 {
-  --tw-gradient-from: rgb(var(--color-background) / 0.6) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(var(--color-background) / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.via-background\/30 {
-  --tw-gradient-to: rgb(var(--color-background) / 0)  var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), rgb(var(--color-background) / 0.3) var(--tw-gradient-via-position), var(--tw-gradient-to);
-}
-
 .via-background\/50 {
   --tw-gradient-to: rgb(var(--color-background) / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), rgb(var(--color-background) / 0.5) var(--tw-gradient-via-position), var(--tw-gradient-to);
-}
-
-.to-background {
-  --tw-gradient-to: rgb(var(--color-background) / 1) var(--tw-gradient-to-position);
 }
 
 .to-background\/70 {
@@ -2160,11 +2212,6 @@ input[type='email']:focus, input[type='text']:focus {
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
-}
-
-.object-bottom {
-  -o-object-position: bottom;
-     object-position: bottom;
 }
 
 .p-md {

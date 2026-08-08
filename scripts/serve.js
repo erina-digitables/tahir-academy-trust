@@ -23,6 +23,9 @@ const TYPES = {
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
   '.map': 'application/json',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+  '.md': 'text/markdown; charset=utf-8',
 };
 
 // Nothing outside these trees is reachable, so the frozen import and the
@@ -32,7 +35,8 @@ const ALLOW = ['index.html', 'assets', 'favicon.ico', 'favicon.svg', 'site.webma
 function isAllowed(rel) {
   const top = rel.split(/[\\/]/)[0];
   if (!ALLOW.includes(top)) return false;
-  if (rel.replace(/\\/g, '/').includes('assets/img/_originals')) return false;
+  // Full-resolution masters are never served.
+  if (rel.replace(/\\/g, '/').includes('/_originals')) return false;
   return true;
 }
 

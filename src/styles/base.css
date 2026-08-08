@@ -38,13 +38,13 @@
     max-width: 100%;
   }
 
-  /* Focus. A white ring on black, with a dark halo so it stays visible when it
-     lands on top of bright video. */
+  /* Focus. A dark ring on the light ground, with a pale halo so it stays
+     visible when it lands on top of imagery or video. */
   :focus-visible {
     outline: 2px solid rgb(var(--color-ink));
     outline-offset: 3px;
     border-radius: var(--radius-sm);
-    box-shadow: 0 0 0 5px rgb(0 0 0 / 0.75);
+    box-shadow: 0 0 0 5px rgb(var(--color-background) / 0.85);
   }
 
   :focus:not(:focus-visible) { outline: none; }
