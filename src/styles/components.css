@@ -205,7 +205,6 @@
 
   .btn:hover { transform: scale(var(--motion-scale-hover)); }
   .btn:active { transform: scale(var(--motion-scale-tap)); transition-duration: var(--duration-fast); }
-  .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
   /* Glass button: the fill lifts slightly on hover, matching hover:bg-white/5 */
   .btn-glass:hover { background-color: var(--glass-hover-fill); }
@@ -256,7 +255,6 @@
 
   .btn-round:hover { transform: scale(var(--motion-scale-hover)); }
   .btn-round:active { transform: scale(var(--motion-scale-tap)); }
-  .btn-round:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
   .btn-icon { display: inline-block; transition: transform var(--duration-hover) var(--ease-overshoot); }
   .btn:hover .btn-icon { transform: translateX(3px); }

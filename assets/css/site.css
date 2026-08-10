@@ -1419,12 +1419,6 @@ img, picture, video, canvas, svg {
   transition-duration: var(--duration-fast);
 }
 
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
 /* Glass button: the fill lifts slightly on hover, matching hover:bg-white/5 */
 
 .btn-glass:hover {
@@ -1490,12 +1484,6 @@ img, picture, video, canvas, svg {
 
 .btn-round:active {
   transform: scale(var(--motion-scale-tap));
-}
-
-.btn-round:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
 }
 
 .btn-icon {
