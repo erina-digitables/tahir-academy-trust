@@ -2,7 +2,7 @@
   "name": "tahir-academy-trust",
   "version": "1.0.0",
   "private": true,
-  "description": "Tahir Academy Trust — static site built from the Stitch 'Liquid Editorial' design import.",
+  "description": "Tahir Academy Trust — static marketing site for the Enfield/Cheshunt Islamic education charity.",
   "scripts": {
     "css": "tailwindcss -i ./src/input.css -o ./assets/css/site.css",
     "build:css": "npm run css -- --minify",
