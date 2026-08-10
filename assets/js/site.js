@@ -45,6 +45,30 @@
     },
   ];
 
+  var LOCATIONS = [
+    {
+      name: 'Enfield',
+      venue: 'Waverley Primary School',
+      address: '105 The Ride, Enfield EN3 7DL',
+      days: 'Saturday & Sunday',
+      time: '9:30am – 12:30pm',
+      status: 'open',
+    },
+    {
+      name: 'Hertford',
+      venue: 'Pioneer Hall',
+      address: '11 Ware Road, Hertford SG13 7DZ',
+      days: 'Saturday & Sunday',
+      time: '10:00am – 1:00pm',
+      status: 'open',
+    },
+    {
+      name: 'Cheshunt',
+      status: 'coming-soon',
+      note: 'A new branch is on its way — details to follow.',
+    },
+  ];
+
   var SERVICES = [
     {
       title: 'Eid Salaah',
@@ -108,6 +132,38 @@
     );
   }
 
+  function locationCard(location) {
+    var body =
+      location.status === 'coming-soon'
+        ? '<p class="text-body-sm text-body flex items-center gap-3xs">' +
+            '<svg class="h-4 w-4 flex-shrink-0" aria-hidden="true"><use href="#i-pin"/></svg>' +
+            esc(location.note) +
+          '</p>'
+        : '<p class="text-body-sm text-body flex items-center gap-3xs">' +
+            '<svg class="h-4 w-4 flex-shrink-0" aria-hidden="true"><use href="#i-pin"/></svg>' +
+            esc(location.venue) + ', ' + esc(location.address) +
+          '</p>' +
+          '<p class="text-body-sm text-body flex items-center gap-3xs">' +
+            '<svg class="h-4 w-4 flex-shrink-0" aria-hidden="true"><use href="#i-calendar"/></svg>' +
+            esc(location.days) + ', ' + esc(location.time) +
+          '</p>';
+
+    var badge =
+      location.status === 'coming-soon' ? '<span class="chip chip-gold">Coming soon</span>' : '';
+
+    return (
+      '<div class="liquid-glass card rounded-xl" data-motion="fade">' +
+        '<div class="card-body">' +
+          '<div class="flex items-start justify-between gap-sm">' +
+            '<h3 class="font-display text-title text-strong">' + esc(location.name) + '</h3>' +
+            badge +
+          '</div>' +
+          body +
+        '</div>' +
+      '</div>'
+    );
+  }
+
   function serviceRow(service) {
     return (
       '<li class="row" data-motion="fade">' +
@@ -124,6 +180,9 @@
 
     var list = document.getElementById('services-list');
     if (list) list.innerHTML = SERVICES.map(serviceRow).join('');
+
+    var locations = document.getElementById('locations-grid');
+    if (locations) locations.innerHTML = LOCATIONS.map(locationCard).join('');
 
     var year = document.getElementById('year');
     if (year) year.textContent = String(new Date().getFullYear());
