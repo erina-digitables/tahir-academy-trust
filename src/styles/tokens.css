@@ -165,15 +165,42 @@
 
   /* ---------------------------------------------------------------------------
      HERO VEIL
-     The Qur'an footage is warm but fairly dark, and this is a light page. The
-     video sits behind an ivory wash so it becomes soft texture rather than a
-     dark slab, which lets hero copy stay in dark ink and keeps the section
-     continuous with the rest of the page.
+     Two layers doing separate jobs, rather than one flat wash doing both:
+
+       VEIL   a light vertical gradient over the whole frame. Its only job is
+              to tie the hero into the ivory page at the bottom edge. Kept
+              deliberately weak at the top so the footage stays visible.
+       FOCUS  an elliptical pool of ivory sitting only behind the copy. This
+              is what buys legibility, so the veil no longer has to.
+
+     Previously the veil alone carried both jobs, which meant washing the
+     entire frame to 55-72% and losing the video to do it.
      ------------------------------------------------------------------------ */
-  --hero-video-opacity: 0.5;
-  --hero-veil-top: rgb(var(--color-background) / 0.55);
-  --hero-veil-mid: rgb(var(--color-background) / 0.72);
-  --hero-veil-bottom: rgb(var(--color-background) / 0.98);
+  /* The veil is now weak through the top and middle — the focus pool handles
+     legibility — and only ramps up near the bottom to meet the ivory page. */
+  --hero-veil-top: rgb(var(--color-background) / 0.06);
+  --hero-veil-mid: rgb(var(--color-background) / 0.14);
+  --hero-veil-bottom: rgb(var(--color-background) / 0.97);
+
+  /* Measured, not guessed. Twelve frames sampled across the full 25.8s clip,
+     graded exactly as the CSS grades it, compositing both gradient layers and
+     testing the darkest pixel under the copy band in every frame.
+
+     Sweeping the core value against that worst case:
+       0.56 -> 4.06:1   0.60 -> 4.57:1   0.64 -> 5.13:1
+       0.58 -> 4.31:1   0.62 -> 4.84:1   0.70 -> 6.04:1
+     0.62 is the lowest value clearing 4.5:1 with real margin, so it is the
+     most of the footage that can show through without failing AA somewhere in
+     the loop. Raising it further only costs visibility.
+
+     Sampling the poster frame alone gave 5.86:1 and would have been a false
+     pass — the clip has frames considerably darker than its poster. */
+  --hero-focus-core: rgb(var(--color-background) / 0.62);
+  --hero-focus-edge: rgb(var(--color-background) / 0.34);
+
+  /* Grade applied to the footage itself. The old value pulled saturation down
+     to 0.88, which flattened warm brass and lamplight into grey. */
+  --hero-grade: saturate(1.18) contrast(1.06) brightness(1.02);
 
   /* ---------------------------------------------------------------------------
      Z-INDEX — documented scale

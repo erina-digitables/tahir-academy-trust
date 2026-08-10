@@ -81,15 +81,32 @@
 
   /* Deliberately no mix-blend-mode here. It creates a stacking context that
      fights the JS opacity fade and behaves inconsistently across browsers —
-     the ivory veil above does the lightening on its own, predictably. */
-  .hero-media { filter: saturate(0.88); }
+     the ivory layers above do the lightening on their own, predictably. */
+  .hero-media { filter: var(--hero-grade); }
 
   .hero-veil {
     background-image: linear-gradient(
       to bottom,
       var(--hero-veil-top) 0%,
-      var(--hero-veil-mid) 45%,
+      var(--hero-veil-mid) 52%,
       var(--hero-veil-bottom) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Legibility pool. Concentrated behind the headline and buttons and gone by
+     the frame edges, so the footage reads at full strength around the copy
+     while the copy itself sits on a calm ground. */
+  /* The core is held flat to 34% rather than falling away immediately, so the
+     whole copy block sits on an even ground instead of the headline being
+     protected while the lines under it drift into the footage. */
+  .hero-focus {
+    background-image: radial-gradient(
+      ellipse 84% 62% at 50% 47%,
+      var(--hero-focus-core) 0%,
+      var(--hero-focus-core) 34%,
+      var(--hero-focus-edge) 62%,
+      transparent 84%
     );
     pointer-events: none;
   }
