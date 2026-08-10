@@ -1,6 +1,6 @@
 /**
  * Site behaviour: content rendering, hero video crossfade loop, mobile
- * navigation, enquiry field.
+ * navigation, enquiry field, contact form.
  *
  * Course and service copy is taken verbatim from tahiracademytrust.org and
  * lives in the arrays below, so adding a fourth course is a data edit rather
@@ -383,6 +383,104 @@
   }
 
   /* ==========================================================================
+     CONTACT FORM
+     Same reasoning as the enquiry field above: there is no backend behind this
+     site, so submission hands the visitor's own email client a pre-filled
+     message addressed to the trust's inbox, with everything they typed laid
+     out for a reply. A form that silently discards input is worse than no
+     form. If a real submission endpoint (Formspree, Netlify Forms, a small
+     serverless function, etc.) is added later, only this handler's submit
+     branch needs to change — the markup, validation and honeypot stay as-is.
+     ======================================================================== */
+
+  function initContactForm() {
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+
+    var status = document.getElementById('contact-status');
+    var honeypot = document.getElementById('contact-company');
+
+    var fields = ['name', 'email', 'reason', 'message'].map(function (name) {
+      return document.getElementById('contact-' + name);
+    });
+
+    function clearInvalid(field) {
+      field.removeAttribute('aria-invalid');
+    }
+
+    // Once a field has been flagged invalid, clear it as soon as the visitor
+    // fixes it rather than waiting for the next submit attempt.
+    fields.forEach(function (field) {
+      var evt = field.tagName === 'SELECT' ? 'change' : 'input';
+      field.addEventListener(evt, function () {
+        if (field.checkValidity()) clearInvalid(field);
+      });
+    });
+
+    function validate() {
+      var firstInvalid = null;
+      fields.forEach(function (field) {
+        var ok = field.checkValidity() && field.value.trim() !== '';
+        if (ok) {
+          clearInvalid(field);
+        } else {
+          field.setAttribute('aria-invalid', 'true');
+          if (!firstInvalid) firstInvalid = field;
+        }
+      });
+      return firstInvalid;
+    }
+
+    function composeBody(data) {
+      var lines = [
+        'Name: ' + data.name,
+        'Email: ' + data.email,
+      ];
+      if (data.phone) lines.push('Phone: ' + data.phone);
+      lines.push('Reason: ' + data.reason);
+      lines.push('', 'Message:', data.message);
+      return lines.join('\n');
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      // A filled honeypot means a bot, not a visitor. Pretend it worked and
+      // stop — never reveal to the sender that anything was rejected.
+      if (honeypot && honeypot.value.trim() !== '') {
+        form.reset();
+        status.setAttribute('data-tone', 'success');
+        status.textContent = 'Thank you — your message has been sent.';
+        return;
+      }
+
+      var firstInvalid = validate();
+      if (firstInvalid) {
+        status.setAttribute('data-tone', 'error');
+        status.textContent = 'Please check the highlighted fields and try again.';
+        firstInvalid.focus();
+        return;
+      }
+
+      var data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        reason: form.reason.value,
+        message: form.message.value.trim(),
+      };
+
+      status.removeAttribute('data-tone');
+      status.textContent = 'Opening your email app…';
+
+      window.location.href =
+        'mailto:info@tahiracademytrust.org' +
+        '?subject=' + encodeURIComponent('Contact form: ' + data.reason) +
+        '&body=' + encodeURIComponent(composeBody(data));
+    });
+  }
+
+  /* ==========================================================================
      INIT
      ======================================================================== */
 
@@ -433,6 +531,7 @@
     initAmbientVideos();
     initNav();
     initEnquiry();
+    initContactForm();
     initMobileCta();
     // Entrance animations attach after injected content exists in the DOM.
     if (window.Motion && typeof window.Motion.refresh === 'function') window.Motion.refresh();

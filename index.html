@@ -438,43 +438,112 @@
      SECTION 10 — CONTACT
      ====================================================================== -->
 <section id="location" class="section">
-  <div class="shell grid grid-cols-1 gap-2xl md:grid-cols-2 md:gap-xl">
-    <div>
-      <p class="label label-green eyebrow" data-motion="fade">Contact</p>
+  <div class="shell">
+    <div class="max-w-2xl" data-motion="fade">
+      <p class="label label-green eyebrow">Contact</p>
       <h2 class="mt-sm font-display text-display text-strong" data-motion="fade" data-motion-delay="80">
         Our doors are <em class="em-soft">always open</em>
       </h2>
-      <p class="mt-md max-w-md text-body-md text-body" data-motion="fade" data-motion-delay="160">
-        Any questions about courses, intake dates, fees or our teachers &mdash; call,
-        email, or simply come along on a weekend morning.
+      <p class="mt-md text-body-md text-body" data-motion="fade" data-motion-delay="160">
+        Any questions about courses, intake dates, fees or our teachers &mdash; send us
+        a message below, call, or simply come along on a weekend morning.
       </p>
-      <div class="mt-lg flex flex-wrap gap-xs" data-motion="fade" data-motion-delay="220">
-        <a class="btn btn-solid" href="tel:+447904873979">
-          <svg class="h-4 w-4" aria-hidden="true"><use href="#i-phone"/></svg>
-          Call 07904 873979
-        </a>
-        <a class="btn btn-outline" href="mailto:info@tahiracademytrust.org">Email us</a>
-      </div>
     </div>
 
-    <dl data-motion-stagger>
-      <div class="row" data-motion="fade">
-        <dt class="label">Classes &amp; open house</dt>
-        <dd class="text-body-md text-strong">Waverley Primary School, Enfield EN3 7DL</dd>
+    <div class="mt-2xl grid grid-cols-1 gap-2xl lg:grid-cols-12 lg:gap-xl">
+      <!-- ---------------- CONTACT FORM ---------------- -->
+      <div class="lg:col-span-7" data-motion="fade" data-motion-delay="220">
+        <form id="contact-form" class="form-grid" novalidate>
+
+          <!-- Honeypot: real visitors never see or fill this. -->
+          <div class="form-honeypot" aria-hidden="true">
+            <label for="contact-company">Company</label>
+            <input id="contact-company" name="company" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-row form-row--2up">
+            <div class="form-field">
+              <label class="form-label" for="contact-name">Name</label>
+              <input id="contact-name" name="name" type="text" class="form-control"
+                     autocomplete="name" required aria-describedby="contact-name-error">
+              <p id="contact-name-error" class="form-error">Please enter your name.</p>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="contact-email">Email</label>
+              <input id="contact-email" name="email" type="email" class="form-control"
+                     autocomplete="email" required aria-describedby="contact-email-error">
+              <p id="contact-email-error" class="form-error">Please enter a valid email address.</p>
+            </div>
+          </div>
+
+          <div class="form-row form-row--2up">
+            <div class="form-field">
+              <label class="form-label" for="contact-phone">Phone <span class="form-optional">(optional)</span></label>
+              <input id="contact-phone" name="phone" type="tel" class="form-control" autocomplete="tel">
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="contact-reason">What is this about?</label>
+              <select id="contact-reason" name="reason" class="form-control" required
+                      aria-describedby="contact-reason-error">
+                <option value="" disabled selected hidden>Choose one&hellip;</option>
+                <option value="Course enrolment">Course enrolment</option>
+                <option value="Open house visit">Open house visit</option>
+                <option value="Prayers &amp; services">Prayers &amp; services</option>
+                <option value="Volunteering / hiring">Volunteering / hiring</option>
+                <option value="Donations &amp; campaign">Donations &amp; campaign</option>
+                <option value="Something else">Something else</option>
+              </select>
+              <p id="contact-reason-error" class="form-error">Please choose a reason for your message.</p>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="contact-message">Message</label>
+            <textarea id="contact-message" name="message" class="form-control"
+                      required aria-describedby="contact-message-error"></textarea>
+            <p id="contact-message-error" class="form-error">Please add a short message so we know how to help.</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-md">
+            <button type="submit" class="btn btn-solid">
+              Send message
+              <span class="btn-icon" aria-hidden="true"><svg class="h-4 w-4"><use href="#i-arrow-right"/></svg></span>
+            </button>
+            <p id="contact-status" class="form-status text-body-sm text-muted" role="status" aria-live="polite"></p>
+          </div>
+        </form>
       </div>
-      <div class="row" data-motion="fade">
-        <dt class="label">Registered address</dt>
-        <dd class="text-body-md text-strong">105 The Ride, Enfield EN3 7DL, United Kingdom</dd>
+
+      <!-- ---------------- QUICK CONTACT + DETAILS ---------------- -->
+      <div class="lg:col-span-5">
+        <div class="flex flex-wrap gap-xs" data-motion="fade" data-motion-delay="260">
+          <a class="btn btn-outline" href="tel:+447904873979">
+            <svg class="h-4 w-4" aria-hidden="true"><use href="#i-phone"/></svg>
+            Call 07904 873979
+          </a>
+          <a class="btn btn-outline" href="mailto:info@tahiracademytrust.org">Email us</a>
+        </div>
+
+        <dl class="mt-lg" data-motion-stagger>
+          <div class="row" data-motion="fade">
+            <dt class="label">Classes &amp; open house</dt>
+            <dd class="text-body-md text-strong">Waverley Primary School, Enfield EN3 7DL</dd>
+          </div>
+          <div class="row" data-motion="fade">
+            <dt class="label">Registered address</dt>
+            <dd class="text-body-md text-strong">105 The Ride, Enfield EN3 7DL, United Kingdom</dd>
+          </div>
+          <div class="row" data-motion="fade">
+            <dt class="label">Prayer venue</dt>
+            <dd class="text-body-md text-strong">Huntingdon Suite, Broxbourne Council, Cheshunt, Herts EN8 9XQ &mdash; parking available</dd>
+          </div>
+          <div class="row" data-motion="fade">
+            <dt class="label">Email</dt>
+            <dd class="text-body-md"><a class="font-semibold text-green underline underline-offset-4" href="mailto:info@tahiracademytrust.org">info@tahiracademytrust.org</a></dd>
+          </div>
+        </dl>
       </div>
-      <div class="row" data-motion="fade">
-        <dt class="label">Prayer venue</dt>
-        <dd class="text-body-md text-strong">Huntingdon Suite, Broxbourne Council, Cheshunt, Herts EN8 9XQ &mdash; parking available</dd>
-      </div>
-      <div class="row" data-motion="fade">
-        <dt class="label">Email</dt>
-        <dd class="text-body-md"><a class="font-semibold text-green underline underline-offset-4" href="mailto:info@tahiracademytrust.org">info@tahiracademytrust.org</a></dd>
-      </div>
-    </dl>
+    </div>
   </div>
 </section>
 
