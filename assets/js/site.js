@@ -412,9 +412,9 @@
 
   /* ==========================================================================
      ENQUIRY FIELD
-     There is no backend, so this hands off to the trust's real inbox rather
-     than pretending to submit. A field that silently does nothing is worse
-     than no field.
+     Submits to Formspree (see the form's `action` attribute in index.html),
+     so a visitor never leaves the site. If JavaScript fails to run, the form
+     still works via a plain POST to the same endpoint.
      ======================================================================== */
 
   function initEnquiry() {
@@ -422,6 +422,7 @@
     if (!form) return;
     var input = document.getElementById('enquiry-email');
     var status = document.getElementById('enquiry-status');
+    var button = form.querySelector('button[type="submit"]');
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -433,23 +434,31 @@
         return;
       }
 
-      status.textContent = 'Opening your email app…';
-      window.location.href =
-        'mailto:info@tahiracademytrust.org' +
-        '?subject=' + encodeURIComponent('Enquiry from the Tahir Academy Trust website') +
-        '&body=' + encodeURIComponent('Please contact me at: ' + value + '\n\nMy enquiry:\n');
+      var data = new FormData(form);
+      data.set('_subject', 'Callback request from the Tahir Academy Trust website');
+
+      status.textContent = 'Sending…';
+      button.disabled = true;
+
+      fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+        .then(function (response) {
+          if (!response.ok) throw new Error('submit failed');
+          form.reset();
+          status.textContent = "Thank you — we'll be in touch soon.";
+        })
+        .catch(function () {
+          status.textContent = 'Something went wrong. Please call 07904 873979 or email info@tahiracademytrust.org directly.';
+        })
+        .finally(function () { button.disabled = false; });
     });
   }
 
   /* ==========================================================================
      CONTACT FORM
-     Same reasoning as the enquiry field above: there is no backend behind this
-     site, so submission hands the visitor's own email client a pre-filled
-     message addressed to the trust's inbox, with everything they typed laid
-     out for a reply. A form that silently discards input is worse than no
-     form. If a real submission endpoint (Formspree, Netlify Forms, a small
-     serverless function, etc.) is added later, only this handler's submit
-     branch needs to change — the markup, validation and honeypot stay as-is.
+     Submits to the same Formspree endpoint as the enquiry field above (see
+     the form's `action` attribute in index.html), so everything typed here
+     reaches the trust's inbox directly rather than being discarded. Falls
+     back to a plain POST to the same endpoint if JavaScript fails to run.
      ======================================================================== */
 
   function initContactForm() {
@@ -458,6 +467,7 @@
 
     var status = document.getElementById('contact-status');
     var honeypot = document.getElementById('contact-company');
+    var submitButton = form.querySelector('button[type="submit"]');
 
     var fields = ['name', 'email', 'reason', 'message'].map(function (name) {
       return document.getElementById('contact-' + name);
@@ -490,17 +500,6 @@
       return firstInvalid;
     }
 
-    function composeBody(data) {
-      var lines = [
-        'Name: ' + data.name,
-        'Email: ' + data.email,
-      ];
-      if (data.phone) lines.push('Phone: ' + data.phone);
-      lines.push('Reason: ' + data.reason);
-      lines.push('', 'Message:', data.message);
-      return lines.join('\n');
-    }
-
     form.addEventListener('submit', function (event) {
       event.preventDefault();
 
@@ -521,21 +520,25 @@
         return;
       }
 
-      var data = {
-        name: form.name.value.trim(),
-        email: form.email.value.trim(),
-        phone: form.phone.value.trim(),
-        reason: form.reason.value,
-        message: form.message.value.trim(),
-      };
+      var data = new FormData(form);
+      data.set('_subject', 'Contact form: ' + form.reason.value);
 
       status.removeAttribute('data-tone');
-      status.textContent = 'Opening your email app…';
+      status.textContent = 'Sending…';
+      submitButton.disabled = true;
 
-      window.location.href =
-        'mailto:info@tahiracademytrust.org' +
-        '?subject=' + encodeURIComponent('Contact form: ' + data.reason) +
-        '&body=' + encodeURIComponent(composeBody(data));
+      fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+        .then(function (response) {
+          if (!response.ok) throw new Error('submit failed');
+          form.reset();
+          status.setAttribute('data-tone', 'success');
+          status.textContent = 'Thank you — your message has been sent. We will be in touch soon.';
+        })
+        .catch(function () {
+          status.setAttribute('data-tone', 'error');
+          status.textContent = 'Something went wrong sending your message. Please email info@tahiracademytrust.org directly.';
+        })
+        .finally(function () { submitButton.disabled = false; });
     });
   }
 
