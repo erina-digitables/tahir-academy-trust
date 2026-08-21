@@ -7,8 +7,10 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const ROOT = path.join(__dirname, '..');
-const PORTS = [3000, 3001, 3002];
+const ROOT = process.env.SERVE_ROOT
+  ? path.resolve(process.env.SERVE_ROOT)
+  : path.join(__dirname, '..');
+const PORTS = process.env.SERVE_PORT ? [Number(process.env.SERVE_PORT)] : [3000, 3001, 3002];
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',

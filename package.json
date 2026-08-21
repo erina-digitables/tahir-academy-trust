@@ -9,7 +9,9 @@
     "watch:css": "npm run css -- --watch",
     "images": "node scripts/optimise-images.js",
     "build": "npm run images && npm run build:css",
+    "build:dist": "npm run build:css && node scripts/build-dist.js",
     "serve": "node scripts/serve.js",
+    "serve:dist": "node scripts/serve-dist.js",
     "dev": "node scripts/dev.js"
   },
   "devDependencies": {

@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: tahir-academy
+    runtime: static
+    buildCommand: npm run build:dist
+    staticPublishPath: ./dist
