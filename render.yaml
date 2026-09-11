@@ -1,6 +1,9 @@
 services:
   - type: web
-    name: tahir-academy
+    name: tahir-academy-trust
     runtime: static
-    buildCommand: npm run build:dist
+    # Render does not install dependencies separately — its own dashboard
+    # default is "npm install; npm run build" — so the install must be part of
+    # the command or the build fails with "tailwindcss: not found".
+    buildCommand: npm install; npm run build:dist
     staticPublishPath: ./dist

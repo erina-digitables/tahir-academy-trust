@@ -64,15 +64,19 @@
     margin-inline: auto;
   }
 
+  /* Padding stacks at section boundaries — adjacent sections produce double
+     this value as the visible gap, so the step down from 5xl/3xl keeps the
+     rhythm generous without forcing a screen of empty scrolling between
+     every band. */
   .section {
     position: relative;
     overflow: hidden;
     padding-inline: var(--space-margin-mobile);
-    padding-block: var(--space-3xl);
+    padding-block: var(--space-xl);
   }
 
   @media (min-width: 768px) {
-    .section { padding-block: var(--space-5xl); }
+    .section { padding-block: var(--space-2xl); }
   }
 
   /* ---------------------------------------------------------------------------
@@ -111,10 +115,12 @@
     pointer-events: none;
   }
 
-  .section--tight { padding-block: var(--space-2xl); }
+  /* Short bands (about, locations, open house) hold little copy, so the same
+     padding as a full section leaves them reading as mostly empty ground. */
+  .section--tight { padding-block: var(--space-lg); }
 
   @media (min-width: 768px) {
-    .section--tight { padding-block: var(--space-3xl); }
+    .section--tight { padding-block: var(--space-xl); }
   }
 
   /* Radial washes that keep large flat areas from going dead. On the dark
