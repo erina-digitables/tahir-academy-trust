@@ -16,7 +16,9 @@
   /* ---------------------------------------------------------------------------
      COLOUR — ground and ink
      ------------------------------------------------------------------------ */
-  --color-background: 252 250 245;    /* #FCFAF5 ivory */
+  --color-background: 255 250 230;    /* a touch lighter than cornsilk (#FFF8DC) at the
+                                          user's request, still warmer than the original
+                                          ivory (#FCFAF5) but softened further toward white */
   --color-surface: 242 237 228;       /* #F2EDE4 parchment, for banded sections */
   --color-ink: 30 27 22;              /* #1e1b16 warm near-black */
 
@@ -59,6 +61,8 @@
   --color-accent: 119 90 25;          /* #775a19 gold */
   --color-accent-soft: 197 160 89;    /* #c5a059 — ornament only */
   --color-accent-pale: 244 236 220;   /* #f4ecdc — gold-tinted bands */
+  --color-warm-card: 255 235 205;     /* #ffebcd blanched almond — warm card ground, tried in
+                                          place of white glass on surfaces over bright video */
 
   --color-error: 186 26 26;           /* #ba1a1a */
 

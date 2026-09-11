@@ -129,6 +129,18 @@
   ],
   "open-house": [
     {
+      "file": "open-house-560.webp",
+      "w": 560,
+      "h": 374,
+      "bytes": 34892
+    },
+    {
+      "file": "open-house-560.jpg",
+      "w": 560,
+      "h": 374,
+      "bytes": 36628
+    },
+    {
       "file": "open-house-640.webp",
       "w": 640,
       "h": 427,

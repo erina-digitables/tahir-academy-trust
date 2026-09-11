@@ -17,6 +17,15 @@
 
   var COURSES = [
     {
+      title: 'Maktab',
+      chips: ['Ongoing', 'Ages 5-10', 'Sat & Sun'],
+      body: "A foundational weekend class in Qur'an reading and basic Islamic studies, preparing younger children for Sanatayn and beyond.",
+      image: 'open-house',
+      alt: 'An ornate archway opening onto a view of a hillside town',
+      width: 560,
+      height: 374,
+    },
+    {
       title: 'Sanatayn Course',
       chips: ['2 years', 'Age 11+', 'Sat & Sun'],
       body: 'The essential foundations of the Islamic sciences, for both girls and boys from the age of 11.',

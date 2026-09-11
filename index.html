@@ -50,14 +50,14 @@
 <div class="announce">
   <p class="announce-inner">
     <span><strong class="font-semibold">Open house every weekend</strong> &middot; 9:30am&ndash;12:30pm &middot; Waverley Primary School, Enfield</span>
-    <a href="#enrol">Book a visit <svg class="h-4 w-4" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    <a href="#location">Book a visit <svg class="h-4 w-4" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
   </p>
 </div>
 
 <!-- =========================================================================
      SECTION 1 — HERO
      ====================================================================== -->
-<div class="relative flex min-h-[92vh] flex-col overflow-hidden">
+<div class="relative flex min-h-[78vh] flex-col overflow-hidden">
 
   <img id="hero-fallback"
        class="hero-media absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-hover"
@@ -96,8 +96,8 @@
       </div>
 
       <div class="flex items-center gap-2xs">
-        <a class="nav-link hidden sm:inline-flex" href="tel:+447904873979">07904 873979</a>
-        <a class="btn btn-solid hidden sm:inline-flex" href="#enrol">Enrol now</a>
+        <a class="nav-link hidden text-body-md font-semibold text-strong sm:inline-flex" href="tel:+447904873979">07904 873979</a>
+        <a class="btn btn-solid hidden sm:inline-flex" href="#location">Enrol now</a>
         <button type="button" id="nav-toggle" class="nav-burger lg:hidden"
                 aria-expanded="false" aria-controls="nav-drawer" aria-label="Open menu">
           <span class="nav-burger-bar"></span><span class="nav-burger-bar"></span><span class="nav-burger-bar"></span>
@@ -107,9 +107,7 @@
   </header>
 
   <!-- ---------------- HERO CONTENT ---------------- -->
-  <div id="main" class="relative z-media flex flex-1 flex-col items-center justify-center px-margin-mobile py-xl text-center">
-    <p class="label label-green mb-md" data-motion="fade">Registered Charity No. 1198539</p>
-
+  <div id="main" class="relative z-media flex flex-1 flex-col items-center justify-center px-margin-mobile py-lg text-center">
     <h1 class="font-display text-hero text-strong" data-motion="words">
       A Place to <em class="em-soft">Learn</em>
     </h1>
@@ -173,12 +171,12 @@
         <h2 class="mt-sm font-display text-display text-strong">What we teach</h2>
       </div>
       <p class="max-w-sm text-body-sm text-muted">
-        Three routes, running every Saturday and Sunday across our branches &mdash;
+        Four routes, running every Saturday and Sunday across our branches &mdash;
         see <a class="underline underline-offset-4" href="#locations">Our Locations</a> for times.
       </p>
     </div>
 
-    <div id="courses-grid" class="grid grid-cols-1 gap-md md:grid-cols-3 md:gap-lg" data-motion-stagger></div>
+    <div id="courses-grid" class="grid grid-cols-1 gap-md sm:grid-cols-2 md:gap-lg lg:grid-cols-4" data-motion-stagger></div>
   </div>
 </section>
 
@@ -213,23 +211,12 @@
       </h2>
       <p class="mt-md max-w-md text-body-md text-body" data-motion="fade" data-motion-delay="160">
         Come and see a class before committing. Visit any weekend during open house,
-        or send us your details and we will get back to you.
+        or call us directly and we will help you find the right fit.
       </p>
 
-      <form id="enquiry-form" class="mt-lg max-w-md" novalidate data-motion="fade" data-motion-delay="220"
-            action="https://formspree.io/f/xoeaebdn" method="POST">
-        <div class="liquid-glass field-pill">
-          <label class="sr-only" for="enquiry-email">Your email address</label>
-          <input id="enquiry-email" name="email" type="email" class="field-input"
-                 placeholder="Your email address" autocomplete="email" required>
-          <button type="submit" class="btn-round" aria-label="Request a callback">
-            <svg class="h-5 w-5" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-          </button>
-        </div>
-        <p id="enquiry-status" class="mt-2xs text-body-sm text-muted" role="status" aria-live="polite">
-          Prefer to talk? Call 07904 873979.
-        </p>
-      </form>
+      <a class="btn btn-solid mt-lg" href="tel:+447904873979" data-motion="fade" data-motion-delay="220">
+        Call 07904 873979
+      </a>
     </div>
 
     <ol class="grid gap-md lg:col-span-7" data-motion-stagger>
@@ -262,73 +249,25 @@
 </section>
 
 <!-- =========================================================================
-     SECTION 4B — OPEN HOUSE
-     ====================================================================== -->
-<section id="open-house" class="section section--tight">
-  <div class="shell">
-    <div class="grid grid-cols-1 items-center gap-lg md:grid-cols-12 md:gap-xl">
-      <div class="md:col-span-7">
-        <p class="label label-green eyebrow" data-motion="fade">Visit us</p>
-        <h2 class="mt-sm font-display text-display text-strong" data-motion="fade" data-motion-delay="80">
-          Open <em class="em-soft">House</em>
-        </h2>
-        <p class="mt-md max-w-md text-body-md text-body" data-motion="fade" data-motion-delay="160">
-          Meet the teachers, see a class in session, and ask us anything &mdash;
-          no appointment necessary.
-        </p>
-        <div class="mt-lg flex flex-wrap gap-xs" data-motion="fade" data-motion-delay="220">
-          <a class="btn btn-solid" href="#enrol">
-            Plan your visit
-            <span class="btn-icon" aria-hidden="true"><svg class="h-4 w-4"><use href="#i-arrow-right"/></svg></span>
-          </a>
-        </div>
-      </div>
-
-      <div class="md:col-span-5" data-motion="fade" data-motion-delay="120">
-        <div class="liquid-glass card rounded-xl">
-          <div class="card-body">
-            <p class="text-body-sm text-body flex items-center gap-3xs">
-              <svg class="h-4 w-4 flex-shrink-0" aria-hidden="true"><use href="#i-calendar"/></svg>
-              Every Saturday &amp; Sunday, 9:30am&ndash;12:30pm
-            </p>
-            <p class="text-body-sm text-body flex items-center gap-3xs">
-              <svg class="h-4 w-4 flex-shrink-0" aria-hidden="true"><use href="#i-pin"/></svg>
-              Waverley Primary School, 105 The Ride, Enfield EN3 7DL
-            </p>
-            <p class="text-body-sm text-muted">Running since 7th September 2024.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========================================================================
      SECTION 5 — FEATURED MEDIA  (mosque interior, not more Qur'an footage)
      ====================================================================== -->
-<section class="section section--tight">
-  <div class="shell">
-    <div class="relative aspect-video overflow-hidden rounded-xl" data-motion="rise">
-      <video class="h-full w-full object-cover" muted autoplay loop playsinline preload="metadata"
-             poster="/assets/video/mosque-dome-poster.jpg" aria-hidden="true" tabindex="-1"
-             src="/assets/video/mosque-dome.mp4"></video>
-      <div class="media-scrim--deep media-scrim" aria-hidden="true"></div>
+<section class="relative flex min-h-[340px] flex-col items-center justify-center overflow-hidden px-margin-mobile py-2xl md:min-h-[500px]" data-motion="rise">
+  <video class="absolute inset-0 h-full w-full object-cover" muted autoplay loop playsinline preload="metadata"
+         poster="/assets/video/mosque-dome-poster.jpg" aria-hidden="true" tabindex="-1"
+         src="/assets/video/mosque-dome.mp4"></video>
+  <div class="media-scrim--deep media-scrim" aria-hidden="true"></div>
 
-      <div class="absolute inset-x-0 bottom-0 flex flex-col items-start gap-md p-md md:flex-row md:items-end md:justify-between md:p-2xl">
-        <div class="liquid-glass max-w-md rounded-lg p-md md:p-lg">
-          <p class="label label-accent mb-xs">Our approach</p>
-          <p class="text-body-sm text-strong md:text-body-md">
-            We foster an environment where intellectual growth and spiritual development
-            go hand in hand &mdash; so students leave us grounded in their faith and ready
-            for the world they are going into.
-          </p>
-        </div>
-        <a class="btn btn-solid shrink-0" href="#enrol">
-          Book a visit
-          <span class="btn-icon" aria-hidden="true"><svg class="h-4 w-4"><use href="#i-arrow-right"/></svg></span>
-        </a>
-      </div>
-    </div>
+  <div class="liquid-glass liquid-glass--warm relative z-content max-w-xl rounded-xl p-lg text-center md:p-2xl">
+    <h2 class="font-display text-headline text-accent md:text-display">Our approach</h2>
+    <p class="mt-sm text-body-sm text-strong md:text-body-md">
+      We foster an environment where intellectual growth and spiritual development
+      go hand in hand &mdash; so students leave us grounded in their faith and ready
+      for the world they are going into.
+    </p>
+    <a class="btn btn-solid mt-lg" href="#location">
+      Book a visit
+      <span class="btn-icon" aria-hidden="true"><svg class="h-4 w-4"><use href="#i-arrow-right"/></svg></span>
+    </a>
   </div>
 </section>
 
@@ -658,7 +597,7 @@
   <a class="btn btn-outline" href="tel:+447904873979">
     <svg class="h-4 w-4" aria-hidden="true"><use href="#i-phone"/></svg> Call
   </a>
-  <a class="btn btn-solid" href="#enrol">Enrol now</a>
+  <a class="btn btn-solid" href="#location">Enrol now</a>
 </div>
 
 <!-- Mobile drawer -->
@@ -678,7 +617,7 @@
     <li><a class="drawer-link" href="#hiring">Hiring</a></li>
     <li><a class="drawer-link" href="#campaign">Campaign</a></li>
     <li><a class="drawer-link" href="#location">Contact</a></li>
-    <li class="pt-sm"><a class="btn btn-solid w-full" href="#enrol">Enrol now</a></li>
+    <li class="pt-sm"><a class="btn btn-solid w-full" href="#location">Enrol now</a></li>
     <li><a class="btn btn-outline w-full" href="tel:+447904873979">Call 07904 873979</a></li>
   </ul>
 </div>

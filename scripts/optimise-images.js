@@ -25,7 +25,10 @@ const PLAN = {
   // Portrait master at 1130x1600 — planning wider than that produced nothing,
   // since the resize step refuses to upscale.
   'campaign-masjid':   { widths: [640, 1130] },
-  'open-house':        { widths: [640, 1120] },
+  // 560 added alongside the original 640/1120 pair so this image can also be
+  // used as a course-card photo (the Maktab card) — that template expects the
+  // same -560/-1120 pair every other course image has.
+  'open-house':        { widths: [560, 640, 1120] },
   hiring:              { widths: [640, 1120] },
   'course-sanatayn':   { widths: [560, 1120] },
   'course-aalimiyyah': { widths: [560, 1120] },

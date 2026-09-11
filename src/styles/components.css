@@ -54,6 +54,11 @@
      follows the radius. */
   .liquid-glass--open { overflow: visible; }
 
+  /* Warm fill — a blanched-almond ground instead of white glass, tried on the
+     "Our approach" card where a bright video sits right behind it and a
+     stark-white fill read as harsh. Same alpha as the default fill, hue only. */
+  .liquid-glass--warm { --glass-fill: rgb(var(--color-warm-card) / 0.55); }
+
   /* ===========================================================================
      LAYOUT
      ======================================================================== */
