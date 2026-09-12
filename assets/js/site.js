@@ -463,95 +463,6 @@
   }
 
   /* ==========================================================================
-     CONTACT FORM
-     Submits to the same Formspree endpoint as the enquiry field above (see
-     the form's `action` attribute in index.html), so everything typed here
-     reaches the trust's inbox directly rather than being discarded. Falls
-     back to a plain POST to the same endpoint if JavaScript fails to run.
-     ======================================================================== */
-
-  function initContactForm() {
-    var form = document.getElementById('contact-form');
-    if (!form) return;
-
-    var status = document.getElementById('contact-status');
-    var honeypot = document.getElementById('contact-company');
-    var submitButton = form.querySelector('button[type="submit"]');
-
-    var fields = ['name', 'email', 'reason', 'message'].map(function (name) {
-      return document.getElementById('contact-' + name);
-    });
-
-    function clearInvalid(field) {
-      field.removeAttribute('aria-invalid');
-    }
-
-    // Once a field has been flagged invalid, clear it as soon as the visitor
-    // fixes it rather than waiting for the next submit attempt.
-    fields.forEach(function (field) {
-      var evt = field.tagName === 'SELECT' ? 'change' : 'input';
-      field.addEventListener(evt, function () {
-        if (field.checkValidity()) clearInvalid(field);
-      });
-    });
-
-    function validate() {
-      var firstInvalid = null;
-      fields.forEach(function (field) {
-        var ok = field.checkValidity() && field.value.trim() !== '';
-        if (ok) {
-          clearInvalid(field);
-        } else {
-          field.setAttribute('aria-invalid', 'true');
-          if (!firstInvalid) firstInvalid = field;
-        }
-      });
-      return firstInvalid;
-    }
-
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      // A filled honeypot means a bot, not a visitor. Pretend it worked and
-      // stop — never reveal to the sender that anything was rejected.
-      if (honeypot && honeypot.value.trim() !== '') {
-        form.reset();
-        status.setAttribute('data-tone', 'success');
-        status.textContent = 'Thank you — your message has been sent.';
-        return;
-      }
-
-      var firstInvalid = validate();
-      if (firstInvalid) {
-        status.setAttribute('data-tone', 'error');
-        status.textContent = 'Please check the highlighted fields and try again.';
-        firstInvalid.focus();
-        return;
-      }
-
-      var data = new FormData(form);
-      data.set('_subject', 'Contact form: ' + form.reason.value);
-
-      status.removeAttribute('data-tone');
-      status.textContent = 'Sending…';
-      submitButton.disabled = true;
-
-      fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-        .then(function (response) {
-          if (!response.ok) throw new Error('submit failed');
-          form.reset();
-          status.setAttribute('data-tone', 'success');
-          status.textContent = 'Thank you — your message has been sent. We will be in touch soon.';
-        })
-        .catch(function () {
-          status.setAttribute('data-tone', 'error');
-          status.textContent = 'Something went wrong sending your message. Please email info@tahiracademytrust.org directly.';
-        })
-        .finally(function () { submitButton.disabled = false; });
-    });
-  }
-
-  /* ==========================================================================
      INIT
      ======================================================================== */
 
@@ -602,7 +513,6 @@
     initAmbientVideos();
     initNav();
     initEnquiry();
-    initContactForm();
     initMobileCta();
     // Entrance animations attach after injected content exists in the DOM.
     if (window.Motion && typeof window.Motion.refresh === 'function') window.Motion.refresh();
