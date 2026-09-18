@@ -18,12 +18,21 @@
   var COURSES = [
     {
       title: 'Maktab',
-      chips: ['Ongoing', 'Ages 5-10', 'Sat & Sun'],
+      chips: ['Ongoing', 'Ages 5+', 'Sat & Sun'],
       body: "A foundational weekend class in Qur'an reading and basic Islamic studies, preparing younger children for Sanatayn and beyond.",
       image: 'open-house',
       alt: 'An ornate archway opening onto a view of a hillside town',
       width: 560,
       height: 374,
+    },
+    {
+      title: "Hifz ul Qur'an",
+      chips: ['Flexible', 'With tajweed', 'Sat & Sun'],
+      body: "A dedicated programme to memorise the Holy Qur'an with tajweed, focused on accuracy and long-term retention.",
+      image: 'course-hifz',
+      alt: "An open Qur'an with prayer beads",
+      width: 560,
+      height: 840,
     },
     {
       title: 'Sanatayn Course',
@@ -42,15 +51,6 @@
       alt: 'Arabic calligraphy on an ancient manuscript page',
       width: 560,
       height: 700,
-    },
-    {
-      title: "Hifz ul Qur'an",
-      chips: ['Flexible', 'With tajweed', 'Sat & Sun'],
-      body: "A dedicated programme to memorise the Holy Qur'an with tajweed, focused on accuracy and long-term retention.",
-      image: 'course-hifz',
-      alt: "An open Qur'an with prayer beads",
-      width: 560,
-      height: 840,
     },
   ];
 
