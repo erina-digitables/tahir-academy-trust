@@ -80,11 +80,6 @@
 
   var SERVICES = [
     {
-      title: 'Eid Salaah',
-      when: 'Jamaat starts 9:00am sharp',
-      body: 'Our Eid ul Fitr Salaah at the Huntingdon Suite, Broxbourne Council, Cheshunt, Herts EN8 9XQ. Donations are collected for our fundraiser.',
-    },
-    {
       title: 'Jumuah prayers at Cheshunt',
       when: 'Every Friday',
       body: 'We have been providing Jumuah Salaah to the local people of Cheshunt, with special guests leading the prayers. Parking facilities are available.',
@@ -93,6 +88,11 @@
       title: 'Taraweeh Salaah',
       when: 'Isha followed by Taraweeh, 8:00pm sharp',
       body: 'Nightly prayers held throughout the blessed month of Ramadan.',
+    },
+    {
+      title: 'Eid Salaah',
+      when: 'Jamaat starts 9:00am sharp',
+      body: 'Our Eid ul Fitr Salaah at the Huntingdon Suite, Broxbourne Council, Cheshunt, Herts EN8 9XQ. Donations are collected for our fundraiser.',
     },
   ];
 
