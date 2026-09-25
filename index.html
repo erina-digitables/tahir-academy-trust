@@ -260,23 +260,29 @@
 <!-- =========================================================================
      SECTION 5 — FEATURED MEDIA  (mosque interior, not more Qur'an footage)
      ====================================================================== -->
-<section class="relative flex min-h-[340px] flex-col items-center justify-center overflow-hidden px-margin-mobile py-2xl md:min-h-[500px]" data-motion="rise">
+<section class="relative flex min-h-[560px] flex-col justify-end overflow-hidden px-margin-mobile pb-lg pt-4xl md:min-h-[78vh] md:pb-2xl" data-motion="rise">
   <video class="absolute inset-0 h-full w-full object-cover" muted autoplay loop playsinline preload="metadata"
          poster="/assets/video/mosque-dome-poster.jpg" aria-hidden="true" tabindex="-1"
          src="/assets/video/mosque-dome.mp4"></video>
   <div class="media-scrim--deep media-scrim" aria-hidden="true"></div>
 
-  <div class="liquid-glass liquid-glass--warm relative z-content max-w-xl rounded-xl p-lg text-center md:p-2xl">
-    <h2 class="font-display text-headline text-accent md:text-display">Our approach</h2>
-    <p class="mt-sm text-body-sm text-strong md:text-body-md">
-      We foster an environment where intellectual growth and spiritual development
-      go hand in hand &mdash; so students leave us grounded in their faith and ready
-      for the world they are going into.
-    </p>
-    <a class="btn btn-solid mt-lg" href="#location">
-      Book a visit
-      <span class="btn-icon" aria-hidden="true"><svg class="h-4 w-4"><use href="#i-arrow-right"/></svg></span>
-    </a>
+  <div class="shell relative z-content">
+    <div class="liquid-glass liquid-glass--warm grid gap-md rounded-xl p-lg md:grid-cols-12 md:items-center md:gap-0 md:p-2xl">
+      <h2 class="font-display text-display leading-none text-strong md:col-span-5 md:pr-xl">
+        Our <em class="em-soft">approach</em>
+      </h2>
+      <div class="md:col-span-7 md:border-l md:border-accent-soft md:pl-xl">
+        <p class="text-body-md text-strong md:text-body-lg">
+          We foster an environment where intellectual growth and spiritual development
+          go hand in hand &mdash; so students leave us grounded in their faith and ready
+          for the world they are going into.
+        </p>
+        <a class="btn btn-solid mt-md" href="#location">
+          Book a visit
+          <span class="btn-icon" aria-hidden="true"><svg class="h-4 w-4"><use href="#i-arrow-right"/></svg></span>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
