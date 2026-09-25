@@ -81,12 +81,13 @@
     {
       title: 'Jumuah prayers at Cheshunt',
       when: 'Every Friday',
+      times: ['Doors open 12:45pm', 'Bayan 1:00pm', 'Azan 1:15pm', 'Khutbah 1:30pm'],
       body: 'We have been providing Jumuah Salaah to the local people of Cheshunt, with special guests leading the prayers. Parking facilities are available.',
     },
     {
       title: 'Taraweeh Salaah',
       when: 'Isha followed by Taraweeh, 8:00pm sharp',
-      body: 'Nightly prayers held throughout the blessed month of Ramadan.',
+      body: "Nightly prayers held throughout the blessed month of Ramadan. Women's facilities are available.",
     },
     {
       title: 'Eid Salaah',
@@ -173,10 +174,17 @@
   }
 
   function serviceRow(service) {
+    var times = service.times
+      ? '<ul class="flex flex-wrap gap-3xs">' +
+          service.times.map(function (t) { return '<li class="chip">' + esc(t) + '</li>'; }).join('') +
+        '</ul>'
+      : '';
+
     return (
       '<li class="row" data-motion="fade">' +
         '<h3 class="font-display text-title text-strong">' + esc(service.title) + '</h3>' +
         '<p class="label">' + esc(service.when) + '</p>' +
+        times +
         '<p class="text-body-sm text-body">' + esc(service.body) + '</p>' +
       '</li>'
     );
