@@ -2,9 +2,10 @@
 /**
  * Assembles the deployable site into dist/.
  *
- * Mirrors the allowlist in serve.js: only index.html and assets/ ship, and
- * assets/**\/_originals is excluded so full-resolution masters never reach a
- * public host.
+ * Mirrors the allowlist in serve.js: only index.html, favicon.ico and assets/
+ * ship, and assets/**\/_originals is excluded so full-resolution masters never
+ * reach a public host. favicon.ico sits at the root because browsers and link
+ * tools request /favicon.ico directly.
  */
 
 const fs = require('fs');
@@ -13,7 +14,7 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 
-const ENTRIES = ['index.html', 'assets'];
+const ENTRIES = ['index.html', 'favicon.ico', 'assets'];
 const EXCLUDED_DIRS = new Set(['_originals']);
 const EXCLUDED_FILES = new Set(['PEXELS-CREDITS.md', 'CREDITS.md']);
 
