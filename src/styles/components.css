@@ -501,12 +501,14 @@
     pointer-events: none;
   }
 
-  .media-scrim--deep {
-    background-image: linear-gradient(
-      to top,
-      rgb(var(--color-background) / 0.92) 0%,
-      rgb(var(--color-background) / 0.55) 35%,
-      transparent 70%
+  /* A pool centred behind a centred card, so the footage stays vivid at the
+     band's edges. Alphas are measured against the real clip, not guessed. */
+  .media-scrim--center {
+    background-image: radial-gradient(
+      ellipse 70% 60% at 50% 50%,
+      rgb(var(--color-background) / 0.75) 0%,
+      rgb(var(--color-background) / 0.55) 50%,
+      transparent 100%
     );
   }
 
