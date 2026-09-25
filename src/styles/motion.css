@@ -157,8 +157,6 @@
 
   /* Hover and press feedback loses its scale, keeps its colour change. */
   .btn:hover, .btn:active,
-  .btn-round:hover, .btn-round:active,
-  .icon-btn:hover, .icon-btn:active,
   .card:hover, .card:focus-visible, .card:active,
   .card:hover .card-media, .card:focus-visible .card-media {
     transform: none !important;

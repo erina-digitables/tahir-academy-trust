@@ -1,10 +1,9 @@
 /**
- * Site behaviour: content rendering, hero video crossfade loop, mobile
- * navigation, enquiry field, contact form.
+ * Site behaviour: content rendering, hero video crossfade loop, ambient
+ * videos, menu drawer, sticky mobile CTA.
  *
- * Course and service copy is taken verbatim from tahiracademytrust.org and
- * lives in the arrays below, so adding a fourth course is a data edit rather
- * than a markup clone.
+ * Course, location and service copy lives in the arrays below, so adding
+ * another course or branch is a data edit rather than a markup clone.
  */
 (function () {
   'use strict';
@@ -416,57 +415,10 @@
   }
 
   /* ==========================================================================
-     ENQUIRY FIELD
-     Submits to Formspree (see the form's `action` attribute in index.html),
-     so a visitor never leaves the site. If JavaScript fails to run, the form
-     still works via a plain POST to the same endpoint.
-     ======================================================================== */
-
-  function initEnquiry() {
-    var form = document.getElementById('enquiry-form');
-    if (!form) return;
-    var input = document.getElementById('enquiry-email');
-    var status = document.getElementById('enquiry-status');
-    var button = form.querySelector('button[type="submit"]');
-
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      var value = (input.value || '').trim();
-
-      if (!value || !input.checkValidity()) {
-        status.textContent = 'Please enter a valid email address.';
-        input.focus();
-        return;
-      }
-
-      var data = new FormData(form);
-      data.set('_subject', 'Callback request from the Tahir Academy Trust website');
-
-      status.textContent = 'Sending…';
-      button.disabled = true;
-
-      fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-        .then(function (response) {
-          if (!response.ok) throw new Error('submit failed');
-          form.reset();
-          status.textContent = "Thank you — we'll be in touch soon.";
-        })
-        .catch(function () {
-          status.textContent = 'Something went wrong. Please call 07904 873979 or email info@tahiracademytrust.org directly.';
-        })
-        .finally(function () { button.disabled = false; });
-    });
-  }
-
-  /* ==========================================================================
-     INIT
-     ======================================================================== */
-
-  /* ==========================================================================
      STICKY MOBILE CTA
      Held back until the hero has scrolled away, so it never covers the hero's
-     own buttons, and hidden again over the enrolment section where the real
-     form already is.
+     own buttons, and hidden again over the enrolment section, which has its
+     own contact-form and call buttons.
      ======================================================================== */
 
   function initMobileCta() {
@@ -508,7 +460,6 @@
     initHeroVideo();
     initAmbientVideos();
     initNav();
-    initEnquiry();
     initMobileCta();
     // Entrance animations attach after injected content exists in the DOM.
     if (window.Motion && typeof window.Motion.refresh === 'function') window.Motion.refresh();

@@ -118,6 +118,9 @@
         span.textContent = piece.text;
       }
       host.appendChild(span);
+      // Without a real space between spans, screen readers announce the
+      // heading as one run-together word.
+      if (i < pieces.length - 1) host.appendChild(document.createTextNode(' '));
     });
 
     host.setAttribute('data-words-split', 'true');

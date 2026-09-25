@@ -53,22 +53,4 @@
     background-color: rgb(var(--color-accent) / 0.3);
     color: rgb(var(--color-ink));
   }
-
-  /* The forms plugin restyles inputs; the pill-style enquiry field is bespoke
-     and border-less by design — its boundary comes from the glass pill around
-     it, not the input itself. Scoped to .field-input, not a bare
-     type="text"/"email" attribute selector: that selector's specificity
-     (0,1,1) beat .form-control's (0,1,0) and silently stripped the border off
-     every stacked form field elsewhere on the page, including the contact
-     form's Name and Email inputs. */
-  .field-input {
-    background-color: transparent;
-    border: none;
-  }
-
-  .field-input:focus {
-    outline: none;
-    box-shadow: none;
-    border-color: transparent;
-  }
 }

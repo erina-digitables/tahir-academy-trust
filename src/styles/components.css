@@ -249,50 +249,8 @@
     border-color: rgb(var(--color-green) / 0.6);
   }
 
-  /* Circular icon button, e.g. the enquiry submit. */
-  .btn-round {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-full);
-    background-color: rgb(var(--color-ink));
-    color: rgb(var(--color-background));
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: transform var(--duration-hover) var(--ease-overshoot), background-color var(--duration-hover) var(--ease-standard);
-  }
-
-  .btn-round:hover { transform: scale(var(--motion-scale-hover)); }
-  .btn-round:active { transform: scale(var(--motion-scale-tap)); }
-
   .btn-icon { display: inline-block; transition: transform var(--duration-hover) var(--ease-overshoot); }
   .btn:hover .btn-icon { transform: translateX(3px); }
-
-  /* Social / icon-only glass buttons */
-  .icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 52px;
-    height: 52px;
-    border-radius: var(--radius-full);
-    color: rgb(var(--color-ink) / var(--text-muted));
-    cursor: pointer;
-    transition:
-      color var(--duration-hover) var(--ease-standard),
-      background-color var(--duration-hover) var(--ease-standard),
-      transform var(--duration-hover) var(--ease-overshoot);
-  }
-
-  .icon-btn:hover {
-    color: rgb(var(--color-ink));
-    background-color: var(--glass-hover-fill);
-    transform: scale(var(--motion-scale-hover));
-  }
-
-  .icon-btn:active { transform: scale(var(--motion-scale-tap)); }
 
   /* ===========================================================================
      NAVIGATION
@@ -309,37 +267,6 @@
     padding: var(--space-xs) var(--space-md);
     border-radius: var(--radius-full);
   }
-
-  .nav-link {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    /* Full 44x44 target. Short labels like "Hiring" measured 39px wide without
-       the min-width. */
-    min-height: 44px;
-    min-width: 44px;
-    font-size: var(--text-body-sm);
-    font-weight: var(--weight-medium);
-    color: rgb(var(--color-ink) / var(--text-body));
-    transition: color var(--duration-hover) var(--ease-standard);
-  }
-
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 10px;
-    width: 100%;
-    height: 1px;
-    background-color: rgb(var(--color-ink));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--duration-hover) var(--ease-standard);
-  }
-
-  .nav-link:hover, .nav-link:focus-visible { color: rgb(var(--color-ink)); }
-  .nav-link:hover::after, .nav-link:focus-visible::after { transform: scaleX(1); }
 
   /* Footer navigation. Same 44px floor as everything else — this rule was lost
      in an earlier rewrite and the links silently dropped to 21px tall. */
@@ -434,35 +361,6 @@
   }
 
   .drawer-link:hover { background-color: var(--glass-hover-fill); color: rgb(var(--color-ink)); }
-
-  /* ===========================================================================
-     ENQUIRY FIELD  (the email-capture pill)
-     ======================================================================== */
-
-  .field-pill {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-    width: 100%;
-    padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-md);
-    border-radius: var(--radius-full);
-  }
-
-  .field-input {
-    flex: 1 1 auto;
-    min-width: 0;
-    min-height: 44px;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: rgb(var(--color-ink));
-    font-family: var(--font-body);
-    /* 16px minimum, or iOS Safari zooms the viewport on focus. */
-    font-size: var(--text-body-md);
-  }
-
-  .field-input::placeholder { color: rgb(var(--color-ink) / var(--text-faint)); }
-  .field-input:focus { outline: none; box-shadow: none; }
 
   /* ===========================================================================
      CARDS
@@ -724,7 +622,7 @@
   /* ===========================================================================
      ENROLMENT STEPS
      Removing uncertainty about "what happens if I get in touch" is the single
-     biggest lever on an enquiry form like this one.
+     biggest lever on whether a family makes contact at all.
      ======================================================================== */
 
   .step {
