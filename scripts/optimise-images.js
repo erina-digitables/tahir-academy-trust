@@ -20,25 +20,17 @@ const OUT = path.join(__dirname, '..', 'assets', 'img');
 /** slug -> { widths, fit, height? }  height only where a fixed crop is wanted. */
 const PLAN = {
   logo:                { widths: [96, 192], square: true },
-  'hero-classroom':    { widths: [768, 1280, 1920] },
-  'welcome-wide':      { widths: [768, 1280, 1920] },
   // Portrait master at 1130x1600 — planning wider than that produced nothing,
   // since the resize step refuses to upscale.
   'campaign-masjid':   { widths: [640, 1130] },
-  // 560 added alongside the original 640/1120 pair so this image can also be
-  // used as a course-card photo (the Maktab card) — that template expects the
-  // same -560/-1120 pair every other course image has.
-  'open-house':        { widths: [560, 640, 1120] },
-  hiring:              { widths: [640, 1120] },
+  'course-maktab':     { widths: [560, 1120] },
   'course-sanatayn':   { widths: [560, 1120] },
   'course-aalimiyyah': { widths: [560, 1120] },
   'course-hifz':       { widths: [560, 1120] },
   'islamic-ceiling':   { widths: [640, 1120] },
   // Generated recruitment poster. Portrait 2:3.
   'hiring-poster':     { widths: [560, 848] },
-  'service-eid':       { widths: [560, 1120] },
   'service-jumuah':    { widths: [560, 1120] },
-  'service-taraweeh':  { widths: [560, 1120] },
 };
 
 const QUALITY = { webp: 78, jpeg: 80 };
