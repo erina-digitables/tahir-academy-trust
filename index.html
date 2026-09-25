@@ -76,35 +76,20 @@
   <!-- ---------------- NAV ---------------- -->
   <header class="relative z-content px-margin-mobile py-md">
     <nav class="liquid-glass nav-pill" aria-label="Primary">
-      <div class="flex items-center">
-        <a href="#main" class="flex min-h-[44px] items-center gap-2xs text-strong" aria-label="Tahir Academy Trust, home">
-          <img src="/assets/img/logo-96.jpg"
-               srcset="/assets/img/logo-96.webp 96w, /assets/img/logo-192.webp 192w"
-               sizes="32px"
-               width="96" height="96" decoding="async"
-               alt=""
-               class="h-8 w-8 shrink-0 rounded-full">
-          <span class="font-display text-title leading-none">Tahir Academy</span>
-        </a>
-        <ul class="ml-2xl hidden items-center gap-xl lg:flex">
-          <li><a class="nav-link" href="#courses">Courses</a></li>
-          <li><a class="nav-link" href="#enrol">Enrol</a></li>
-          <li><a class="nav-link" href="#services">Prayers</a></li>
-          <li><a class="nav-link" href="#hiring">Hiring</a></li>
-          <li><a class="nav-link" href="#location">Contact</a></li>
-        </ul>
-      </div>
+      <a href="#main" class="flex min-h-[44px] items-center gap-2xs text-strong" aria-label="Tahir Academy Trust, home">
+        <img src="/assets/img/logo-96.jpg"
+             srcset="/assets/img/logo-96.webp 96w, /assets/img/logo-192.webp 192w"
+             sizes="32px"
+             width="96" height="96" decoding="async"
+             alt=""
+             class="h-8 w-8 shrink-0 rounded-full">
+        <span class="font-display text-title leading-none">Tahir Academy</span>
+      </a>
 
-      <div class="flex items-center gap-2xs">
-        <a class="nav-link hidden text-body-md font-semibold text-strong sm:inline-flex" href="tel:+447904873979">07904 873979</a>
-        <a class="btn btn-solid hidden sm:inline-flex"
-           href="https://docs.google.com/forms/d/1IBcWP9u5qmDB-2ICA8XyjOBBbgHBGOTaBXAhI859yYQ/viewform"
-           target="_blank" rel="noopener noreferrer">Enrol now</a>
-        <button type="button" id="nav-toggle" class="nav-burger lg:hidden"
-                aria-expanded="false" aria-controls="nav-drawer" aria-label="Open menu">
-          <span class="nav-burger-bar"></span><span class="nav-burger-bar"></span><span class="nav-burger-bar"></span>
-        </button>
-      </div>
+      <button type="button" id="nav-toggle" class="nav-burger"
+              aria-expanded="false" aria-controls="nav-drawer" aria-label="Open menu">
+        <span class="nav-burger-bar"></span><span class="nav-burger-bar"></span><span class="nav-burger-bar"></span>
+      </button>
     </nav>
   </header>
 
@@ -580,7 +565,7 @@
      target="_blank" rel="noopener noreferrer">Enrol now</a>
 </div>
 
-<!-- Mobile drawer -->
+<!-- Menu drawer — the only site navigation, at every screen size -->
 <div id="nav-scrim" class="nav-scrim" hidden></div>
 <div id="nav-drawer" class="nav-drawer" hidden aria-label="Menu">
   <div class="flex items-center justify-between px-md py-md">
@@ -592,6 +577,7 @@
   </div>
   <ul class="flex flex-col gap-3xs px-md pb-xl pt-sm">
     <li><a class="drawer-link" href="#courses">Courses</a></li>
+    <li><a class="drawer-link" href="#locations">Our Locations</a></li>
     <li><a class="drawer-link" href="#enrol">Enrol</a></li>
     <li><a class="drawer-link" href="#services">Prayers &amp; services</a></li>
     <li><a class="drawer-link" href="#campaign">Campaign</a></li>

@@ -413,10 +413,6 @@
     drawer.addEventListener('click', function (event) {
       if (event.target.closest('a')) closeDrawer();
     });
-
-    window.matchMedia('(min-width: 1024px)').addEventListener('change', function (e) {
-      if (e.matches) closeDrawer();
-    });
   }
 
   /* ==========================================================================
