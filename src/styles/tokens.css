@@ -148,6 +148,11 @@
   --space-margin-mobile: 24px;
   --space-margin-desktop: 24px;
 
+  /* The sticky mobile CTA bar below 1024px: 8px padding either side of a 44px
+     button, plus its 1px top border. The footer adds this (and the iOS safe
+     area) to its bottom padding so its last line isn't hidden behind the bar. */
+  --space-mobile-cta: calc(var(--space-2xs) * 2 + 44px + 1px);
+
   /* ---------------------------------------------------------------------------
      RADIUS
      ------------------------------------------------------------------------ */
